@@ -33,8 +33,13 @@ We could have several such neurons, and the parameters would add up quickly! Cle
 this full connectivity is wasteful and the huge number of parameters
 would quickly lead to possible overfitting.
 
-<!-- <img src="fig/CNN/nn.jpeg" width=500><p><em>A regular 3-layer Neural Network.</em></p> -->
-![<p><em>A regular 3-layer Neural Network.</em></p>](./figs/nn.jpeg)
+<!-- ![<p><em>A regular 3-layer Neural Network.</em></p>](./figs/nn.jpeg) -->
+
+```{figure} ./figs/nn.jpeg
+:name: fig-nn
+
+A three-layer Neural Network.
+```
 
 <!-- !split -->
 ## 3D volumes of neurons
@@ -63,10 +68,13 @@ end of the CNN architecture we will reduce the full image into a
 single vector of class scores, arranged along the depth
 dimension. 
 
-<!-- <img src="fig/CNN/cnn.jpeg" width=500><p><em>A CNN arranges its neurons in three dimensions (width, height, depth), as visualized in one of the layers. Every layer of a CNN transforms the 3D input volume to a 3D output volume of neuron activations. In this example, the red input layer holds the image, so its width and height would be the dimensions of the image, and the depth would be 3 (Red, Green, Blue channels).</em></p> -->
-![<p><em>A CNN arranges its neurons in three dimensions (width, height, depth), as visualized in one of the layers. Every layer of a CNN transforms the 3D input volume to a 3D output volume of neuron activations. In this example, the red input layer holds the image, so its width and height would be the dimensions of the image, and the depth would be 3 (Red, Green, Blue channels).</em></p>](./figs/cnn.jpeg)
+<!-- ![<p><em>A CNN arranges its neurons in three dimensions (width, height, depth), as visualized in one of the layers. Every layer of a CNN transforms the 3D input volume to a 3D output volume of neuron activations. In this example, the red input layer holds the image, so its width and height would be the dimensions of the image, and the depth would be 3 (Red, Green, Blue channels).</em></p>](./figs/cnn.jpeg) -->
 
+```{figure} ./figs/cnn.jpeg
+:name: fig-cnn
 
+A CNN arranges its neurons in three dimensions (width, height, depth), as visualized in one of the layers. Every layer of a CNN transforms the 3D input volume to a 3D output volume of neuron activations. In this example, the red input layer holds the image, so its width and height would be the dimensions of the image, and the depth would be 3 (Red, Green, Blue channels).
+```
 
 <!-- !split  -->
 ## Layers used to build CNNs

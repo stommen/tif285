@@ -43,15 +43,16 @@
 ### Some history
 Adapted from D.S. Sivia {cite}`Sivia2006`
 
-> Although the frequency definition appears to be more objective, its range of validity is also far more limited. For example, Laplace used (his) probability theory to estimate the mass of Saturn, given orbital data that were available to him from various astronomical observatories. In essence, he computed the posterior pdf for the mass M , given the data and all the relevant background information I (such as a knowledge of the laws of classical mechanics): prob(M|{data},I); this is shown schematically in the figure [Fig. 1.2].
+> Although the frequency definition appears to be more objective, its range of validity is also far more limited. For example, Laplace used (his) probability theory to estimate the mass of Saturn, given orbital data that were available to him from various astronomical observatories. In essence, he computed the posterior pdf for the mass $M$ , given the data and all the relevant background information I (such as a knowledge of the laws of classical mechanics): prob(M|{data},I); this is shown schematically in the {numref}`fig-sivia-1_2`.
 
+```{figure} ./figs/sivia_fig_1_2.png
+:name: fig-sivia-1_2
 
+The posterior pdf for the mass of saturn (adapted from Sivia {cite}`Sivia2006`)
+```
 
-<!-- !split -->
-<!-- <img src="fig/BayesianBasics/sivia_fig_1_2.png" width=700> -->
-![](./figs/sivia_fig_1_2.png)
+<!-- ![](./figs/sivia_fig_1_2.png) -->
 
-<!-- !split -->
 > To Laplace, the (shaded) area under the posterior pdf curve between $m_1$ and $m_2$ was a measure of how much he believed that the mass of Saturn lay in the range $m_1 \le M \le m_2$. As such, the position of the maximum of the posterior pdf represents a best estimate of the mass; its width, or spread, about this optimal value gives an indication of the uncertainty in the estimate. Laplace stated that: ‘ . . . it is a bet of 11,000 to 1 that the error of this result is not 1/100th of its value.’ He would have won the bet, as another 150 years’ accumulation of data has changed the estimate by only 0.63%!
 
 
@@ -59,12 +60,12 @@ Adapted from D.S. Sivia {cite}`Sivia2006`
 <!-- !split -->
 > According to the frequency definition, however, we are not permitted to use probability theory to tackle this problem. This is because the mass of Saturn is a constant and not a random variable; therefore, it has no frequency distribution and so probability theory cannot be used.
 > 
-> If the pdf [of Fig. 1.2] had to be interpreted in terms of the frequency definition, we would have to imagine a large ensemble of universes in which everything remains constant apart from the mass of Saturn.
+> If the pdf [of {numref}`fig-sivia-1_2`] had to be interpreted in terms of the frequency definition, we would have to imagine a large ensemble of universes in which everything remains constant apart from the mass of Saturn.
 
 
 
 <!-- !split -->
-> As this scenario appears quite far-fetched, we might be inclined to think of [Fig. 1.2] in terms of the distribution of the measurements of the mass in many repetitions of the experiment. Although we are at liberty to think about a problem in any way that facilitates its solution, or our understanding of it, having to seek a frequency interpretation for every data analysis problem seems rather perverse.
+> As this scenario appears quite far-fetched, we might be inclined to think [of {numref}`fig-sivia-1_2`] in terms of the distribution of the measurements of the mass in many repetitions of the experiment. Although we are at liberty to think about a problem in any way that facilitates its solution, or our understanding of it, having to seek a frequency interpretation for every data analysis problem seems rather perverse.
 > For example, what do we mean by the ‘measurement of the mass’ when the data consist of orbital periods? Besides, why should we have to think about many repetitions of an experiment that never happened? What we really want to do is to make the best inference of the mass given the (few) data that we actually have; this is precisely the Bayes and Laplace view of probability.
 
 
@@ -182,12 +183,16 @@ PDF and is therefore simply called the expectation value of $p(x)$.
 ### Mean, median, average
 The values of the **mode**, **mean**, **median** can all be used as point estimates for the "probable" value of $x$. For some pdfs, they will all be the same.
 
+```{figure} ./figs/pdfs.png
+:name: fig-pdfs
+
+The 68/95 percent probability regions are shown in dark/light shading. When applied to Bayesian posteriors, these are known as credible intervals or DoBs (degree of belief intervals) or Bayesian confidence intervals. The horizontal extent on the $x$-axis translates into the vertical extent of the error bar or error band for $x$.
+```
+
+<!-- ![<p><em>The 68/95 percent probability regions are shown in dark/light shading. When applied to Bayesian posteriors, these are known as credible intervals or DoBs (degree of belief intervals) or Bayesian confidence intervals. The horizontal extent on the $x$-axis translates into the vertical extent of the error bar or error band for $x$.</em></p>](./figs/pdfs.png) -->
 
 
-<!-- <img src="fig/BayesianBasics/pdfs.png" width=800><p><em>The 68/95 percent probability regions are shown in dark/light shading. When applied to Bayesian posteriors, these are known as credible intervals or DoBs (degree of belief intervals) or Bayesian confidence intervals. The horizontal extent on the $x$-axis translates into the vertical extent of the error bar or error band for $x$.</em></p> -->
-![<p><em>The 68/95 percent probability regions are shown in dark/light shading. When applied to Bayesian posteriors, these are known as credible intervals or DoBs (degree of belief intervals) or Bayesian confidence intervals. The horizontal extent on the $x$-axis translates into the vertical extent of the error bar or error band for $x$.</em></p>](./figs/pdfs.png)
 
-<!-- !split -->
 ### Stochastic variables and the main concepts, central moments, the variance
 
 A special version of the moments is the set of *central moments*, the n-th central moment defined as

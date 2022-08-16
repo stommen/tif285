@@ -174,8 +174,14 @@ Let us now empirically consider a few variational functions of $\{ p_i \}$ and s
 
 The assignment based on the entropy measure is the only one that respects this lack of correlations.
 
-<!-- <img src="fig/MaxEnt/scandinavian_entropy.png" width=800><p><em>Four different variational functions $f\left( \{ p_i \} \right)$. The optimal $x$ for each one is shown by a circle. The uncorrelated assignment $x=0.07$ is shown by a vertical line.</em></p> -->
-![<p><em>Four different variational functions $f\left( \{ p_i \} \right)$. The optimal $x$ for each one is shown by a circle. The uncorrelated assignment $x=0.07$ is shown by a vertical line.</em></p>](./figs/scandinavian_entropy.png)
+<!-- ![<p><em>Four different variational functions $f\left( \{ p_i \} \right)$. The optimal $x$ for each one is shown by a circle. The uncorrelated assignment $x=0.07$ is shown by a vertical line.</em></p>](./figs/scandinavian_entropy.png) -->
+
+```{figure} ./figs/scandinavian_entropy.png
+:name: fig-scandinavian_entropy
+
+Four different variational functions $f\left( \{ p_i \} \right)$. The optimal $x$ for each one is shown by a circle. The uncorrelated assignment $x=0.07$ is shown by a vertical line.
+```
+
 
 <!-- !split -->
 ### Continuous case

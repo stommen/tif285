@@ -34,8 +34,14 @@ The performance of your model will depend on the amount of data that is used for
 
 Learning curves are plots of the model's performance on both the training and the validation sets, measured by some performance metric such as the mean squared error. This measure is plotted as a function of the size of the training set, or alternatively as a function of the training iterations.
 
-<!-- <img src="fig/ModelValidation/learning_curve.png" width=600><p><em>Learning curves for different polynomial models of our noisy data set as a function of the size of the training data set. <div id="fig-learning_curve"></div></em></p> -->
-![<p><em>Learning curves for different polynomial models of our noisy data set as a function of the size of the training data set. <div id="fig-learning_curve"></div></em></p>](./figs/learning_curve.png)
+<!-- ![<p><em>Learning curves for different polynomial models of our noisy data set as a function of the size of the training data set. <div id="fig-learning_curve"></div></em></p>](./figs/learning_curve.png) -->
+
+```{figure} ./figs/learning_curve.png
+:name: fig-learning_curve
+
+Learning curves for different polynomial models of our noisy data set as a function of the size of the training data set.
+```
+
 
 Several features in the left-hand panel deserves to be mentioned:
 

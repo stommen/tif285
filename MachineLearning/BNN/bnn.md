@@ -61,10 +61,15 @@ $$
  p(\boldsymbol{w} | \mathcal{D}, \alpha) = \frac{p(D|\boldsymbol{w}) p(\boldsymbol{w}|\alpha)}{p(\mathcal{D}|\alpha)} = \frac{1}{Z_M} \exp [ -C_W(\boldsymbol{w}) ]. 
 $$
 
-We show the evolution of the probability distribution for a sequence of an increasing number of training data ($N$) in the following figure. The targets are either 0 or 1, as indicated by red and blue markers. The network parameters $\boldsymbol{w}$ that are found by minimizing $C_W(\boldsymbol{w})$ can be interpreted as the most probable parameter vector $\boldsymbol{w}^*$.
+We show the evolution of the probability distribution for a sequence of an increasing number of training data ($N$) in {numref}`fig-scatter_joint_bnn_plot`. The targets are either 0 or 1, as indicated by red and blue markers. The network parameters $\boldsymbol{w}$ that are found by minimizing $C_W(\boldsymbol{w})$ can be interpreted as the most probable parameter vector $\boldsymbol{w}^*$.
 
-<!-- <img src="fig/BNN/scatter_joint_bnn_plot.png" width=800><p><em>Scatter plot of training data and the corresponding bivariate posterior pdf for the neuron weights $p(w_1, w_2 | \mathcal{D}, \alpha)$ (i.e. marginalized over the bias $w_0$) for a sequence of $N=0,2,6,10$ training data.</em></p> -->
-![<p><em>Scatter plot of training data and the corresponding bivariate posterior pdf for the neuron weights $p(w_1, w_2 | \mathcal{D}, \alpha)$ (i.e. marginalized over the bias $w_0$) for a sequence of $N=0,2,6,10$ training data.</em></p>](./figs/scatter_joint_bnn_plot.png)
+<!-- ![<p><em>Scatter plot of training data and the corresponding bivariate posterior pdf for the neuron weights $p(w_1, w_2 | \mathcal{D}, \alpha)$ (i.e. marginalized over the bias $w_0$) for a sequence of $N=0,2,6,10$ training data.</em></p>](./figs/scatter_joint_bnn_plot.png) -->
+
+```{figure} ./figs/scatter_joint_bnn_plot.png
+:name: fig-scatter_joint_bnn_plot
+
+Scatter plot of training data and the corresponding bivariate posterior pdf for the neuron weights $p(w_1, w_2 | \mathcal{D}, \alpha)$ (i.e. marginalized over the bias $w_0$) for a sequence of $N=0,2,6,10$ training data.
+```
 
 In the following, we will rather use the Bayesian approach and consider the information that is contained in the actual probability distribution. In fact, there are different uncertainties that should be addressed:
 
@@ -100,19 +105,29 @@ $$ (eq:binaryinference)
 
 where we have also included the weight decay hyperparameter $\alpha$ from the prior (regularizer). Marginalization could, of course, also be performed over this parameter.
 
-We show an example of such inference, comparing the point estimate $y(x; w^*, \alpha)$ and the Bayesian approach, in the following figure.
+We show an example of such inference, comparing the point estimate $y(x; w^*, \alpha)$ and the Bayesian approach, in {numref}`fig-bnn_binary_classifier_mean`.
 
-<!-- <img src="fig/BNN/bnn_binary_classifier_mean.png" width=800><p><em>The predictions for a Bayesian (left panel) and regular (right panel) binary classifier that has been learning from ten training data (circles) with a weight decay $\alpha = 1.0$. The decision boundary ($y=0.5$, i.e. the activation $a=0$) is shown together with the levels 0.12,0.27,0.73,0.88 (corresponding to the activation $a=\pm1,\pm2$). Test data is shown as plus symbols.</em></p> -->
-![<p><em>The predictions for a Bayesian (left panel) and regular (right panel) binary classifier that has been learning from ten training data (circles) with a weight decay $\alpha = 1.0$. The decision boundary ($y=0.5$, i.e. the activation $a=0$) is shown together with the levels 0.12,0.27,0.73,0.88 (corresponding to the activation $a=\pm1,\pm2$). Test data is shown as plus symbols.</em></p>](./figs/bnn_binary_classifier_mean.png)
+<!-- ![<p><em>The predictions for a Bayesian (left panel) and regular (right panel) binary classifier that has been learning from ten training data (circles) with a weight decay $\alpha = 1.0$. The decision boundary ($y=0.5$, i.e. the activation $a=0$) is shown together with the levels 0.12,0.27,0.73,0.88 (corresponding to the activation $a=\pm1,\pm2$). Test data is shown as plus symbols.</em></p>](./figs/bnn_binary_classifier_mean.png) -->
+
+```{figure} ./figs/bnn_binary_classifier_mean.png
+:name: fig-bnn_binary_classifier_mean
+
+The predictions for a Bayesian (left panel) and regular (right panel) binary classifier that has been learning from ten training data (circles) with a weight decay $\alpha = 1.0$. The decision boundary ($y=0.5$, i.e. the activation $a=0$) is shown together with the levels 0.12,0.27,0.73,0.88 (corresponding to the activation $a=\pm1,\pm2$). Test data is shown as plus symbols.
+```
 
 The Bayesian classifier is based on sampling a very large ensamble of single neurons with different parameters. The distribution of these samples will be proportional to the posterior pdf for the parameters. The decision boundary shown in the figure is obtained as the mean of the predictions of the sampled neurons evaluated on a grid. It is clear that the Bayesian classifier is more uncertain about its predictions in the lower left and upper right corners, where there is little training data. 
 
-This becomes even more clear when we plot the standard deviation of the predictions of the Bayesian classifier.
+This becomes even more clear when we plot the standard deviation of the predictions of the Bayesian classifier in {numref}`fig-bnn_binary_classifier_stddev`.
 
-<!-- <img src="fig/BNN/bnn_binary_classifier_stddev.png" width=600><p><em>The standard deviation of the class label predictions for a Bayesian binary classifier.</em></p> -->
-![<p><em>The standard deviation of the class label predictions for a Bayesian binary classifier.</em></p>](./figs/bnn_binary_classifier_stddev.png)
+<!-- ![<p><em>The standard deviation of the class label predictions for a Bayesian binary classifier.</em></p>](./figs/bnn_binary_classifier_stddev.png) -->
 
-The predictions are rather certain along a diagonal line (close to the training data). Note that the interpretation of the prediction in the center of the figure (near $x_1,x_2 = 0,0$) is the following: The Bayesian binary classifier predicts a probability of $\sim 0.5$ for this point in the input parameter space to belong to class 1 (i.e. the decision is very uncertain). The Baysian classifier is also very certain about this uncertainty (the standard deviation is small).
+```{figure} ./figs/bnn_binary_classifier_stddev.png
+:name: fig-bnn_binary_classifier_stddev
+
+The standard deviation of the class label predictions for a Bayesian binary classifier.
+```
+
+The predictions are rather certain along a diagonal line (close to the training data). Note that the interpretation of the prediction in the center of {numref}`fig-bnn_binary_classifier_stddev` (near $x_1,x_2 = 0,0$) is the following: The Bayesian binary classifier predicts a probability of $\sim 0.5$ for this point in the input parameter space to belong to class 1 (i.e. the decision is very uncertain). The Baysian classifier is also very certain about this uncertainty (the standard deviation is small).
 
 In contrast, predictions for points in the upper left or lower right corners are very certain about the class label (and there is little uncertainty about this certainty).
 
@@ -209,11 +224,21 @@ This problem constitutes a new and active area of research in machine learning a
 ### Bayesian neural networks in PyMC3
 In the demonstration notebook of this lecture, it is shown how to use Variational Inference in PyMC3 to fit a simple Bayesian Neural Network. That implementation is based on the **Automatic Differentation Variational Inference** (ADVI) approach, described e.g. in [Automatic Variational Inference in Stan](https://arxiv.org/abs/1506.03431) {cite}`Kucukelbir2015`.
 
-<!-- <img src="fig/BNN/ADVI-classifier_ELBO.png" width=500><p><em>The training of the Bayesian binary classifier, that employs ADVI implemented in `pymc3`, corresponds to modifying the variational distribution's hyperparameters in order to maximize the Evidence Lower Bound (ELBO).</em></p> -->
-![<p><em>The training of the Bayesian binary classifier, that employs ADVI implemented in `pymc3`, corresponds to modifying the variational distribution's hyperparameters in order to maximize the Evidence Lower Bound (ELBO).</em></p>](./figs/ADVI-classifier_ELBO.png)
+<!-- ![<p><em>The training of the Bayesian binary classifier, that employs ADVI implemented in `pymc3`, corresponds to modifying the variational distribution's hyperparameters in order to maximize the Evidence Lower Bound (ELBO).</em></p>](./figs/ADVI-classifier_ELBO.png) -->
 
-<!-- <img src="fig/BNN/ADVI-classifier.png" width=800><p><em>The predictions for a Bayesian binary classifier that has been learning using ADVI implemented in `pymc3`. The mean (left panel) and standard deviation (right panel) of the binary classifier's label predictions are shown.</em></p> -->
-![<p><em>The predictions for a Bayesian binary classifier that has been learning using ADVI implemented in `pymc3`. The mean (left panel) and standard deviation (right panel) of the binary classifier's label predictions are shown.</em></p>](./figs/ADVI-classifier.png)
+```{figure} ./figs/ADVI-classifier_ELBO.png
+:name: fig-ADVI-classifier_ELBO
+
+The training of the Bayesian binary classifier, that employs ADVI implemented in pymc3, corresponds to modifying the variational distribution's hyperparameters in order to maximize the Evidence Lower Bound (ELBO).
+```
+
+<!-- ![<p><em>The predictions for a Bayesian binary classifier that has been learning using ADVI implemented in `pymc3`. The mean (left panel) and standard deviation (right panel) of the binary classifier's label predictions are shown.</em></p>](./figs/ADVI-classifier.png) -->
+
+```{figure} ./figs/ADVI-classifier.png
+:name: fig-ADVI-classifier
+
+The predictions for a Bayesian binary classifier that has been learning using ADVI implemented in `pymc3`. The mean (left panel) and standard deviation (right panel) of the binary classifier's label predictions are shown.
+```
 
 See also 
 * Kucukelbir, A., Tran, D., Ranganath, R., Gelman, A., and Blei, D. M. (2016). *Automatic Differentiation Variational Inference*. arXiv: [1603.00788](https://arxiv.org/abs/1603.00788).

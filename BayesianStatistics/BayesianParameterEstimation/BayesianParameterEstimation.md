@@ -67,7 +67,14 @@ We will now consider the Bayesian approach to the very important task of model p
 
 Let us first remind ourselves what can go wrong in a fit. We have encountered both **underfitting** (model is not complex enough to describe the variability in the data) and **overfitting** (model tunes to data fluctuations, or terms are underdetermined causing them playing off each other). Bayesian methods can prevent/identify both these situations.
 
-<img src="./figs/m1m2.png" width=600><p><em>Joint pdf for the masses of two black holes merging obtained from the data analysis of a gravitational wave signal. This representation of a joint pdf is known as a corner plot.  <div id="fig-gw"></div></em></p> 
+<!-- <img src="./figs/m1m2.png" width=600><p><em>Joint pdf for the masses of two black holes merging obtained from the data analysis of a gravitational wave signal. This representation of a joint pdf is known as a corner plot.  <div id="fig-gw"></div></em></p> 
+-->
+
+```{figure} ./figs/m1m2.png
+:name: fig-m1m2
+
+Joint pdf for the masses of two black holes merging obtained from the data analysis of a gravitational wave signal. This representation of a joint pdf is known as a corner plot. 
+```
 
 
 <!-- !split -->
@@ -101,7 +108,7 @@ F = stats.poisson(F_true).rvs(N)
 e = np.sqrt(F)         # errors on Poisson counts estimated via square root
 ```
 
-Now let's make a simple visualization of the "observed" data, see Fig. [fig:flux](#fig:flux).
+Now let's make a simple visualization of the "observed" data, see {numref}`fig-flux`.
 
 
 ```python
@@ -111,8 +118,14 @@ ax.vlines([F_true], 0, N, linewidth=5, alpha=0.2)
 ax.set_xlabel("Flux");ax.set_ylabel("measurement number");
 ```
 
-<!-- <img src="fig/BayesianParameterEstimation/singlephotoncount_fig_1.png" width=400><p><em>Single photon counts (flux measurements). <div id="fig:flux"></div></em></p> -->
-![<p><em>Single photon counts (flux measurements). <div id="fig:flux"></div></em></p>](./figs/singlephotoncount_fig_1.png)
+<!-- ![<p><em>Single photon counts (flux measurements). <div id="fig:flux"></div></em></p>](./figs/singlephotoncount_fig_1.png) -->
+
+```{figure} ./figs/singlephotoncount_fig_1.png
+:name: fig-flux
+
+Single photon counts (flux measurements). 
+```
+
 
 These measurements each have a different error $e_i$ which is estimated from Poisson statistics using the standard square-root rule. In this toy example we know the true flux that was used to generate the data, but the question is this: given our measurements and statistical model, what is our best estimate of $F_\mathrm{true}$?
 
@@ -249,7 +262,7 @@ sampler.run_mcmc(starting_guesses, nsteps)
 samples = sampler.chain[:, nwarm:, :].reshape((-1, ndim))
 ```
 
-If this all worked correctly, the array sample should contain a series of 50,000 points drawn from the posterior. Let's plot them and check. See results in Fig. [fig:flux-bayesian](#fig:flux-bayesian).
+If this all worked correctly, the array sample should contain a series of 50,000 points drawn from the posterior. Let's plot them and check. See results in {numref}`fig-flux-bayesian`.
 
 
 ```python
@@ -259,7 +272,13 @@ ax.set_xlabel(r'$F_\mathrm{est}$')
 ax.set_ylabel(r'$p(F_\mathrm{est}|D,I)$');
 ```
 
-<img src="./figs/singlephotoncount_fig_2.png" width=600><p><em>Bayesian posterior pdf (represented by a histogram of MCMC samples) from flux measurements.<div id="fig:flux-bayesian"></div></em></p> 
+<!-- <img src="./figs/singlephotoncount_fig_2.png" width=600><p><em>Bayesian posterior pdf (represented by a histogram of MCMC samples) from flux measurements.<div id="fig:flux-bayesian"></div></em></p>  -->
+
+```{figure} ./figs/singlephotoncount_fig_2.png
+:name: fig-flux-bayesian
+
+Bayesian posterior pdf (represented by a histogram of MCMC samples) from flux measurements.
+```
 
 <!-- !split -->
 ## Best estimates and credible intervals

@@ -161,7 +161,7 @@ def posterior(pH,data):
 ```
 
 <!-- !split -->
-The next step is to confront this setup with the simulated data. To get a feel for the result, it is instructive to see how the posterior pdf evolves as we obtain more and more data pertaining to the coin. The results of such an analyses is shown in Fig. [fig:coinflipping](#fig:coinflipping). 
+The next step is to confront this setup with the simulated data. To get a feel for the result, it is instructive to see how the posterior pdf evolves as we obtain more and more data pertaining to the coin. The results of such an analyses is shown in {numref}`fig-coinflipping`.
 
 
 ```python
@@ -178,8 +178,13 @@ for col in range(3): axs[-1,col].set_xlabel('$p_H$')
 ```
 
 <!-- !split -->
-<!-- <img src="fig/BayesianRecipe/coinflipping_fig_1.png" width=500><p><em>The evolution of the posterior pdf for the bias-weighting of a coin, as the number of data available increases. The figure on the top left-hand corner of each panel shows the number of data included in the analysis. <div id="fig:coinflipping"></div></em></p> -->
-![<p><em>The evolution of the posterior pdf for the bias-weighting of a coin, as the number of data available increases. The figure on the top left-hand corner of each panel shows the number of data included in the analysis. <div id="fig:coinflipping"></div></em></p>](./figs/coinflipping_fig_1.png)
+<!-- ![<p><em>The evolution of the posterior pdf for the bias-weighting of a coin, as the number of data available increases. The figure on the top left-hand corner of each panel shows the number of data included in the analysis. <div id="fig:coinflipping"></div></em></p>](./figs/coinflipping_fig_1.png) -->
+
+```{figure} ./figs/coinflipping_fig_1.png
+:name: fig-coinflipping
+
+The evolution of the posterior pdf for the bias-weighting of a coin, as the number of data available increases. The figure on the top left-hand corner of each panel shows the number of data included in the analysis. 
+```
 
 <!-- !split -->
 The panel in the top left-hand corner shows the posterior pdf for $p_H$ given no data, i.e., it is the same as the prior pdf of Eq. ([eq:coin_prior_uniform](#eq:coin_prior_uniform)). It indicates that we have no more reason to believe that the coin is fair than we have to think that it is double-headed, double-tailed, or of any other intermediate bias-weighting.

@@ -19,10 +19,16 @@ The cross-validation example with Ridge Regularization is taken from teaching ma
 <!-- !split -->
 ## Over- and underfitting
 
-Overfitting and underfitting are common problems in data analysis and machine learning. Both extremes are illustrated in Fig. [fig-over_under_fitting](#fig-over_under_fitting) from the demonstration notebook.
+Overfitting and underfitting are common problems in data analysis and machine learning. Both extremes are illustrated in {numref}`fig-over_under_fitting` from the demonstration notebook.
 
-<!-- <img src="fig/ModelValidation/over_under_fitting.png" width=600><p><em>The first-order polynomial model is clearly underfitting the data, while the very high degree model is overfitting it trying to reproduce variations that are clearly noise. <div id="fig-over_under_fitting"></div></em></p> -->
-![<p><em>The first-order polynomial model is clearly underfitting the data, while the very high degree model is overfitting it trying to reproduce variations that are clearly noise. <div id="fig-over_under_fitting"></div></em></p>](./figs/over_under_fitting.png)
+<!-- ![<p><em>The first-order polynomial model is clearly underfitting the data, while the very high degree model is overfitting it trying to reproduce variations that are clearly noise. <div id="fig-over_under_fitting"></div></em></p>](./figs/over_under_fitting.png) -->
+
+```{figure} ./figs/over_under_fitting.png
+:name: fig-over_under_fitting
+
+The first-order polynomial model is clearly underfitting the data, while the very high degree model is overfitting it trying to reproduce variations that are clearly noise.
+```
+
 
 The following quote from an unknown source provides a concise definition of overfitting and underfitting:
 > A model overfits if it fits noise as much as data and underfits if it considers variability in data to be noise while it is actually not.
@@ -122,9 +128,13 @@ $$
 
 Lasso stands for least absolute shrinkage and selection operator.
 
-<!-- <img src="fig/ModelValidation/ridge_reg.png" width=900><p><em>Ridge regularization with different penalty parameters $\lambda$ for different polynomial models of our noisy data set. <div id="fig-ridge_reg"></div></em></p> -->
-![<p><em>Ridge regularization with different penalty parameters $\lambda$ for different polynomial models of our noisy data set. <div id="fig-ridge_reg"></div></em></p>](./figs/ridge_reg.png)
+<!-- <![<p><em>Ridge regularization with different penalty parameters $\lambda$ for different polynomial models of our noisy data set. <div id="fig-ridge_reg"></div></em></p>](./figs/ridge_reg.png) -->
 
+```{figure} ./figs/ridge_reg.png
+:name: fig-ridge_reg
+
+Ridge regularization with different penalty parameters $\lambda$ for different polynomial models of our noisy data set. 
+```
 
 
 <!-- !split -->
@@ -249,13 +259,16 @@ $$
 2\mathbb{E}\left[(y_0-\mathbb{E}\left[\tilde{y}_0\right])(\mathbb{E}\left[\tilde{y}_0\right]-\tilde{y}_0)\right] = 2\mathbb{E}\left[y_0-\mathbb{E}\left[\tilde{y}_0\right]\right] \left( \mathbb{E}\left[\mathbb{E}\left[\tilde{y}_0\right]\right] - \mathbb{E}\left[\tilde{y}_0\right]\right) = 0.
 $$
 
-The tradeoff between bias and variance is illustrated in Fig. [fig-bias_variance](#fig-bias_variance) from the demonstration notebook.
+The tradeoff between bias and variance is illustrated in {numref}`fig-bias_variance` from the demonstration notebook.
 
-<!-- <img src="fig/ModelValidation/bias_variance.png" width=600><p><em>The bias-variance for different polynomial models of our noisy data set. <div id="fig-bias_variance"></div></em></p> -->
-![<p><em>The bias-variance for different polynomial models of our noisy data set. <div id="fig-bias_variance"></div></em></p>](./figs/bias_variance.png)
+<!-- ![<p><em>The bias-variance for different polynomial models of our noisy data set. <div id="fig-bias_variance"></div></em></p>](./figs/bias_variance.png) -->
 
+```{figure} ./figs/bias_variance.png
+:name: fig-bias_variance
 
-<!-- !split  -->
+The bias-variance for different polynomial models of our noisy data set.
+```
+
 ## Summing up
 
 

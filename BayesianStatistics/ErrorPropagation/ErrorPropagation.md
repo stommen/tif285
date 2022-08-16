@@ -36,9 +36,16 @@
 ```{admonition} Occam's razor
 :class: tip
 Occam’s razor is a principle attributed to the medieval philosopher William of Occam (or Ockham). The principle states that one should not make more assumptions than the minimum needed. It underlies all scientific modeling and theory building. It cautions us to choose from a set of otherwise equivalent models of a given phenomenon the simplest one. In any given model, Occam’s razor helps us to "shave off" those variables that are not really needed to explain the phenomenon. It was previously thought to be only a qualitative principle.
-
-![<p><em>Did the Leprechaun drink your wine, or is there a simpler explanation?</em></p>](./figs/Leprechaun_or_Clurichaun.png)
 ```
+
+<!-- ![<p><em>Did the Leprechaun drink your wine, or is there a simpler explanation?</em></p>](./figs/Leprechaun_or_Clurichaun.png) -->
+
+```{figure} ./figs/Leprechaun_or_Clurichaun.png
+:name: fig-Leprechaun
+
+Did the Leprechaun drink your wine, or is there a simpler explanation?
+```
+
 
 <!-- !split -->
 ## Nuisance parameters
@@ -375,14 +382,21 @@ for (A0,sigA) in [(9,1),(1,9),(-20,9)]:
 ```
 
 <!-- !split -->
-<!-- <img src="fig/ErrorPropagation/error_square_root_9_1.png" width=700><p><em>The left-hand panels show the posterior pdf for the amplitude of a Bragg peak in three different scenarios. The right-hand plots are the corresponding pdfs for the modulus of the structure factor $f=\sqrt{A}$. The solid lines correspond to a full bayesian error propagation, while the dashed lines are obtained with the short-cut error propagation.</em></p> -->
-![<p><em>The left-hand panels show the posterior pdf for the amplitude of a Bragg peak in three different scenarios. The right-hand plots are the corresponding pdfs for the modulus of the structure factor $f=\sqrt{A}$. The solid lines correspond to a full bayesian error propagation, while the dashed lines are obtained with the short-cut error propagation.</em></p>](./figs/error_square_root_9_1.png)
+<!-- ![<p><em>The left-hand panels show the posterior pdf for the amplitude of a Bragg peak in three different scenarios. The right-hand plots are the corresponding pdfs for the modulus of the structure factor $f=\sqrt{A}$. The solid lines correspond to a full bayesian error propagation, while the dashed lines are obtained with the short-cut error propagation.</em></p>](./figs/error_square_root_9_1.png) -->
+
+```{figure} ./figs/error_square_root_9_1.png 
+```
+```{figure} ./figs/error_square_root_1_9.png 
+```
+```{figure} ./figs/error_square_root_-20_9.png
+:name: fig-Sivia-9_1)
+
+The left-hand panels show the posterior pdf for the amplitude of a Bragg peak in three different scenarios. The right-hand plots are the corresponding pdfs for the modulus of the structure factor $f=\sqrt{A}$. The solid lines correspond to a full bayesian error propagation, while the dashed lines are obtained with the short-cut error propagation.
+```
 
 <!-- !split -->
-<!-- <img src="fig/ErrorPropagation/error_square_root_1_9.png" width=700> -->
-![](./figs/error_square_root_1_9.png)
+<!-- ![](./figs/error_square_root_1_9.png) -->
 
 <!-- !split -->
-<!-- <img src="fig/ErrorPropagation/error_square_root_-20_9.png" width=700> -->
-![](./figs/error_square_root_-20_9.png)
+<!-- ![](./figs/error_square_root_-20_9.png) -->
 

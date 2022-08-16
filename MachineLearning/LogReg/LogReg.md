@@ -148,8 +148,13 @@ where the so called *activation* $z = z(\boldsymbol{x}; \boldsymbol{w})$.
 <!-- !split -->
 ### Standard activation functions
 
-<!-- <img src="fig/LogReg/logistic_functions.png" width=600><p><em>The sigmoid, step,and (normalized) tanh functions; three common classifier functions used in classification and neural networks. <div id="fig:logistic"></div></em></p> -->
-![<p><em>The sigmoid, step,and (normalized) tanh functions; three common classifier functions used in classification and neural networks. <div id="fig:logistic"></div></em></p>](./figs/logistic_functions.png)
+<!-- ![<p><em>The sigmoid, step,and (normalized) tanh functions; three common classifier functions used in classification and neural networks. <div id="fig:logistic"></div></em></p>](./figs/logistic_functions.png) -->
+
+```{figure} ./figs/logistic_functions.png
+:name: fig-logistic-functions
+
+The sigmoid, step,and (normalized) tanh functions; three common classifier functions used in classification and neural networks. 
+```
 
 <!-- !split -->
 ### A binary classifier with two parameters

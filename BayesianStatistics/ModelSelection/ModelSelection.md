@@ -55,9 +55,13 @@ $$
 * In some cases, a two-sided statistic should be considered instead. 
 
 <!-- !split -->
-<!-- <img src="fig/ModelSelection/gregory_7_2.png" width=600><p><em>The $\chi^2$ distribution for 14 degrees of freedom. The value computed from the measurements of flux density from a galaxy is indicated by a vertical line. The shaded area is the $P$-value. It is 2% in this particular example so we would reject the null hypothesis with 98% confidence. (Gregory, Fig. 7.2)</em></p> -->
-![<p><em>The $\chi^2$ distribution for 14 degrees of freedom. The value computed from the measurements of flux density from a galaxy is indicated by a vertical line. The shaded area is the $P$-value. It is 2% in this particular example so we would reject the null hypothesis with 98% confidence. (Gregory, Fig. 7.2)</em></p>](./figs/gregory_7_2.png)
+<!-- ![<p><em>The $\chi^2$ distribution for 14 degrees of freedom. The value computed from the measurements of flux density from a galaxy is indicated by a vertical line. The shaded area is the $P$-value. It is 2% in this particular example so we would reject the null hypothesis with 98% confidence. (Gregory, Fig. 7.2)</em></p>](./figs/gregory_7_2.png) -->
 
+```{figure} ./figs/gregory_7_2.png
+:name: fig-gregory_7_2
+
+The $\chi^2$ distribution for 14 degrees of freedom. The value computed from the measurements of flux density from a galaxy is indicated by a vertical line. The shaded area is the $P$-value. It is 2% in this particular example so we would reject the null hypothesis with 98% confidence. (Gregory {cite}`Gregory2005`, Fig. 7.2)
+```
 
 <!-- !split -->
 At the point of performing this comparison, and making a final statement, the sampling theory school divides itself into two camps:

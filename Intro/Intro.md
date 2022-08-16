@@ -1,11 +1,15 @@
 # Learning from data: Inference
 The general problem that will be adressed in this series of lectures is illustrated in the following figure. The learning process depicted there is known as **inference** and involves steps in reasoning to move from premises to logical consequences. 
 
+<!-- <img src="./figs/inference.png" width=600><p><em>Learning from data is an inference process. <div id="fig-inference"></div></em></p> -->
 
-<img src="./figs/inference.png" width=600><p><em>Learning from data is an inference process. <div id="fig-inference"></div></em></p> 
-<!-- ![<p><em>Learning from data is an inference process. <div id="fig-inference"></div></em></p>](./figs/inference.png) -->
+```{figure} ./figs/inference.png
+:name: fig-inference
 
-<!-- !split -->
+Learning from data is an inference process.
+```
+
+
 ## Inference
 
 ```{admonition} Inference
@@ -13,24 +17,29 @@ The general problem that will be adressed in this series of lectures is illustra
   Do premises $A, B, \ldots \Rightarrow$ hypothesis, $H$? 
   ```
 ```{admonition} Deductive inference
-  Premises allow definite determination of truth/falsity of $H$ (Boolean algebra)<br/>
+  The premises allow definite determination of the truth/falsity of $H$ (Boolean algebra).<br/>
   $p(H|A,B,...) = 0$ or $1$ 
   ```
 ```{admonition} Inductive inference
-  Premises bear on truth/falsity of $H$, but don’t allow its definite determination<br/>
+  The premises bear on the truth/falsity of $H$, but don’t allow its definite determination.<br/>
   $A, B, C, D$ share properties $x, y, z$; $E$ has properties $x, y$<br/>
   $\Rightarrow E$ probably has property $z$. 
   ```
   
 <!-- !split -->
-In the natural sciences, data is often a finite set of measurements while the process of learning is usually achieved by confronting that data with scientific theories and models. The conclusion might ultimately be falsification of an hypothesis underlying a theory or a model. However, it will not be an ultimate determination of the truth of an hypothesis. More commonly, the conclusion might be an improved model that can be used for predictions of new phenomena. Thus, we are typically dealing with inductive inference.
+In the natural sciences, the premise is often a finite set of measurements while the process of learning is usually achieved by confronting that data with scientific theories and models. The conclusion might ultimately be falsification of an hypothesis such as an underlying theory or a phenomenological model. However, the end result will not be the ultimate determination of the truth of the hypothesis. More commonly, the conclusion might be an improved model that can be used for predictions of new phenomena. Thus, we are typically dealing with inductive inference.
+
+
+<!-- <img src="./figs/scientific_wheel_data.png" width=400><p><em>This process of learning from data is fundamental to the scientific wheel of progress.<div id="fig-scientific-wheel"></div></em></p> -->
+
+```{figure} ./figs/scientific_wheel_data.png
+:name: fig-scientific-wheel
 
 This process of learning from data is fundamental to the scientific wheel of progress.
-<img src="./figs/scientific_wheel_data.png" width=400> 
-<!-- ![](./figs/scientific_wheel_data.png)-->
+```
 
-<!-- !split -->
-## Statistical Inference
+
+## Statistical inference
 
 * Quantify the strength of inductive inferences from facts, in the form of data ($D$), and other premises, e.g. models, to hypotheses about the phenomena producing the data.
 * Quantify via probabilities, or averages calculated using probabilities. Frequentists ($\mathcal{F}$) and Bayesians ($\mathcal{B}$) use probabilities very differently for this.
@@ -42,9 +51,14 @@ This process of learning from data is fundamental to the scientific wheel of pro
 <!-- !split -->
 ## Machine learning
 
-The basic process illustrated in Fig. [fig-inference](#fig-inference) is employed also in the field of machine learning. Here, the learning part might take place when confronting a large set of data with a machine learning algorithm, and the specific aim might be tasks such as classification or clusterization. 
-<img src="./figs/MLinference.png" width=600> 
-<!-- ![](./figs/MLinference.png) -->
+The basic process illustrated in {numref}`fig-inference` is employed also in the field of machine learning. Here, the learning part might take place when confronting a large set of data with a machine learning algorithm, and the specific aim might be tasks such as classification or clusterization. 
+<!--<img src="./figs/MLinference.png" width=600> -->
+
+```{figure} ./figs/MLinference.png
+:name: fig-ML-inference
+
+Machine learning can also be seen as an inference process.
+```
 
 Thus, we will be able to study statistical inference methods for learning from data and use them in scientific applications. In particular, we will use **Bayesian statistics**. Simultaneously we will slowly develop a deeper understanding and probabilistic interpretation of machine learning algorithms through a statistical foundation. 
 
@@ -359,3 +373,7 @@ A first demonstration of machine learning in physics is shown in the accompanyin
 ### Software and needed installations
 
 See the Getting started guide on the course web page.
+
+```python
+
+```
