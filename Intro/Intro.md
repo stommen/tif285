@@ -41,10 +41,10 @@ This process of learning from data is fundamental to the scientific wheel of pro
 
 ## Statistical inference
 
-* Quantify the strength of inductive inferences from facts, in the form of data ($D$), and other premises, e.g. models, to hypotheses about the phenomena producing the data.
-* Quantify via probabilities, or averages calculated using probabilities. Frequentists ($\mathcal{F}$) and Bayesians ($\mathcal{B}$) use probabilities very differently for this.
-* To the pioneers such as Bernoulli, Bayes and Laplace, a probability represented a *degree-of-belief* or plausability: how much they thought that something as true based on the evidence at hand. This is the Bayesian approach.
-* To the 19th century scholars, this seemed too vague and subjective. They redefined probability as the *long run relative frequency* with which an event occurred, given (infinitely) many repeated (experimental) trials.
+* Quantifies the strength of inductive inference from propositions, usually in the form of data ($D$) and other premises such as models, to hypotheses about the phenomena producing the data.
+* The quantification is done via probabilities, or averages calculated using probabilities. Frequentists ($\mathcal{F}$) and Bayesians ($\mathcal{B}$) use probabilities very differently for this.
+* To the pioneers such as Bernoulli, Bayes and Laplace, a probability represented a *degree-of-belief* or plausability: how much they believed something as true based on the evidence at hand. This is the Bayesian approach.
+* To the 19th century scholars this seemed too vague and subjective. They redefined probability as the *long run relative frequency* with which an event occurred, given (infinitely) many repeated (experimental) trials.
 
 
 
@@ -60,7 +60,7 @@ The basic process illustrated in {numref}`fig-inference` is employed also in the
 Machine learning can also be seen as an inference process.
 ```
 
-Thus, we will be able to study statistical inference methods for learning from data and use them in scientific applications. In particular, we will use **Bayesian statistics**. Simultaneously we will slowly develop a deeper understanding and probabilistic interpretation of machine learning algorithms through a statistical foundation. 
+Thus, we will be able to study statistical inference methods for learning from data and use them in scientific applications. In particular, we will use **Bayesian statistics**. Simultaneously we will slowly develop a deeper understanding and probabilistic interpretation of machine learning algorithms through a statistical foundation. This understanding will allow us to achieve **statistical learning**.
 
 <!-- !split -->
 *Edwin Jaynes*, in his influential [How does the brain do plausible reasoning?](https://link.springer.com/chapter/10.1007%2F978-94-009-3049-0_1) {cite}`Jaynes1988`, wrote:
@@ -69,85 +69,80 @@ Thus, we will be able to study statistical inference methods for learning from d
 
 
 <!-- !split -->
-Jaynes went on to show that these "consistent rules" are just the rules of Bayesian probability theory, supplemented by Laplace's principle of indifference and, its generalization, Shannon's principle of maximum entropy. This key observation implies that a computer can be programmed to "reason", or, update probabilities based on data. Given some very minimal desiderata, the rules of Bayesian probability are the only ones which conform to what, intuitively, we recognize as rationality. Such probability update rules can be used recursively to impute causal relationships between observations, that is, a machine can be programmed to "learn".
+Jaynes went on to show that these "consistent rules" are just the rules of Bayesian probability theory supplemented by Laplace's principle of indifference and, its generalization, Shannon's principle of maximum entropy. This key observation implies that we can define an *extended logic** such that a computer can be programmed to "reason", or rather to update probabilities based on data. Given some very minimal desiderata, the rules of Bayesian probability are the only ones which conform to what, intuitively, we recognize as rationality. Such probability update rules can be used recursively to impute causal relationships between observations. That is, a machine can be programmed to "learn".
 
-*Summary.* 
+```{admonition} Summary
+:class: tip
 Inference and machine learning, then, is the creative application of
 Bayesian probability to problems of rational inference and causal
 knowledge discovery based on data.
-
-
+```
 
 <!-- !split -->
 ## Learning from data: A physicist's perspective
-### How will this course be different from an applied mathematics / computer science course?
 
 In this course we will focus in particular on the statistical foundation for being able to learn from data, in particular we will take the Bayesian viewpoint of extended logic. Although we aim for theoretical depth, we will still take a practical learning approach with many opportunities to apply the theories in practice using simple computer programs. 
 
 <!-- !split -->
-However, the ambition for teaching the theoretical foundation implies that there will be less time to cover the plethora of machine learning methods, or to find examples from a very wide list of subfields in physics. We believe that striving for theoretical depth and  computational experience will give the best preparation for being able to apply the knowledge in new situations and real problems that will be encountered in future studies and work. 
+However, the ambition for teaching the theoretical foundation implies that there will be less time to cover the plethora of machine learning methods, or to consider examples from other contexts than physics. We believe that striving for theoretical depth and  computational experience will give the best preparation for being able to apply the knowledge in new situations and the broader range of problems that might be encountered in future studies and work. 
 
 <!-- !split -->
-This course has been designed specifically for Physics students. We expect that you have:
-* Strong background and experience with mathematical tools (linear algebra, multivariate calculus) that will allow to immediately engage in rigorous discussions of statistics.
+This course has been designed specifically for Physics students. It is different from an applied mathematics / computer science course. We expect that you have:
+* A strong background and experience with mathematical tools (linear algebra, multivariate calculus) that will allow to immediately engage in rigorous discussions of statistics.
 * Experience with the use of (physics) models to describe reality and an understanding for  various uncertainties associated with experimental observations.
 * Considerable training in general problem solving skills.
 
 <!-- !split -->
-### What is special about machine learning in physics and astronomy?
+### What is special about machine learning in physics?
 
-Physics research has different needs:
-  * Our data and models are often fundamentally different from those in typical computer science contexts. For example, we might have prior knowledge about underlying physics that should be taken into account.
-  * We ask different types of questions about our data, sometimes requiring new methods.
-  * We have different priorities for judging a "good" method: interpretability, error estimates, predictive power, etc.
+Physics research takes place within a special context:
+  * Physics data and models are often fundamentally different from those encountered in typical computer science contexts. 
+  * Physicists ask different types of questions about our data, sometimes requiring new methods.
+  * Physicists have different priorities for judging the quality of a model: interpretability, error estimates, predictive power, etc.
 
 <!-- !split -->
-  * We are data **producers**, not (only) data consumers:
-    * Experimental design can (sometimes) be in our own control.
+Providing slightly more detail:
+  * Physicists are data **producers**, not (only) data consumers:
+    * Experiments can (sometimes) be designed according to needs.
     * Statistical errors on data can be quantified.
-    * Much efforts to understand systematic errors.
-
+    * Much effort is spent to understand systematic errors.
 
 <!-- !split -->
-  * Our data represent measurements of physical processes:
-    * Measurements often reduce to counting photons, etc, with known a-priori random errors.
+  * Physics data represents measurements of physical processes:
     * Dimensions and units are important.
-    * Experimental data comes with measurement errors that should be taken into account.
+    * Measurements often reduce to counting photons, etc, with known a-priori random errors.
+    * In some experiments and scientific domains, the data sets are *huge* ("Big Data")*
 
-  * Our models are usually traceable to an underlying physical theory:
-    * Models constrained by theory and previous observations.
-    * Parameter values often intrinsically interesting.
+  * Physics models are usually traceable to an underlying physical theory:
+    * Models might be constrained by theory and previous observations.
+    * There might exist prior knowledge about underlying physics that should be taken into account.
+    * Parameter values are often intrinsically interesting.
+    * The error estimate of a prediction is just as important as its value:
 
-  * A parameter error estimate is just as important as its value:
-    * Prefer methods that handle input data errors (weights) and provide output parameter error estimates.
-
-  * In some experiments and scientific domains, the data sets are *huge* ("Big Data")
 
 <!-- !split -->
 <!-- ======= Machine Learning ======= -->
 ### Machine learning in science and society
 
-During the last two decades there has been a swift and amazing
-development of Machine learning techniques and algorithms that impact
+During the last decades there has been a swift and amazing
+development of machine learning techniques and algorithms that impact
 many areas in not only Science and Technology but also the Humanities,
 Social Sciences, Medicine, Law, etc. Indeed, almost all possible
 disciplines are affected. The applications are incredibly many, from self-driving
 cars to solving high-dimensional differential equations or complicated
 quantum mechanical many-body problems. Machine learning is perceived
-by many as one of the main disruptive techniques nowadays. 
+by many as a disruptive technology, i.e., implying that it will change our society.  
 
-Statistics, Data science and Machine learning form important
+Statistics, data science and machine learning form important
 fields of research in modern science.  They describe how to learn and
-make predictions from data, as well as allowing us to extract
-important correlations about physical process and the underlying laws
-of motion in large data sets. The latter, big data sets, appear
+make predictions from data, as well as allowing us to find correlations between features
+in (large) data sets. Such big data sets now appear
 frequently in essentially all disciplines, from the traditional
 Science, Technology, Mathematics and Engineering fields to Life
-Science, Law, education research, the Humanities and the Social
+Science, Law, Education research, the Humanities and the Social
 Sciences.
 
-It has become more
-and more common to see research projects on big data in for example
+It has become common to see research projects on big data in for example
 the Social Sciences where extracting patterns from complicated survey
 data is one of many research directions.  Having a solid grasp of data
 analysis and machine learning is thus becoming central to scientific
@@ -207,8 +202,7 @@ of algorithms and methods we will discuss.
 
 
 The approaches to machine learning are many, but are often split into
-two main categories.  In *supervised learning* we know the answer to a
-problem, and let the computer deduce the logic behind it. On the other
+two main categories.  In *supervised learning* we claim to know the system under investigation and we use the computer to deduce the strengths of relationships and dependencies. On the other
 hand, *unsupervised learning* is a method for finding patterns and
 relationship in data sets without any prior knowledge of the system.
 Some authours also operate with a third category, namely
@@ -218,11 +212,11 @@ solely from rewards and punishment.
 
 <!-- !split -->
 Another way to categorize machine learning tasks is to consider the
-desired output of a system. What kind of inference are you hoping to see in your data? Is the aim to classify a result into categories, to predict a continuous value, or to simply observe patterns within the data? Let’s briefly introduce each class:
+desired output of a system. What kind of inference are you performing from your data? Is the aim to classify a result into categories, to predict a continuous value, or to simply observe patterns within the data? Let’s briefly introduce each class:
 
 <!-- !split -->
 ```{admonition} Classification algorithms
-  are used to predict whether a dataset’s outputs can be separated into separate classes, binary or otherwise. These output values are discrete and represent target classes. An example is to identify  digits based on pictures of hand-written ones. Classification algorithms undergo supervised training, which means they require labelled true output data in order to measure prediction accuracy.
+  are used to predict whether a dataset’s outputs can be split into separate classes; binary or otherwise. The outputs are discrete and represent target classes. An example is to identify  digits based on pictures of hand-written ones. Classification algorithms undergo supervised training, which means they require labelled true output data in order to measure prediction accuracy.
   ```  
 <!-- !split -->
 ```{admonition} Clustering algorithms
@@ -234,22 +228,22 @@ desired output of a system. What kind of inference are you hoping to see in your
   ```
 <!-- !split -->
 ```{admonition} Regression algorithms
-  Finding a functional relationship between an input data set and a reference data set. The goal is to construct a function that maps input data to continuous output values. These algorithms also require labelled true output data in order to measure prediction accuracy.
+  aims to find a functional relationship between an input data set and a reference data set. The goal is often to construct a function that maps input data to continuous output values. These algorithms also require labelled true output data in order to measure prediction accuracy.
   ```
 
 <!-- !split -->
 In the natural sciences, where we often confront scientific models with observations, there is certainly a large interest in regression algorithms. However, there are also many examples where other classes of machine-learning algorithms are being used.
 
 <!-- !split -->
-All methods have three main ingredients in common, irrespective of whether we deal with supervised or unsupervised learning. 
+All machine learning methods have three main ingredients in common, irrespective of whether we deal with supervised or unsupervised learning. 
 
 <!-- !split -->
 ```{admonition} Data set
-  The first, and most important, one is normally our data set (which can be subdivided into training and test data).
+  The first, and most important, one is normally our data set. The data is often subdivided into training and test sets.
   ```
 <!-- !split -->
 ```{admonition} Model
-  The second item is a model, which is normally a function of some parameters. The model reflects our knowledge of the system (or lack thereof). As an example, if we know that our data show a behavior similar to what would be predicted by a polynomial, fitting our data to a polynomial of some degree would then determine our model. 
+  The second ingredient is a model, which can be a function of some parameters. The model reflects our knowledge of the system (or lack thereof). As an example, if we know that our response parameter depends on powers of some independent parameter(s), then fitting our data to a polynomial of some degree would determine our model. 
   ```
 <!-- !split -->
 ```{admonition} Cost function
@@ -263,15 +257,12 @@ All methods have three main ingredients in common, irrespective of whether we de
 Python plays a central role in the development of machine
 learning techniques and tools for data analysis. In particular, given
 the wealth of machine learning and data analysis libraries written in
-Python, easy-to-use libraries with immediate visualization (and the
-impressive galleries of existing examples), the popularity of the
-Jupyter notebook framework (with the possibility to run **R** codes, or
-simulation programs written in compiled languages), and much more made our choice of
-programming language for this series of lectures easy. However,
-since the focus here is not only on using existing Python libraries such
-as **Scikit-Learn** or **Tensorflow**, but also on developing your own
-algorithms and codes, we will as far as possible present many of these
-algorithms as Python codes. 
+Python, visualization tools (and
+extensive galleries of existing examples), the popularity of the
+Jupyter Notebook framework, makes our choice of
+programming language for this series of lectures easy. 
+Since the focus here is not only on using existing Python libraries such
+as **Scikit-Learn** or **Tensorflow**, but rather on developing a deeper understanding, we will build several of the algorithms ourselves. Python is an excellent programming language for prototype construction.
 
 The reason we also  mention compiled languages (like C, C++ or
 Fortran), is that Python is still notoriously slow when we do not
@@ -288,25 +279,21 @@ the changes during the last decade, the above situation may change in the not to
 
 See the Getting started guide on the course web page.
 
-```python
-
-```
-
 <!-- !split -->
 ### Data handling, machine learning  and ethical aspects
 
-In most of the cases we will study, we will generate the data
-to analyze ourselves. However, this does not hinder us from developing a sound
-ethical attitude to the data we use, how we analyze the data and how
-we handle it.
+The data collection (or selection) process in a machine learning pipeline is the most serious ethical aspect since undetected biases will propagate via the training process to model predictions. In physics, the model might be less opaque, and we might have better control over data generation, but we should still develop a sound
+ethical attitude to the data being used and how it is processed and analyzed.
 
-The most immediate and simplest possible ethical aspects deal with our
-approach to the scientific process. Nowadays, with version control
+Another pressing ethical aspects deals with our
+approach to the scientific process. In particular, the reproducibility of scientific results is of utmost importance and should be imprinted as part of the dialectics of
+science. 
+Nowadays, with version control
 software like [Git](https://git-scm.com/) and various online
 repositories like [Github](https://github.com/),
 [Gitlab](https://about.gitlab.com/) etc, we can easily make our codes
-and data sets we have used, freely and easily accessible to a wider
-community. This helps us almost automagically in making our science
+and data sets openly and easily accessible to a wider
+community. This service helps almost automagically to make our science
 reproducible. The large open-source development communities involved
 in say [Scikit-Learn](http://scikit-learn.org/stable/),
 [Tensorflow](https://www.tensorflow.org/),
@@ -319,12 +306,7 @@ reproducible. From a societal stand, this is an important element
 since many of the developers are employees of large public institutions like
 universities and research labs.
 
-However, this more mechanical aspect of the ethics of science (in
-particular the reproducibility of scientific results) is something
-which is obvious and everybody should do so as part of the dialectics of
-science. 
-
-Before we proceed, we should add a disclaimer. Even though
+Let us also add a disclaimer concerning the fantastic progress of machine learning technology. Even though
 we may dream of computers developing some kind of higher learning
 capabilities, at the end (even if the artificial intelligence
 community keeps touting our ears full of fancy futuristic avenues), it is we, yes you reading these lines,
@@ -333,38 +315,27 @@ machine learning approaches.
 
 For self-driving vehicles, where the standard machine
 learning algorithms discussed here enter into the software, there are
-stages where we have to make choices. Yes, we, the humans who wrote
-a program for a specific brand of a self-driving car.  As an example,
-all carmakers have as their utmost priority the security of the
-driver and the accompanying passengers. A famous European carmaker, which is
-one of the leaders in the market of self-driving cars, had **if**
-statements of the following type: suppose there are two obstacles in
-front of you and you cannot avoid to collide with one of them. One of
-the obstacles is a monstertruck while the other one is a kindergarten
-class trying to cross the road. The self-driving car algo would then
-opt for the hitting the small folks instead of the monstertruck, since
-the likelihood of surving a collision with our future citizens, is
-much higher.
+stages where the human programmer has to make choices. As an example,
+all carmakers have the safety of the
+driver and the accompanying passengers as their utmost priority. Consider the scenario where the programmer has to construct an *if* statement that decides in an accident scenario between crashing into a truck or steering into a group of bicyclists.  
 
-This leads to serious ethical aspects. Why should we
-opt for such an option? Who decides and who is entitled to make such
+This leads to serious ethical aspects. Who s entitled to make such
 choices? Keep in mind that many of the algorithms you will encounter in
-this series of lectures or hear about later, are indeed based on
+this series of lectures, or that you will hear about later, are indeed based on
 simple programming instructions. And you are very likely to be one of
-the people who may end up writing such a code. Thus, developing a
+the people who end up writing such a code. Thus, developing a
 sound ethical attitude is much needed. The example of the self-driving cars is
 just one of infinitely many cases where we have to make choices. When
 you analyze data on economic inequalities, who guarantees that you are
-not weighting some data in a particular way, perhaps because you dearly want a
-specific conclusion which may support your political views?
+not cherrypicking data to reach a specific conclusion which may support your political views?
 
 We do not have the answers here, nor will we venture into a deeper
 discussions of these aspects, but we want you think over these topics
 in a more overarching way.  A statistical data analysis with its dry
 numbers and graphs meant to guide the eye, does not necessarily
 reflect the truth, whatever that is.  As a scientist, and after a
-university education, you are supposedly a better citizen, with an
+university education, you are supposedly a highly qualified citizen, with an
 improved critical view and understanding of the scientific method, and
 perhaps some deeper understanding of the ethics of science at
-large. Use these insights. Be a critical citizen. You owe it to our
+large. Use these insights. You owe it to our
 society.
