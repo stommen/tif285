@@ -284,6 +284,14 @@ number crunching and leave the post-analysis of the data to the above
 mentioned Python modules or software packages.  However, with the developments taking place in for example the Python community, and seen
 the changes during the last decade, the above situation may change in the not too distant future. 
 
+### Software and needed installations
+
+See the Getting started guide on the course web page.
+
+```python
+
+```
+
 <!-- !split -->
 ### Data handling, machine learning  and ethical aspects
 
@@ -360,20 +368,3 @@ improved critical view and understanding of the scientific method, and
 perhaps some deeper understanding of the ethics of science at
 large. Use these insights. Be a critical citizen. You owe it to our
 society.
-
-
-
-
-<!-- !split -->
-<!-- ======= A first data and machine learning encounter ======= -->
-## A first data and machine learning encounter
-
-A first demonstration of machine learning in physics is shown in the accompanying jupyter notebook. We will show some of the strengths of packages like **Scikit-Learn** in fitting nuclear binding energies to specific models using linear regression.
-
-### Software and needed installations
-
-See the Getting started guide on the course web page.
-
-```python
-
-```
