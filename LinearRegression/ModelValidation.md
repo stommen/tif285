@@ -45,11 +45,9 @@ An overfit model typically has a very *large variance*, i.e. the model predictio
 
 Alternatively, a telltale sign for overfitting is the appearance of very large fit parameters that are needed for the fine tunings of cancellations of different terms in the model. The fits from our example has the following root-mean-square parameters
 
-$$
-
+\begin{equation}
 \theta_\mathrm{rms} \equiv \frac{1}{p} \sqrt{ \sum_{i=0}^p \theta_i^2 } \equiv \| \theta \|_2^2 / p.
-
-$$
+\end{equation}
 
 
 | order  | $\theta_\mathrm{rms}$  |
@@ -67,64 +65,56 @@ Assuming that overfitting is characterized by large fit parameters, we can attem
 
 Let us remind ourselves about the expression for the standard Mean Squared Error (MSE) which we used to define our cost function and the equations for the ordinary least squares (OLS) method. That is our optimization problem is
 
-$$
-
+\begin{equation}
 \boldsymbol{\theta}^* = \underset{\boldsymbol{\theta}\in {\mathbb{R}}^{p}}{\operatorname{argmin}} \frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{	\theta}\right)^T\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\right)\right\}.
-
-$$
+\end{equation}
 
 or we can state it as
 
-$$
+\begin{equation}
 \boldsymbol{\theta}^* = \underset{\boldsymbol{\theta}\in {\mathbb{R}}^{p}}{\operatorname{argmin}}
 \frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\tilde{y}_i\right)^2
 = \underset{\boldsymbol{\theta}\in {\mathbb{R}}^{p}}{\operatorname{argmin}}
 \frac{1}{n}\vert\vert \boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\vert\vert_2^2,
-$$
+\end{equation}
 
 where we have used the definition of  a norm-2 vector, that is
 
-$$
+\begin{equation}
 \vert\vert \boldsymbol{x}\vert\vert_2 = \sqrt{\sum_i x_i^2}. 
-$$
+\end{equation}
 
 By minimizing the above equation with respect to the parameters
 $\boldsymbol{\theta}$ we could then obtain an analytical expression for the
 parameters $\boldsymbol{\theta}$.  We can add a regularization parameter $\lambda$ by
 defining a new cost function to be minimized, that is
 
-$$
-
+\begin{equation}
 C_{\lambda,2} \left( \boldsymbol{X}, \boldsymbol{\theta} \right) \equiv
 \frac{1}{n}\vert\vert \boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\vert\vert_2^2+\lambda\vert\vert \boldsymbol{\theta}\vert\vert_2^2 
-
-$$
+\end{equation}
 
 which leads to the *Ridge regression* minimization problem where we
 constrain the parameters via $\vert\vert \boldsymbol{\theta}\vert\vert_2^2$ and the optimization equation becomes
 
-$$
+\begin{equation}
 \boldsymbol{\theta}^* = \underset{\boldsymbol{\theta}\in {\mathbb{R}}^{p}}{\operatorname{argmin}}
 C_{\lambda,2}\left( \boldsymbol{X}, \boldsymbol{\theta} \right)
 .
-$$
+\end{equation}
 
 Alternatively, *Lasso regularization* can be performed by defining
 
-$$
-
+\begin{equation}
 C_{\lambda,1} \left( \boldsymbol{X},\boldsymbol{\theta} \right) \equiv
 \frac{1}{n}\vert\vert \boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\vert\vert_2^2+\lambda\vert\vert \boldsymbol{\theta}\vert\vert_1.
-
-$$
+\end{equation}
 
 Here we have defined the norm-1 as 
 
-$$
-
+\begin{equation}
 \vert\vert \boldsymbol{x}\vert\vert_1 = \sum_i \vert x_i\vert. 
-
-$$
+\end{equation}
 
 Lasso stands for least absolute shrinkage and selection operator.
 
@@ -142,21 +132,17 @@ Ridge regularization with different penalty parameters $\lambda$ for different p
 
 Using the matrix-vector expression for Ridge regression,
 
-$$
-
+\begin{equation}
 C(\boldsymbol{X},\boldsymbol{\theta})=\frac{1}{n}\left\{(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta})^T(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta})\right\}+\lambda\boldsymbol{\theta}^T\boldsymbol{\theta},
-
-$$
+\end{equation}
 
 by taking the derivatives with respect to $\boldsymbol{\theta}$ we obtain then
 a slightly modified matrix inversion problem which for finite values
 of $\lambda$ does not suffer from singularity problems. We obtain
 
-$$
-
+\begin{equation}
 \boldsymbol{\theta}^{\mathrm{Ridge}} = \left(\boldsymbol{X}^T\boldsymbol{X}+\lambda\boldsymbol{I}\right)^{-1}\boldsymbol{X}^T\boldsymbol{y},
-
-$$
+\end{equation}
 
 with $\boldsymbol{I}$ being a $p\times p$ identity matrix 
 
@@ -165,9 +151,9 @@ OLS with a modified diagonal term added to $\boldsymbol{X}^T\boldsymbol{X}$. The
 consequences, in particular for our discussion of the bias-variance
 are rather interesting. Ridge regression imposes a constraint on the model parameters
 
-$$
+\begin{equation}
 \sum_{i=0}^{p-1} \theta_i^2 \leq t,
-$$
+\end{equation}
 
 with $t$ a finite positive number. 
 
@@ -184,9 +170,9 @@ tasks.
 Consider a dataset $\mathcal{D}$ consisting of the data
 $\{(x_j, y_j), j=1\ldots n\}$. Let us assume that the data is generated from a true model plus experimental noise 
 
-$$
+\begin{equation}
 {y}_j = f({x_j}) + {\epsilon}_{j,\mathrm{exp}},
-$$
+\end{equation}
 
 where ${\epsilon}_{j,\mathrm{exp}}$ is a random variable. We will assume that these are drawn from a distribution with expectation value $\mathbb{E}[{\epsilon}_\mathrm{exp}] = 0$ and variance $\mathrm{Var}[{\epsilon}_\mathrm{exp}] = \sigma^2_\mathrm{exp}$. 
 (Remember that $\mathbb{E}(t)$ denotes the expectation value for the random variable $t$. and that the variance is given by $\mathrm{Var}(t) = \mathbb{E} \left[ \left(t -  \mathbb{E}(t)\right)^2 \right]$.)
@@ -196,15 +182,15 @@ In our study of linear regression we defined this model in terms of some paramet
 $\boldsymbol{\theta}$ and a design matrix $\boldsymbol{X}$,
 that is 
 
-$$
+\begin{equation}
 {f}({x}_j) = f_j \approx  {\tilde{y}_j} = {\tilde{y}}({x}_j) =(\boldsymbol{X}\boldsymbol{\theta})_j. 
-$$
+\end{equation}
 
 Thereafter we found the optimum set of model parameters $\boldsymbol{\theta}^*$ by minimizing the mean-squared residuals via the so-called cost function
 
-$$
+\begin{equation}
 C(\boldsymbol{X},\boldsymbol{\theta}) =\frac{1}{n}\sum_{i=1}^{n}(y_i-\tilde{y}_i)^2.
-$$
+\end{equation}
 
 However, the arguments given here are not restricted to linear-regression models. In fact, the bias-variance-tradeoff is more often discussed in the context of highly non-linear models such as neural networks.
 
@@ -218,9 +204,9 @@ Repeat this multiple times, using different sets of data $\mathcal{D}$ to fit yo
 
 We will show that we can rewrite this expectation value as 
 
-$$
+\begin{equation}
 \mathbb{E}\left[(y_0-\tilde{y}_0)^2\right] = (f_0-\mathbb{E}\left[\tilde{y}_0\right])^2 + \mathbb{E}\left[ (\tilde{y}_0-\mathbb{E}\left[\tilde{y}_0\right])^2\right] +\sigma^2_\mathrm{exp}.
-$$
+\end{equation}
 
 The first of the three terms represents the square of the bias of the learning
 method, which can be thought of as the error caused by the simplifying
@@ -230,34 +216,34 @@ variance of the chosen model and finally the last terms is the irreducible error
 To derive this equation, we need to recall that the variance of $y_0$ and $\epsilon_0$ are both equal to $\sigma^2_\mathrm{exp}$. The mean value of $\epsilon_0$ is by definition equal to zero. Furthermore, the function evaluation $f_0 = f(x_0)$ is not a stochastic variable.
 We use a more compact notation in terms of the expectation value 
 
-$$
+\begin{equation}
 \mathbb{E}\left[(y_0-\tilde{y}_0)^2\right] = \mathbb{E}\left[({f}_0+\epsilon_0-\tilde{y}_0)^2\right],
-$$
+\end{equation}
 
 and adding and subtracting $\mathbb{E}\left[\tilde{y}_0\right]$ we get
 
-$$
+\begin{equation}
 \mathbb{E}\left[(y_0-\tilde{y}_0)^2\right]=\mathbb{E}\left[({f}_0+\epsilon_0-\tilde{y}_0+\mathbb{E}\left[\tilde{y}_0\right]-\mathbb{E}\left[\tilde{y}_0\right])^2\right].
-$$
+\end{equation}
 
 We can rewrite this expression as a sum of three terms:
 * The first one is the (squared) bias of the model plus the irreducible data error $\sigma_\mathrm{exp}^2$
 
-$$
+\begin{equation}
 \mathbb{E}\left[({f}_0+\epsilon_0-\mathbb{E}\left[\tilde{y}_0\right])^2\right] = \mathbb{E}\left[({f}_0-\mathbb{E}\left[\tilde{y}_0\right])^2\right] + \mathbb{E}\left[\epsilon_0^2\right]+0.
-$$
+\end{equation}
 
 * The second one is the variance of the model $\mathrm{Var}\left[ \tilde{y}_0 \right]$
 
-$$
+\begin{equation}
 \mathbb{E}\left[(\mathbb{E}\left[\tilde{y}_0\right] - \tilde{y}_0)^2\right],
-$$
+\end{equation}
 
 * and the last one is zero
 
-$$
+\begin{equation}
 2\mathbb{E}\left[(y_0-\mathbb{E}\left[\tilde{y}_0\right])(\mathbb{E}\left[\tilde{y}_0\right]-\tilde{y}_0)\right] = 2\mathbb{E}\left[y_0-\mathbb{E}\left[\tilde{y}_0\right]\right] \left( \mathbb{E}\left[\mathbb{E}\left[\tilde{y}_0\right]\right] - \mathbb{E}\left[\tilde{y}_0\right]\right) = 0.
-$$
+\end{equation}
 
 The tradeoff between bias and variance is illustrated in {numref}`fig-bias_variance` from the demonstration notebook.
 
@@ -318,10 +304,9 @@ In order to make an informed choice for these hyperparameters we need to validat
 
 The model is then trained on the first set of data, while it is validated (by computing your choice of performance score) on the validation set.
 
-*Question.* 
+```{warning} 
 Why is it important not to train and evaluate the model on the same data?
-
-
+```
 
 
 <!-- !split  -->
@@ -388,9 +373,7 @@ cross-validation (LOOCV).
 
 * The value of the hyperparameter that minimizes the cross-validated error is the value of choice. 
 
-$$
-
+\begin{equation}
 \lambda^* = \underset{\lambda}{\operatorname{argmin}}
-\mathrm{CV}_k(\lambda)
-.
-$$
+\mathrm{CV}_k(\lambda).
+\end{equation}

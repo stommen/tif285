@@ -5,13 +5,11 @@ With the linear regression model we could find the best fit parameters by solvin
 
 In general, the problem of optimizing the model parameters is a very difficult one. We will return to the optimization problem later in this course, but will just briefly introduce the most common class of optimization algorithms: *Gradient descent* methods. The general idea of Gradient descent is to tweak parameters iteratively in order to minimize a cost function.
 
-Let us start with a cost function for our model such as the chi-squared function that was introduced in the Linear Regression lecture:
+Let us start with a cost function for our model such as the chi-squared function that was introduced in the Linear Regression lecture (but then labeled $C$):
 
-$$
-
+\begin{equation}
 \chi^2(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=0}^{n-1}\frac{\left(y_i-\tilde{y}_i\right)^2}{\sigma_i^2}=\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)^T \boldsymbol{\Sigma}^{-1}\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)\right\},
-
-$$
+\end{equation}
 
 Instead of finding a matrix equation for the vector $\boldsymbol{\theta}$ that minimizes this measure we will describe an iterative procedure:
 
@@ -20,9 +18,27 @@ Instead of finding a matrix equation for the vector $\boldsymbol{\theta}$ that m
 * Once you have the gradient vector, which points uphill, just go in the opposite direction to go downhill. This means subtracting $\eta \boldsymbol{\nabla}_{\boldsymbol{\theta}} \left( \chi^2 \right)$ from $\boldsymbol{\theta}_0$. Note that the magnitude of the step, $\eta$ is known as the learning rate and becomes another hyperparameter that needs to be tuned.
 * Continue this process iteratively until the gradient vector $\boldsymbol{\nabla}_{\boldsymbol{\theta}} \left( \chi^2 \right)$ is close to zero.
 
+```{prf:algorithm} Ford–Fulkerson
+:label: my-algorithm
+
+**Inputs** Given a Network $G=(V,E)$ with flow capacity $c$, a source node $s$, and a sink node $t$
+
+**Output** Compute a flow $f$ from $s$ to $t$ of maximum value
+
+1. $f(u, v) \leftarrow 0$ for all edges $(u,v)$
+2. While there is a path $p$ from $s$ to $t$ in $G_{f}$ such that $c_{f}(u,v)>0$
+	for all edges $(u,v) \in p$:
+
+	1. Find $c_{f}(p)= \min \{c_{f}(u,v):(u,v)\in p\}$
+	2. For each edge $(u,v) \in p$
+
+		1. $f(u,v) \leftarrow f(u,v) + c_{f}(p)$ *(Send flow along the path)*
+		2. $f(u,v) \leftarrow f(u,v) - c_{f}(p)$ *(The flow might be "returned" later)*
+```
+
 Gradient descent is a general optimization algorithm. However, there are several important issues that should be known before using it:
 
-1. It requires the computation of partial derivatives of the cost function. This is straight-forward for the linear regression method, but can be difficult for other models. The use of *automatic differentiation* is very popular in the ML community,and is well worth exploring. 
+1. It requires the computation of partial derivatives of the cost function. This is straight-forward for the linear regression method, see Eq. {eq}`eq:LinearRegression:gradient`, but can be difficult for other models. The use of *automatic differentiation* is very popular in the ML community,and is well worth exploring. 
 2. In principle, gradient descent works well for convex cost functions, i.e. where the gradient will eventually direct you to the position of the global minimum. Again, the linear regression problem is favorable because you can show that the cost function has that property. However, most cost functions&mdash;in particular in many dimensions&mdash;correspond to very *complicated surfaces with many local minima*. In those cases, gradient descent is often not a good method.
 
 There are variations of gradient descent that uses only fractions of the training set for computation of the gradient. In particular, stochastic gradient descent and mini-batch gradient descent.
