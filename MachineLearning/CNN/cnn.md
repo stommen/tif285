@@ -160,11 +160,9 @@ single neuron in the first hidden layer.
 It means that to represent the entire
 dataset of images, we require a 4D matrix or **tensor**. This tensor has the dimensions: 
  
-$$
-  
+\begin{equation}
 (n_\mathrm{inputs},\, n_\mathrm{pixels, width},\, n_\mathrm{pixels, height},\, n_\mathrm{pixels, depth}) .
-
-$$
+\end{equation}
 
 <!-- !split -->
 ## CNNs in brief

@@ -78,12 +78,12 @@ Let us specialize to the case of two classes only, with outputs
 $t^{(i)} \in \{0,1\}$. That is
 
 
-$$
+\begin{equation}
 
 t^{(i)} = \begin{bmatrix} 0 \\  1 \end{bmatrix}
 = \begin{bmatrix} \mathrm{no}\\  \mathrm{yes} \end{bmatrix}.
 
-$$
+\end{equation}
 
 
 
@@ -133,11 +133,11 @@ is the most common example of such a soft classifier. In logistic
 regression, the probability that a data point $\boldsymbol{x}^{(i)}$
 belongs to a category $t^{(i)} \in \{0,1\}$ is given by the so-called *logit* function (an example of a S-shape or *Sigmoid* function) which is meant to represent the likelihood for a given event, 
 
-$$
+\begin{equation}
 
 y(\boldsymbol{x}; \boldsymbol{w}) = y(z) = \frac{1}{1+e^{-z}} = \frac{e^z}{1+e^z},
 
-$$
+\end{equation}
 
 where the so called *activation* $z = z(\boldsymbol{x}; \boldsymbol{w})$. 
 
@@ -186,51 +186,51 @@ likelihood in terms of the product of the individual probabilities of a specific
 \end{align*}
 from which we obtain the log-likelihood 
 
-$$
+\begin{equation}
 
 L \equiv \log(\mathcal{L}) = \sum_{i=1}^n \left( t^{(i)}\log{p(t^{(i)}=1|x^{(i)},\boldsymbol{w})} + (1-t^{(i)})\log\left[1-p(t^{(i)}=1|x^{(i)},\boldsymbol{w}))\right]\right).
 
-$$
+\end{equation}
 
 The **cost/loss** function is then defined as the negative log-likelihood
 
-$$
+\begin{equation}
 
 \mathcal{C}(\boldsymbol{w}) \equiv -L = -\sum_{i=1}^n \left( t^{(i)}\log{p(t^{(i)}=1|x^{(i)},\boldsymbol{w})} + (1-t^{(i)})\log\left[1-p(t^{(i)}=1|x^{(i)},\boldsymbol{w}))\right]\right).
 
-$$
+\end{equation}
 
 <!-- !split -->
 #### The cost function rewritten as cross entropy
 
 Using the definitions of the probabilities we can rewrite the **cost/loss** function as
 
-$$
+\begin{equation}
 
 \mathcal{C}(\boldsymbol{w}) = -\sum_{i=1}^n \left( t^{(i)}\log{ y(x^{(i)},\boldsymbol{w})} + (1-t^{(i)})\log\left[ 1-y( x^{(i)},\boldsymbol{w}) \right] \right),
 
-$$
+\end{equation}
 
 which can be recognised as the relative entropy between the empirical probability distribution $(t^{(i)}, 1-t^{(i)})$ and the probability distribution predicted by the classifier $(y^{(i)}, 1-y^{(i)})$.
 Therefore, this cost function is known in statistics as the **cross entropy**. 
 
 Using specifically the logistic sigmoid activation function with two weights, and reordering the logarithms, we can rewrite the log-likelihood as
 
-$$
+\begin{equation}
 
 L(\boldsymbol{w}) = \sum_{i=1}^n  \left[ t^{(i)}(w_0+w_1 x^{(i)}) -\log{(1+\exp{(w_0+w_1x^{(i)})})} \right].
 
-$$
+\end{equation}
 
 The maximum likelihood estimator is defined as the set of parameters (weights) that maximizes the log-likelihood (where we maximize with respect to $w$).
 
 Since the cost (error) function is here defined as the negative log-likelihood, for logistic regression, we have that
 
-$$
+\begin{equation}
 
 \mathcal{C}(\boldsymbol{w})=-\sum_{i=1}^n  \left[ t^{(i)} (w_0+w_1x^{(i)}) -\log{ \left( 1+\exp{(w_0+w_1x^{(i)})} \right) } \right].
 
-$$
+\end{equation}
 
 <!-- !split -->
 #### Regularization
@@ -239,11 +239,11 @@ In practice, just as for linear regression, one often supplements the cross-entr
 
 In particular, Ridge regularization is obtained by defining another cost function
 
-$$
+\begin{equation}
 
 \mathcal{C}_W (\boldsymbol{w}) \equiv \mathcal{C} (\boldsymbol{w}) + \alpha E_W (\boldsymbol{w})
 
-$$
+\end{equation}
 
 where $E_W (\boldsymbol{w}) = \frac{1}{2} \sum_j w_j^2$ and $\alpha$ is known as the *weight decay*.
 
@@ -278,11 +278,11 @@ $n\times 2$ matrix $\boldsymbol{X}$ which contains the $(1, x^{(i)})$ predictor 
 vector $\boldsymbol{y}$ of the outputs $y^{(i)} = y(x^{(i)},\boldsymbol{w})$. We can then express the first
 derivative of the cost function in matrix form
 
-$$
+\begin{equation}
 
 \frac{\partial \mathcal{C}(\boldsymbol{w})}{\partial \boldsymbol{w}} = -\boldsymbol{X}^T\left( \boldsymbol{t}-\boldsymbol{y} \right). 
 
-$$
+\end{equation}
 
 <!-- !split -->
 ### A learning algorithm
@@ -302,19 +302,19 @@ Alternatively, one can perform *batch learning* for which multiple instances are
 
 Within a binary classification problem, we can easily expand our model to include multiple predictors. Our activation function is then (with $p$ predictors)
 
-$$
+\begin{equation}
 
 a( \boldsymbol{x}^{(i)}, \boldsymbol{w} ) = w_0 + w_1 x_1^{(i)} + w_2 x_2^{(i)} + \dots + w_p x_p^{(i)}.
 
-$$
+\end{equation}
 
 Defining $\boldsymbol{x}^{(i)} \equiv [1,x_1^{(i)}, x_2^{(i)}, \dots, x_p^{(i)}]$ and $\boldsymbol{w}=[w_0, w_1, \dots, w_p]$ we get
 
-$$
+\begin{equation}
 
 p(t^{(i)}=1 | \boldsymbol{w}, \boldsymbol{x}^{(i)}) = \frac{ \exp{ \left( \boldsymbol{w} \cdot \boldsymbol{x}^{(i)} \right) }}{ 1 + \exp{ \left( \boldsymbol{w} \cdot \boldsymbol{x}^{(i)} \right) } }.
 
-$$
+\end{equation}
 
 <!-- !split -->
 ## Including more classes
@@ -328,25 +328,25 @@ Why do we need only $K-1$ outputs if there are $K$ classes?
 
 Let us for the sake of simplicity assume we have only one independent (inout) variable. The activations are (suppressing the index $i$)
 
-$$
+\begin{equation}
 
 z_1 = w_{1,0}+w_{1,1}x_1,
 
-$$
+\end{equation}
 
-$$
+\begin{equation}
 
 z_2 = w_{2,0}+w_{2,1}x_1,
 
-$$
+\end{equation}
 
 and so on until the class $C=K-1$ class
 
-$$
+\begin{equation}
 
 z_{K-1} = w_{(K-1),0}+w_{(K-1),1}x_1,
 
-$$
+\end{equation}
 
 and the model is specified in term of $K-1$ so-called log-odds or **logit** transformations $y_j^{(i)} = y(z_j^{(i)})$.
 
@@ -362,19 +362,19 @@ softmax regression), multiclass linear discriminant analysis, naive
 Bayes classifiers, and artificial neural networks.  Specifically, the predicted probability for the $k$-th class given a sample
 vector $\boldsymbol{x}^{(i)}$ and a weighting vector $\boldsymbol{w}$ is (with one independent variable):
 
-$$
+\begin{equation}
 
 p(t^{(i)}=k\vert \boldsymbol{x}^{(i)},  \boldsymbol{w} ) = \frac{\exp{(w_{k,0}+w_{k,1}x_1^{(i)})}} {1+\sum_{l=1}^{K-1}\exp{(w_{l,0}+w_{l,1}x_1^{(i)})}}.
 
-$$
+\end{equation}
 
 It is easy to extend to more predictors. The probability for the final class is 
 
-$$
+\begin{equation}
 
 p(t^{(i)}=K\vert \boldsymbol{x}^{(i)},  \boldsymbol{w} ) = \frac{1} {1+\sum_{l=1}^{K-1}\exp{(w_{l,0}+w_{l,1}x_1^{(i)})}},
 
-$$
+\end{equation}
 
 which means that the discrete set of probabilities is properly normalized. 
 

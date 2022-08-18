@@ -12,9 +12,9 @@ Some python libraries that are relevant for Bayesian Neural Networks (and part o
 ## Basic neural network
 We will consider a neuron with a vector of $I$ input signals $\boldsymbol{x} = \left\{ \boldsymbol{x}^{(i)} \right\}_{i=1}^I$, and an output signal $y^{(i)}$, which is given by the non-linear function $y(z)$ of the *activation*
 
-$$
+\begin{equation}
  z = w_0 +  \sum_{i=1}^I w_i x_i, 
-$$
+\end{equation}
 
 where $\boldsymbol{w} = \left\{ w_i \right\}_{i=1}^I$ are the weights of the neuron and we have included a bias ($b \equiv w_0$).
 
@@ -26,40 +26,40 @@ p_{t=0} \equiv p(t=0 | \boldsymbol{w},\boldsymbol{x}) &= 1-y,
 \end{align}
 A simple binary classifier can be trained by minimizing the loss function
 
-$$
+\begin{equation}
  C_W(\boldsymbol{w}) = C(\boldsymbol{w}) +  \alpha E_W(\boldsymbol{w}), 
-$$
+\end{equation}
 
 made up of an error function
 
-$$
+\begin{equation}
  C(\boldsymbol{w}) = -\sum_n \left[ t^{(n)} \log ( y(\boldsymbol{x}^{(n)},\boldsymbol{w})) + (1 - t^{(n)}) \log (1 - y(\boldsymbol{x}^{(n)},\boldsymbol{w})) \right], 
-$$
+\end{equation}
 
 where $t^{(n)}$ is the training data, and the regularizer
 
-$$
+\begin{equation}
  E_W(\boldsymbol{w}) = \frac{1}{2} \sum_i w_i^2, 
-$$
+\end{equation}
 
 that is designed to avoid overfitting.
 The error function can be interpreted as minus the log likelihood, with the likelihood
 
-$$
+\begin{equation}
  p(\mathcal{D}|\boldsymbol{w}) \propto \exp\left[ - C(\boldsymbol{w}) \right]. 
-$$
+\end{equation}
 
 Similarly the regularizer can be interpreted in terms of a log prior probability distribution over the parameters. With the quadratic $E_W$ given above, the corresponding prior distribution is a Gaussian with variance $\sigma_W^2 = 1/\alpha$ and $1/Z_W = (\alpha/2\pi)^{K/2}$, where $K$ is the number of parameters in $w$.
 
-$$
+\begin{equation}
  p(\boldsymbol{w} | \alpha) = \frac{1}{Z_W(\alpha)} \exp \left[ -\alpha E_W \right]. 
-$$
+\end{equation}
 
 The objective function $C_W(w)$ then corresponds to the inference of the parameters $\boldsymbol{w}$ given the data
 
-$$
+\begin{equation}
  p(\boldsymbol{w} | \mathcal{D}, \alpha) = \frac{p(D|\boldsymbol{w}) p(\boldsymbol{w}|\alpha)}{p(\mathcal{D}|\alpha)} = \frac{1}{Z_M} \exp [ -C_W(\boldsymbol{w}) ]. 
-$$
+\end{equation}
 
 We show the evolution of the probability distribution for a sequence of an increasing number of training data ($N$) in {numref}`fig-scatter_joint_bnn_plot`. The targets are either 0 or 1, as indicated by red and blue markers. The network parameters $\boldsymbol{w}$ that are found by minimizing $C_W(\boldsymbol{w})$ can be interpreted as the most probable parameter vector $\boldsymbol{w}^*$.
 
@@ -177,10 +177,10 @@ Intuitively there are three scenarios:
 
 The divergence measure is not symmetric, i.e., $D_\mathrm{KL}(p||q) \neq D_\mathrm{KL}(q||p)$. In fact, it is possibly more natural to reverse the arguments and compute $D_\mathrm{KL}(p||q)$. However, we choose $\mathrm{KL}(q||p)$ so that we can take expectations with respect to the known $q(\boldsymbol{w})$ distribution. In addition, the minimization of this KL divergence will encourage the fit to concentrate on plausible parameters since
 
-$$
+\begin{equation}
 D_\mathrm{KL}(q||p) = \int d \boldsymbol{w} q(\boldsymbol{w}\lvert \boldsymbol{\theta}) \log \frac{q(\boldsymbol{w} \lvert \boldsymbol{\theta})}{p(\boldsymbol{w} \lvert \mathcal{D})} 
 = -\int d \boldsymbol{w} q(\boldsymbol{w}\lvert \boldsymbol{\theta}) \log \, p(\boldsymbol{w} \lvert \mathcal{D}) + \int d \boldsymbol{w} q(\boldsymbol{w}\lvert \boldsymbol{\theta}) \log \, q(\boldsymbol{w} \lvert \boldsymbol{\theta}).
-$$
+\end{equation}
 
 To minimize the first term we have to avoid putting probability mass into regions of implausible parameters. To minimize the second term we have to maximize the entropy of the variational distribution $q$ as this term corresponds to its negative entropy.
 
@@ -211,12 +211,12 @@ Variational inference was originally inspired by work in statistical physics, an
 
 The task at hand is therefore to find the set of parameters $\boldsymbol{\theta}^*$ that maximizes $J_\mathrm{ELBO}(\boldsymbol{\theta})$. The hardest term to evaluate is obviously the expectation of the log-likelihood
 
-$$
+\begin{equation}
 
 \mathbb{E}_{q} \left[ \log \, p(\mathcal{D} \lvert \boldsymbol{w}) \right]
 = \sum_{i=1}^N \mathbb{E}_{q} \left[ \log \, p( y^{(i)} \lvert \boldsymbol{x}^{(i)}, \boldsymbol{w}) \right].
 
-$$
+\end{equation}
 
 This problem constitutes a new and active area of research in machine learning and it permeates well with the overarching theme of this course. We will end by giving two pointers to further readings on this subject.
 

@@ -208,11 +208,11 @@ as to not restrict the range of output values.
 
 The output $y$ is produced via the activation function $f$
 
-$$
+\begin{equation}
 
  y = f\left(\sum_{i=1}^n w_ix_i + b \right) = f(z),
 
-$$
+\end{equation}
 
 This function receives $x_i$ as inputs.
 Here the activation $z=(\sum_{i=1}^n w_ix_i+b)$. 
@@ -383,19 +383,19 @@ nothing but a linear function of the inputs. Thus we need to introduce
 some kind of non-linearity to the NN to be able to fit non-linear
 functions Typical examples are the logistic *Sigmoid*
 
-$$
+\begin{equation}
 
  f_\mathrm{sigmoid}(z) = \frac{1}{1 + e^{-z}},
 
-$$
+\end{equation}
 
 and the *hyperbolic tangent* function
 
-$$
+\begin{equation}
 
  f_\mathrm{tanh}(z) = \tanh(z)
 
-$$
+\end{equation}
 
 ```{admonition} Noisy networks
 Both the sigmoid and tanh activation functions imply that signals will be non-zero everywhere. This leads to inefficiencies in both feed-forward and back-propagation. 
@@ -405,21 +405,21 @@ Both the sigmoid and tanh activation functions imply that signals will be non-ze
 The ambition to make some neurons quiet (or to simplify the gradients) leads to the family of *rectifier activation functions*
 The Rectifier Linear Unit (ReLU) uses the following activation function
 
-$$
+\begin{equation}
 
 f_\mathrm{ReLU}(z) = \max(0,z).
 
-$$
+\end{equation}
 
 To solve a problem of dying ReLU neurons, practitioners often use a  variant of the ReLU
 function, such as the leaky ReLU or the so-called
 exponential linear unit (ELU) function
 
-$$
+\begin{equation}
 
 f_\mathrm{ELU}(z) = \left\{\begin{array}{cc} \alpha\left( \exp{(z)}-1\right) & z < 0,\\  z & z \ge 0.\end{array}\right. 
 
-$$
+\end{equation}
 
 Finally, note that the final layer of a MLP often uses a different activation rule as it must produce a relevant output signal. This could be some linear activation function to give a continuous output for regression, or a softmax function for classification probabilities.
 
@@ -468,11 +468,11 @@ final output to modify the weights?
 To derive these equations let us start with a plain regression problem
 and define our cost function as
 
-$$
+\begin{equation}
 
 {\cal C}(\boldsymbol{W})  =  \frac{1}{2}\sum_{i=1}^n\left(y_i - t_i\right)^2, 
 
-$$
+\end{equation}
 
 where the $t_i$s are our $n$ targets (the values we want to
 reproduce), while the outputs of the network after having propagated
@@ -489,11 +489,11 @@ the previous layer $l-1$ and the forward passes/outputs
 $\boldsymbol{a}^{l-1}$ from the previous layer as
 
 
-$$
+\begin{equation}
 
 z_j^l = \sum_{i=1}^{M_{l-1}}w_{ij}^la_i^{l-1}+b_j^l,
 
-$$
+\end{equation}
 
 where $b_j^l$ are the biases from layer $l$.  Here $M_{l-1}$
 represents the total number of nodes/neurons/units of layer $l-1$. 
@@ -511,11 +511,11 @@ We will reserve the output notation $y$ exclusively for the final layer such tha
 We can rewrite this *(figure to be inserted)* in a more
 compact form as the matrix-vector products we discussed earlier,
 
-$$
+\begin{equation}
 
 \boldsymbol{z}^l = \left(\boldsymbol{W}^l\right)^T\boldsymbol{a}^{l-1}+\boldsymbol{b}^l.
 
-$$
+\end{equation}
 
 With the activation values $\boldsymbol{z}^l$ we can in turn define the
 output of layer $l$ as $\boldsymbol{a}^l = f(\boldsymbol{z}^l)$ where $f$ is our
@@ -523,11 +523,11 @@ activation function. In the examples here we will use the sigmoid
 function discussed in the logistic regression lecture. We will also use the same activation function $f$ for all layers
 and their nodes.  It means we have
 
-$$
+\begin{equation}
 
 a_j^l = f(z_j^l) = \frac{1}{1+\exp{-(z_j^l)}}.
 
-$$
+\end{equation}
 
 
 <!-- !split -->
@@ -535,27 +535,27 @@ $$
 
 From the definition of the activation $z_j^l$ we have
 
-$$
+\begin{equation}
 
 \frac{\partial z_j^l}{\partial w_{ij}^l} = a_i^{l-1},
 
-$$
+\end{equation}
 
 and
 
-$$
+\begin{equation}
 
 \frac{\partial z_j^l}{\partial a_i^{l-1}} = w_{ji}^l. 
 
-$$
+\end{equation}
 
 With our definition of the activation function we have (note that this function depends only on $z_j^l$)
 
-$$
+\begin{equation}
 
 \frac{\partial a_j^l}{\partial z_j^{l}} = a_j^l(1-a_j^l)=f(z_j^l) \left[ 1-f(z_j^l) \right]. 
 
-$$
+\end{equation}
 
 
 <!-- !split -->
@@ -565,27 +565,27 @@ With these definitions we can now compute the derivative of the cost function in
 
 Let us specialize to the output layer $l=L$. Our cost function is
 
-$$
+\begin{equation}
 
 {\cal C}(\boldsymbol{W^L})  =  \frac{1}{2}\sum_{i=1}^n\left(y_i - t_i\right)^2=\frac{1}{2}\sum_{i=1}^n\left(a_i^L - t_i\right)^2, 
 
-$$
+\end{equation}
 
 The derivative of this function with respect to the weights is
 
-$$
+\begin{equation}
 
 \frac{\partial{\cal C}(\boldsymbol{W^L})}{\partial w_{jk}^L}  =  \left(a_j^L - t_j\right)\frac{\partial a_j^L}{\partial w_{jk}^{L}}, 
 
-$$
+\end{equation}
 
 The last partial derivative can easily be computed and reads (by applying the chain rule)
 
-$$
+\begin{equation}
 
 \frac{\partial a_j^L}{\partial w_{jk}^{L}} = \frac{\partial a_j^L}{\partial z_{j}^{L}}\frac{\partial z_j^L}{\partial w_{jk}^{L}}=a_j^L(1-a_j^L)a_k^{L-1},  
 
-$$
+\end{equation}
 
 
 
@@ -594,27 +594,27 @@ $$
 
 We have thus
 
-$$
+\begin{equation}
 
 \frac{\partial{\cal C}(\boldsymbol{W^L})}{\partial w_{jk}^L}  =  \left(a_j^L - t_j\right)a_j^L(1-a_j^L)a_k^{L-1}, 
 
-$$
+\end{equation}
 
 Defining
 
-$$
+\begin{equation}
 
 \delta_j^L = a_j^L(1-a_j^L)\left(a_j^L - t_j\right) = f'(z_j^L)\frac{\partial {\cal C}}{\partial (a_j^L)},
 
-$$
+\end{equation}
 
 and using the Hadamard product of two vectors we can write this as
 
-$$
+\begin{equation}
 
 \boldsymbol{\delta}^L = f'(\boldsymbol{z}^L)\circ\frac{\partial {\cal C}}{\partial (\boldsymbol{a}^L)}.
 
-$$
+\end{equation}
 
 This is an important expression. The second term on the right handside
 measures how fast the cost function is changing as a function of the $j$th
@@ -632,38 +632,38 @@ output depends on the form of the cost function.
 However, provided the cost function is known there should be little
 trouble in calculating
 
-$$
+\begin{equation}
 
 \frac{\partial {\cal C}}{\partial (a_j^L)}
 
-$$
+\end{equation}
 
 With the definition of $\delta_j^L$ we have a more compact definition of the derivative of the cost function in terms of the weights, namely
 
-$$
+\begin{equation}
 
 \frac{\partial{\cal C}(\boldsymbol{W^L})}{\partial w_{jk}^L}  =  \delta_j^La_k^{L-1}.
 
-$$
+\end{equation}
 
 <!-- !split -->
 ### Derivatives in terms of $z_j^L$
 
 It is also easy to see that our previous equation can be written as
 
-$$
+\begin{equation}
 
 \delta_j^L =\frac{\partial {\cal C}}{\partial z_j^L}= \frac{\partial {\cal C}}{\partial a_j^L}\frac{\partial a_j^L}{\partial z_j^L},
 
-$$
+\end{equation}
 
 which can also be interpreted as the partial derivative of the cost function with respect to the biases $b_j^L$, namely
 
-$$
+\begin{equation}
 
 \delta_j^L = \frac{\partial {\cal C}}{\partial b_j^L}\frac{\partial b_j^L}{\partial z_j^L}=\frac{\partial {\cal C}}{\partial b_j^L},
 
-$$
+\end{equation}
 That is, the error $\delta_j^L$ is exactly equal to the rate of change of the cost function as a function of the bias. 
 
 <!-- !split -->
@@ -720,35 +720,35 @@ one $L-1$ in terms of the errors in the final output layer.
 
 We have that (replacing $L$ with a general layer $l$)
 
-$$
+\begin{equation}
 
 \delta_j^l =\frac{\partial {\cal C}}{\partial z_j^l}.
 
-$$
+\end{equation}
 
 We want to express this in terms of the equations for layer $l+1$. Using the chain rule and summing over all $k$ entries we have
 
-$$
+\begin{equation}
 
 \delta_j^l =\sum_k \frac{\partial {\cal C}}{\partial z_k^{l+1}}\frac{\partial z_k^{l+1}}{\partial z_j^{l}}=\sum_k \delta_k^{l+1}\frac{\partial z_k^{l+1}}{\partial z_j^{l}},
 
-$$
+\end{equation}
 
 and recalling that
 
-$$
+\begin{equation}
 
 z_j^{l+1} = \sum_{i=1}^{M_{l}}w_{ij}^{l+1}a_i^{l}+b_j^{l+1},
 
-$$
+\end{equation}
 
 with $M_l$ being the number of nodes in layer $l$, we obtain
 
-$$
+\begin{equation}
 
 \delta_j^l =\sum_k \delta_k^{l+1}w_{kj}^{l+1}f'(z_j^l),
 
-$$
+\end{equation}
 
 This is our final equation.
 
@@ -766,33 +766,33 @@ The four equations  provide us with a way of computing the gradient of the cost 
 * Secondly, perform the feed-forward until we reach the output layer. I.e., compute all activation functions and the pertinent outputs $\boldsymbol{a}^l$ for $l=2,3,\dots,L$.
 * Compute the ouput error $\boldsymbol{\delta}^L$ by
 
-$$
+\begin{equation}
 
 \delta_j^L = f'(z_j^L)\frac{\partial {\cal C}}{\partial (a_j^L)}.
 
-$$
+\end{equation}
 
 * Back-propagate the error for each $l=L-1,L-2,\dots,2$ as
 
-$$
+\begin{equation}
 
 \delta_j^l = \sum_k \delta_k^{l+1}w_{kj}^{l+1}f'(z_j^l).
 
-$$
+\end{equation}
 
 * Finally, update the weights and the biases using gradient descent for each $l=L-1,L-2,\dots,2$ and update the weights and biases according to the rules
 
-$$
+\begin{equation}
 
 w_{jk}^l\leftarrow  w_{jk}^l- \eta \delta_j^la_k^{l-1},
 
-$$
+\end{equation}
 
-$$
+\begin{equation}
 
 b_j^l \leftarrow b_j^l-\eta \frac{\partial {\cal C}}{\partial b_j^l}=b_j^l-\eta \delta_j^l,
 
-$$
+\end{equation}
 
 
 
@@ -881,11 +881,11 @@ fast to compute).
 
 The Rectifier Linear Unit (ReLU) uses the following activation function
 
-$$
+\begin{equation}
 
 f(z) = \max(0,z).
 
-$$
+\end{equation}
 
 The ReLU activation function suffers from a problem known as the dying
 ReLUs: during training, some neurons effectively die, meaning they
@@ -902,11 +902,11 @@ To solve this problem, nowadays practitioners use a  variant of the ReLU
 function, such as the leaky ReLU discussed above or the so-called
 exponential linear unit (ELU) function
 
-$$
+\begin{equation}
 
 ELU(z) = \left\{\begin{array}{cc} \alpha\left( \exp{(z)}-1\right) & z < 0,\\  z & z \ge 0.\end{array}\right. 
 
-$$
+\end{equation}
 
 <!-- !split -->
 ### Which activation function should we use?
