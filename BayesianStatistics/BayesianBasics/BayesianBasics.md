@@ -94,18 +94,20 @@ The posterior pdf for the mass of saturn (adapted from Sivia {cite}`Sivia2006`)
 There are two properties that all PDFs must satisfy. The first one is
 positivity (assuming that the PDF is normalized)
 
-$$
+\begin{equation}
 0 \leq p(x).
-$$
+\end{equation}
+
 Naturally, it would be nonsensical for any of the values of the domain
 to occur with a probability less than $0$. Also,
 the PDF must be normalized. That is, all the probabilities must add up
 to unity.  The probability of "anything" to happen is always unity. For
 discrete and continuous PDFs, respectively, this condition is
-\begin{gather*}
+
+\begin{gather}
 \sum_{x_i\in\mathbb D} p(x_i) & =  1,\\
 \int_{x\in\mathbb D} p(x)\,dx & =  1.
-\end{gather*}
+\end{gather}
 
 
 
@@ -114,32 +116,40 @@ discrete and continuous PDFs, respectively, this condition is
 Let us consider some important, univariate distributions.
 The first one
 is the most basic PDF; namely the uniform distribution
+
 \begin{equation}
 p(x) = \frac{1}{b-a}\theta(x-a)\theta(b-x).
 \label{eq:unifromPDF}
 \end{equation}
+
 For $a=0$ and $b=1$ we have 
-\begin{equation*}
+
+\begin{equation}
 p(x) = \left\{
 \begin{array}{ll}
 1 & x \in [0,1],\\
 0 & \mathrm{otherwise}
 \end{array}
 \right.
-\end{equation*}
+\end{equation}
+
 
 
 
 <!-- !split -->
 ### Gaussian distribution
 The second one is the univariate Gaussian Distribution
-\begin{equation*}
+
+\begin{equation}
 p(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp{(-\frac{(x-\mu)^2}{2\sigma^2})},
-\end{equation*}
+\end{equation}
+
 with mean value $\mu$ and standard deviation $\sigma$. If $\mu=0$ and $\sigma=1$, it is normally called the **standard normal distribution**
-\begin{equation*}
+
+\begin{equation}
 p(x) = \frac{1}{\sqrt{2\pi}} \exp{(-\frac{x^2}{2})},
-\end{equation*}
+\end{equation}
+
 
 
 <!-- !split -->
@@ -147,18 +157,22 @@ p(x) = \frac{1}{\sqrt{2\pi}} \exp{(-\frac{x^2}{2})},
 Let $h(x)$ be an arbitrary continuous function on the domain of the stochastic
 variable $X$ whose PDF is $p(x)$. We define the *expectation value*
 of $h$ with respect to $p$ as follows
+
 \begin{equation}
 \mathbb{E}_p[h] = \langle h \rangle_p \equiv \int\! h(x)p(x)\,dx
 \label{eq:expectation_value_of_h_wrt_p}
 \end{equation}
+
 Whenever the PDF is known implicitly, like in this case, we will drop
 the index $p$ for clarity.  
 A particularly useful class of special expectation values are the
 *moments*. The $n$-th moment of the PDF $p$ is defined as
 follows
-\begin{equation*}
+
+\begin{equation}
 \langle x^n \rangle \equiv \int\! x^n p(x)\,dx
-\end{equation*}
+\end{equation}
+
 
 
 <!-- !split -->
@@ -166,13 +180,17 @@ follows
 The zero-th moment $\langle 1\rangle$ is just the normalization condition of
 $p$. The first moment, $\langle x\rangle$, is called the *mean* of $p$
 and often denoted by the letter $\mu$
-\begin{equation*}
+
+\begin{equation}
 \langle x\rangle  \equiv \mu = \int x p(x)dx,
-\end{equation*}
+\end{equation}
+
 for a continuous distribution and 
-\begin{equation*}
+
+\begin{equation}
 \langle x\rangle  \equiv \mu = \sum_{i=1}^N x_i p(x_i),
-\end{equation*}
+\end{equation}
+
 for a discrete distribution. 
 Qualitatively it represents the centroid or the average value of the
 PDF and is therefore simply called the expectation value of $p(x)$.
@@ -196,20 +214,24 @@ The 68/95 percent probability regions are shown in dark/light shading. When appl
 ### Stochastic variables and the main concepts, central moments, the variance
 
 A special version of the moments is the set of *central moments*, the n-th central moment defined as
-\begin{equation*}
+
+\begin{equation}
 \langle (x-\langle x\rangle )^n\rangle  \equiv \int\! (x-\langle x\rangle)^n p(x)\,dx
-\end{equation*}
+\end{equation}
+
 The zero-th and first central moments are both trivial, equal $1$ and
 $0$, respectively. But the second central moment, known as the
 *variance* of $p$, is of particular interest. For the stochastic
 variable $X$, the variance is denoted as $\sigma^2_X$ or $\mathrm{Var}(X)$
-\begin{align*}
+
+\begin{align}
 \sigma^2_X &=\mathrm{Var}(X) =  \langle (x-\langle x\rangle)^2\rangle  =
 \int (x-\langle x\rangle)^2 p(x)dx\\
 & =  \int\left(x^2 - 2 x \langle x\rangle^{2} +\langle x\rangle^2\right)p(x)dx\\
 & =  \langle x^2\rangle - 2 \langle x\rangle\langle x\rangle + \langle x\rangle^2\\
 & =  \langle x^2 \rangle - \langle x\rangle^2
-\end{align*}
+\end{align}
+
 The square root of the variance, $\sigma =\sqrt{\langle (x-\langle x\rangle)^2\rangle}$ is called the 
 **standard deviation** of $p$. It is the RMS (root-mean-square)
 value of the deviation of the PDF from its mean value, interpreted

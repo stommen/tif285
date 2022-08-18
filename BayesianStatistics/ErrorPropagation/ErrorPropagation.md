@@ -59,19 +59,19 @@ See demonstration notebook: A Bayesian Billiard game
 
 Assume that we have a model with two parameters, $\theta_0,\theta_1$, although only one of them (say $\theta_1$) is of physical relevance (the other one is them labeled a nuisance parameter). Through a Bayesian data analysis we have the joint, posterior pdf
 
-$$
+\begin{equation}
 
 p(\theta_0, \theta_1 | D, I).
 
-$$
+\end{equation}
 
 The marginal posterior pdf $p(\theta_1 | D, I)$ is obtained via marginalization
 
-$$
+\begin{equation}
 
 p(\theta_1 | D, I) = \int p(\theta_0, \theta_1 | D, I) d\theta_0.
 
-$$
+\end{equation}
 
 Assume that we have $N$ samples from the joint pdf. This might be the Markov Chain from an MCMC sampler: $\left\{ (\theta_0, \theta_1)_i \right\}_{i=0}^{N-1}$. Then the marginal distribution of $\theta_1$ will be given by the same chain by simply ignoring the $\theta_0$ column, i.e., $\left\{ \theta_{1,i} \right\}_{i=0}^{N-1}$. 
 
@@ -96,9 +96,9 @@ $$ (eq:marginalization)
 
 Using Bayes' rule: $p(x,H_0|D,I) \propto p(D|x,H_0,I) p(x,H_0|I)$, the product rule: $p(x,H_0|I) = p(H_0|x,I)p(x|I)$, and the fact that $H_0$ is independent of $x$: $p(H_0|x,I) = p(H_0|I)$, we find that
 
-$$
+\begin{equation}
 p(x|D,I) \propto p(x|I) \int dH_0 p(H_0|I) p(D|x,H_0,I),
-$$
+\end{equation}
 
 which means that we have expressed the quantity that we want (the posterior of $x$) in terms of quantities that we know.
 
@@ -106,11 +106,11 @@ Assume that the pdf $p(H_0 | I)$ is known via $N$ samples $\{H_{i}\}_{i=0}^{N-1}
 
 This means that we can approximate 
 
-$$
+\begin{equation}
 
 p(x |D,I) \propto \int dH_0 p(H_0|I) p(D|x,H_0,I) \approx \frac{1}{N} \sum_{i=1}^N p(D | x, H_i, I)
 
-$$
+\end{equation}
 
 where we have used a uniform prior for the distance $p(x|I) \propto 1$.
 
@@ -127,21 +127,21 @@ Let us start with a single variable $X$ and a function $Y=f(X)$. How is $p(X|I)$
 
 Consider a point $X^*$ and a small interval $\delta X$ around it. The probability that $X$ lies within that interval can be written
 
-$$
+\begin{equation}
 
 p \left( X^* - \frac{\delta X}{2} \le X < X^* + \frac{\delta X}{2} \big| I \right) 
 \approx p(X=X^*|I) \delta X.
 
-$$
+\end{equation}
 
 <!-- !split -->
 Assume now that the function $f$ will map the point $X=X^*$ uniquely onto $Y=Y^*=f(X^*)$. Then there must be an interval $\delta Y$ around $Y^*$ so that the probability is conserved
 
-$$
+\begin{equation}
 
 p(X=X^*|I) \delta X = p(Y=Y^*|I) \delta Y.
 
-$$
+\end{equation}
 
 <!-- !split -->
 In the limit of infinitesimally small intervals, and with the realization that this should be true for any point $X$, we obtain the relationship
@@ -169,27 +169,27 @@ We have now seen the basic ingredients required for the propagation of errors: i
 
 Let us consider the situation where you are interested in the quantity $Z = X + Y$, and you have information $I$ about $X$ and $Y$ which tells you that $X = x_0 \pm \sigma_x$ and $Y = y_0 \pm \sigma_y$. If this is all the information that we have, it is reasonable to assume that $X$ and $Y$ are independent and that we should assign Gaussian pdf:s (see the chapter on the Maximum Entropy principle)
 
-$$
+\begin{equation}
 p(X,Y|I) = p(X|I)p(Y|I) = \frac{1}{2\pi\sigma_x\sigma_y} \exp\left[ - \frac{(X-x_0)^2}{2\sigma_x^2} \right] \exp\left[ - \frac{(Y-y_0)^2}{2\sigma_y^2} \right].
-$$
+\end{equation}
 
 Let us now use marginalization and the product rule to find
 
-$$
+\begin{equation}
 p(Z|I) = \int p(Z,X,Y|I)dXdY = \int p(Z|X,Y,I) p(X,Y|I)dXdY.
-$$
+\end{equation}
 
 We realize that $p(Z|X,Y,I) = \delta(Z-(X+Y))$ due to the functional relationship between the parameters, and we have $p(X,Y|I)$ as a product of Gaussian pdf:s from above. The delta function can be used to evaluate one of the integrals, and the pdf for $Z$ becomes a convolution
 
-$$
+\begin{equation}
 p(Z|I) = \int p(X|I) p(Y=Z-X|I) dX = \frac{1}{2\pi\sigma_x\sigma_y} \int \exp\left[ - \frac{(X-x_0)^2}{2\sigma_x^2} \right] \exp\left[ - \frac{(Z - X - y_0)^2}{2\sigma_y^2} \right] dX.
-$$
+\end{equation}
 
 After some tedious algebra that involves completing the square for $X$ in the exponent we obtain
 
-$$
+\begin{equation}
 p(Z|I) = \frac{1}{\sqrt{2\pi}\sigma_z} \exp\left[ - \frac{(Z-z_0)^2}{2\sigma_z^2} \right], 
-$$
+\end{equation}
 
 with $z_0 = x_0 + y_0$ and $\sigma_z^2 = \sigma_x^2 + \sigma_y^2$. Thus, the pdf for the sum $Z=X+Y$, with $X$ and $Y$ being described by Gaussian pdf:s, is another Gaussian.
 
@@ -203,19 +203,19 @@ Suppose that we have summarized the pdfs $p(X|I)$ and $p(Y|I)$ as two Gaussians 
 <!-- !split -->
 Suppose now that we are interested in $Z=X-Y$. Intuitively, we might guess that the best estimate $z_0 = x_0 - y_0$, but the error bar $\sigma_z$ requires some more thought. Differentiate the relation
 
-$$
+\begin{equation}
 
 \delta Z = \delta X - \delta Y.
 
-$$
+\end{equation}
 
 Square both sides and integrate to get the expectation value
 
-$$
+\begin{equation}
 
 \langle \delta Z^2 \rangle = \langle \delta X^2 + \delta Y^2 - 2 \delta x \delta Y \rangle = \langle \delta X^2 \rangle + \langle  \delta Y^2 \rangle - 2 \langle \delta X \delta Y \rangle,
 
-$$
+\end{equation}
 
 where we have employed the linear property for an integral over a sum of terms.
 
@@ -228,39 +228,39 @@ $$ (eq:stddev)
 
 and we find that
 
-$$
+\begin{equation}
 
 \sigma_z = \sqrt{ \langle \delta Z^2 \rangle } = \sqrt{ \sigma_x^2 + \sigma_y^2 }.
 
-$$
+\end{equation}
 
 <!-- !split -->
 Consider, as a second example, the ratio of two parameters $Z = X/Y$. Differentiation gives
 
-$$
+\begin{equation}
 
 \delta Z = \frac{Y \delta X - X \delta Y}{Y^2} \quad \Leftrightarrow \quad \frac{\delta Z}{Z} = \frac{\delta X}{X} - \frac{\delta Y}{Y}.
 
-$$
+\end{equation}
 
 Squaring both sides and taking the expectation values, we obtain
 
-$$
+\begin{equation}
 
 \frac{\langle \delta Z^2 \rangle}{z_0^2} = \frac{\langle \delta X^2 \rangle}{x_0^2} + \frac{\langle \delta Y^2 \rangle}{y_0^2} - 2 \frac{\langle \delta X \rangle \langle \delta ZY \rangle}{x_0 y_0},
 
-$$
+\end{equation}
 
 where the $X$, $Y$ and $Z$ in the denominator have been replaced by the constants $x_0$, $y_0$ and $z_0 = x_0 / y_0$ because we are interested in deviations from the peak of the pdf.
 
 <!-- !split -->
 Finally, substituting the information for the pdfs of $X$ and $Y$ as summarized in Eq. {eq}`eq:stddev` we finally obtain the propagated error for the ratio
 
-$$
+\begin{equation}
 
 \frac{\sigma_z}{z_0} = \sqrt{ \left( \frac{\sigma_x}{x_0} \right)^2 + \left( \frac{\sigma_y}{y_0} \right)^2}.
 
-$$
+\end{equation}
 
 <!-- !split -->
 Despite its virtues, let us end our discussion of error-propagation with a salutary warning against the blind use of this nifty short cut.
@@ -277,13 +277,13 @@ Despite its virtues, let us end our discussion of error-propagation with a salut
 
 Obviously, we have that $f_0 = \sqrt{A_0}$. Differentiate the relation, square and take the expectation value
 
-$$
+\begin{equation}
 
 \langle \delta A^2 \rangle = 4 f_0^2 \langle \delta f^2 \rangle \quad 
 \Leftrightarrow \quad 
 \sigma_f = \frac{\sigma_A}{2 \sqrt{A_0}},
 
-$$
+\end{equation}
 
 where we have used the Gaussian approximation for the pdfs.
 
@@ -297,18 +297,18 @@ We have made two mistakes:
 <!-- !split -->
 Consider first the best fit of the signal peak. It implies that the likelihood can be approximated by
 
-$$
+\begin{equation}
 
 p(D | A, I) \propto \exp \left[ -\frac{(A-A_0)^2}{2\sigma_A^2} \right].
 
-$$
+\end{equation}
 
 However, the posterior for $A$ is $p(A|D,I) \propto p(D|A,I) p(A|I)$ and we should use the fact that we know that $A \ge 0$.
 
 <!-- !split -->
 We will incorporate this information through a simple step-function prior
 
-$$
+\begin{equation}
 
 p(A|I) = \left\{
 \begin{array}{ll}
@@ -317,22 +317,22 @@ p(A|I) = \left\{
 \end{array}
 \right.
 
-$$
+\end{equation}
 
 This implies that the posterior will be a truncated Gaussian, and its maximum will always be above zero.
 
 <!-- !split -->
 This also implies that we cannot use the Gaussian approximation. Instead we will do the proper calculation using the transformation {eq}`eq:transformation`
 
-$$
+\begin{equation}
 
 p(f|D,I) = p(A|D,I) \left| \frac{dA}{df} \right| = 2 f p(A|D,I)
 
-$$
+\end{equation}
 
 In the end we find the proper Bayesian error propagation given by the pdf
 
-$$
+\begin{equation}
 
 p(f|D,I) \propto \left\{
 \begin{array}{ll}
@@ -341,7 +341,7 @@ f \exp \left[ -\frac{(A-A_0)^2}{2\sigma_A^2} \right], & 0 \le f \le \sqrt{A_\mat
 \end{array}
 \right.
 
-$$
+\end{equation}
 
 <!-- !split -->
 Let us visualize the difference between the Bayesian and the naive error propagation for a few scenarios.

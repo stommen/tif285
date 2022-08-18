@@ -2,22 +2,22 @@
 # Markov Chain Monte Carlo sampling
 We have been emphasizing that everything is a pdf in the Bayesian approach. In particular, we studied parameter estimation for which we were interested in the posterior pdf of parameters $\boldsymbol{\theta}$ in a model $M$ given data $D$ and other information $I$
 
-$$
+\begin{equation}
 p(\boldsymbol{\theta} | D, I) \equiv p(\boldsymbol{\theta}).
-$$
+\end{equation}
 
 <!-- !split -->
 Suppose that this parametrized model can make predictions for some quantity $y = f(\boldsymbol{\theta})$ that was not part of the original data set $D$ used to constrain the model. The result of such a prediction is best represented by a posterior *predictive distribution** (ppd)
 
-$$
+\begin{equation}
 \{f(\boldsymbol{\theta}) : \boldsymbol{\theta} \sim p(\boldsymbol{\theta} | D, I) \}.
-$$
+\end{equation}
 
 The ppd is the set of all predictions computed over likely values of the model parameters, i.e., drawing from the posterior pdf for $\boldsymbol{\theta}$. Let us express the expectation value of this prediction, which turns into a multidimensional integral
 
-$$
+\begin{equation}
 \langle f(\boldsymbol{\theta}) \rangle = \int f(\boldsymbol{\theta}) p(\boldsymbol{\theta} | D,I) d \boldsymbol{\theta} \equiv \int g( \boldsymbol{\theta} ) d\boldsymbol{\theta}.
-$$ 
+\end{equation} 
 
 <!-- !split -->
 Note that this is much more involved than traditional calculations in which we would use a single vector of parameters, e.g., denoted $\boldsymbol{\theta}^*$, that we might have found by maximizing a likelihood. Instead, $\langle f( \boldsymbol{\theta} ) \rangle$ means that we do a multidimensional integral over the full range of possible $\boldsymbol{\theta}$ values, weighted by the probability density function, $p(\boldsymbol{\theta} |D,I)$ that we have inferred.
@@ -25,9 +25,9 @@ Note that this is much more involved than traditional calculations in which we w
 * This is a lot more work!
 * The same sort of multidimensional integrals appear when we want to marginalize over a subset of parameters $\boldsymbol{\theta}_B$ to find a pdf for the rest, $\boldsymbol{\theta}_A$ 
 
-$$
+\begin{equation}
 p(\boldsymbol{\theta}_A | D, I) = \int p(\boldsymbol{\theta}_A, \boldsymbol{\theta}_B | D, I) d\boldsymbol{\theta}_B.
-$$
+\end{equation}
 
 * An example of such a marginalization procedure would be the inference of the masses of binary black holes from gravitational-wave signals. In such a data analysis there are many (nuisance) parameters that characterize, e.g., background noise which should be integrated out.
 * Therefore, in the Bayesian approach we will frequently encounter these multidimensional integrals. However, conventional methods for low dimensions (Gaussian quadrature or Simpson's rule) become inadequate rapidly with the increase of dimension.
@@ -39,50 +39,50 @@ To approximate such integrals one turns to Monte Carlo (MC) methods. The straigh
 
 <!-- !split -->
 
-$$
+\begin{equation}
 
 \langle f( \boldsymbol{\theta} ) \rangle = \int_V g( \boldsymbol{\theta} ) d\boldsymbol{\theta} \approx V \langle g( \boldsymbol{\theta} ) \rangle 
 \pm V \sqrt{ \frac{\langle g^2( \boldsymbol{\theta} ) \rangle - \langle g( \boldsymbol{\theta} ) \rangle^2 }{n} },
 
-$$
+\end{equation}
 
 where
 
-$$
+\begin{equation}
 
 \langle g( \boldsymbol{\theta} ) \rangle = \frac{1}{n} \sum_{i=0}^{n-1} g(\boldsymbol{\theta}_i ), \qquad
 
 \langle g^2( \boldsymbol{\theta} ) \rangle = \frac{1}{n} \sum_{i=0}^{n-1} g^2(\boldsymbol{\theta}_i )
 
-$$
+\end{equation}
 
 <!-- !split -->
 ### Example: One-dimensional integration
 
 The average of a function $g(\theta)$ on $\theta \in [a,b]$ is
 
-$$
+\begin{equation}
 
 \overline{g(\theta)} = \frac{1}{b-a} \int_a^b g(\theta) d\theta,
 
-$$
+\end{equation}
 
 from calculus. However, we can estimate $\overline{g(\theta)}$ by averaging over a set of random samples
 
-$$
+\begin{equation}
 
 \overline{g(\theta)} \approx \frac{1}{n} \sum_{i=0}^{n-1} g(\theta_i).
 
-$$
+\end{equation}
 
 Let us consider the integral
 
-$$
+\begin{equation}
 
 \langle f(\theta) \rangle = \int_a^b g(\theta) d\theta \approx 
 \frac{b-a}{n} \sum_{i=0}^{n-1} g(\theta_i),
 
-$$
+\end{equation}
 
 where $b-a$ is the volume $V$.
 
@@ -149,12 +149,12 @@ The basic structure of the Metropolis (and Metropolis-Hastings) algorithm is the
 <!-- !split -->
 The Metropolis(-Hastings) ratio is
 
-$$
+\begin{equation}
     
     r = \frac{p( \boldsymbol{\phi} | D,I)}{p( \boldsymbol{\theta}_i | D,I)}
     \times \frac{q( \boldsymbol{\theta}_i | \boldsymbol{\phi} )}{q( \boldsymbol{\phi} | \boldsymbol{\theta}_i )}.
     
-$$
+\end{equation}
 
 * The Metropolis algorithm dates back to the 1950s in physics, but didn't become widespread in statistics until almost 1980.
 * It enabled Bayesian methods to become feasible.

@@ -14,21 +14,21 @@
 ## Location invariance
 Indifference to a constant shift $x_0$ for a location parameter $x$ implies that
 
-$$
+\begin{equation}
 
 p(x|I) dx \approx p(x+ x_0|I) d(x+x_0) =  p(x+ x_0|I) dx,
 
-$$
+\end{equation}
 
 in the allowed range.
 
 Location invariance implies that
 
-$$
+\begin{equation}
 
 p(x|I) =  p(x+ x_0|I) \quad \Rightarrow \quad p(x|I) = \mathrm{constant}.
 
-$$
+\end{equation}
 
 * Provided that the prior information $I$ says nothing that breaks the symmetry.
 * The pdf will be zero outside the allowed range (specified by $I$).
@@ -38,22 +38,22 @@ $$
 
 Indifference to a re-scaling $\lambda$ of a scale parameter $x$ implies that
 
-$$
+\begin{equation}
 
 p(x|I) dx \approx p(\lambda x|I) d(\lambda x) =  \lambda p(\lambda x|I) dx,
 
-$$
+\end{equation}
 
 in the allowed range.
 
 <!-- !split -->
 Invariance under re-scaling implies that
 
-$$
+\begin{equation}
 
 p(x|I) = \lambda p(\lambda x|I) \quad \Rightarrow \quad p(x|I) \propto 1/x.
 
-$$
+\end{equation}
 
 * Provided that the prior information $I$ says nothing that breaks the symmetry.
 * The pdf will be zero outside the allowed range (specified by $I$).
@@ -67,11 +67,11 @@ $$
 
 Consider the theoretical model 
 
-$$
+\begin{equation}
 
 y_\mathrm{th}(x) = \theta_1  x  + \theta_0.
 
-$$
+\end{equation}
 
 * Would you consider the intercept $\theta_0$ a location or a scale parameter, or something else?
 * Would you consider the slope $\theta_1$ a location or a scale parameter, or something else?
@@ -85,26 +85,26 @@ Consider also the statistical model for the observed data $y_i = y_\mathrm{th}(x
 * In fact, by symmetry indifference we could as well have written the linear model as $x_\mathrm{th}(y) = \theta_1'  y  + \theta_0'$
 * We would then equate the probability elements for the two models 
 
-$$
+\begin{equation}
 
 p(\theta_0, \theta_1 | I) d\theta_0 d\theta_1 = q(\theta_0', \theta_1' | I) d\theta_0' d\theta_1'.
 
-$$
+\end{equation}
 
 * The transformation gives $(\theta_0', \theta_1') = (-\theta_1^{-1}\theta_0, \theta_1^{-1})$.
 
 <!-- !split -->
 This change of variables implies that
 
-$$
+\begin{equation}
 
 q(\theta_0', \theta_1' | I) = p(\theta_0, \theta_1 | I) \left| \frac{d\theta_0 d\theta_1}{d\theta_0' d\theta_1'} \right|,
 
-$$
+\end{equation}
 
 where the (absolute value of the) determinant of the Jacobian is
 
-$$
+\begin{equation}
 
 \left| \frac{d\theta_0 d\theta_1}{d\theta_0' d\theta_1'} \right| 
 = \mathrm{abs} \left( 
@@ -115,17 +115,17 @@ $$
 \right)
 = \frac{1}{\left( \theta_1' \right)^3}.
 
-$$
+\end{equation}
 
 <!-- !split -->
 * In summary we find that $\theta_1^3 p(\theta_0, \theta_1 | I) = p(-\theta_1^{-1}\theta_0, \theta_1^{-1}|I).$
 * This functional equation is satisfied by
 
-$$
+\begin{equation}
 
 p(\theta_0, \theta_1 | I) \propto \frac{1}{\left( 1 + \theta_1^2 \right)^{3/2}}.
 
-$$
+\end{equation}
 
 <!-- !split -->
 <!-- <img src="fig/MaxEnt/slope_priors.png" width=800><p><em>100 samples of straight lines with fixed intercept equal to 0 and slopes sampled from three different pdfs. Note in particular the  prior preference for large slopes that results from using a uniform pdf.</em></p> -->

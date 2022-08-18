@@ -1,22 +1,23 @@
 
 <!-- !split -->
 # Inference With Parametric Models
+
 Inductive inference with parametric models is a very important tool in the natural sciences.
 * Consider $N$ different models $M_i$ ($i = 1, \ldots, N$), each with a parameter vector $\boldsymbol{\theta}_i$. The number of parameters (length of $\boldsymbol{\theta}_i$) might be different for different models. Each of them implies a sampling distribution for possible data
 
-$$
+\begin{equation}
 
 p(D|\boldsymbol{\theta}_i, M_i)
 
-$$
+\end{equation}
 
 * The likelihood function is the pdf of the actual, observed data ($D_\mathrm{obs}$) given a set of parameters $\boldsymbol{\theta}_i$:
 
-$$
+\begin{equation}
 
 \mathcal{L}_i (\boldsymbol{\theta}_i) \equiv p(D_\mathrm{obs}|\boldsymbol{\theta}_i, M_i)
 
-$$
+\end{equation}
 * We may be uncertain about $M_i$ (model uncertainty),
 * or uncertain about $\boldsymbol{\theta}_i$ (parameter uncertainty).
 
@@ -50,7 +51,9 @@ $$
 
 
 <!-- !split -->
+
 ## Parameter estimation
+
 Overview comments:
 * In general terms, "parameter estimation" in physics means obtaining values for parameters (constants) that appear in a theoretical model which describes data (exceptions to this general definition exist of course).
 * Conventionally this process is known as "parameter fitting" and very often the goal is just to find the "best fit".
@@ -62,7 +65,9 @@ Overview comments:
 
 
 <!-- !split -->
+
 ### Bayesian parameter estimation
+
 We will now consider the Bayesian approach to the very important task of model parameter estimation using statistical inference. 
 
 Let us first remind ourselves what can go wrong in a fit. We have encountered both **underfitting** (model is not complex enough to describe the variability in the data) and **overfitting** (model tunes to data fluctuations, or terms are underdetermined causing them playing off each other). Bayesian methods can prevent/identify both these situations.
@@ -79,7 +84,9 @@ Joint pdf for the masses of two black holes merging obtained from the data analy
 
 <!-- !split -->
 <!-- ===== Example: Measured flux from a star (single parameter) ===== -->
+
 ## Example: Measured flux from a star (single parameter)
+
 Adapted from the blog [Pythonic Perambulations](http://jakevdp.github.io) by Jake VanderPlas.
 
 Imagine that we point our telescope to the sky, and observe the light coming from a single star. Our physics model will be that the star's true flux is constant with time, i.e. that  it has a fixed value $F_\mathrm{true}$ (we'll also ignore effects like sky noise and other sources of systematic error). Thus, we have a single model parameter: $F_\mathrm{true}$.
@@ -293,9 +300,9 @@ Since the probability (density) associated with any particular value of the para
 
 For a pdf that is symmetric around the mode $\theta_0$ we can find a positive number $\Delta \theta$ such that
 
-$$
+\begin{equation}
 p(\theta_0-\Delta\theta < \theta < \theta_0+\Delta\theta | D,I) = \int_{\theta_0-\Delta\theta}^{\theta_0+\Delta\theta} p(\theta|D,I) d\theta = m.
-$$
+\end{equation}
 
 The single error bar $\Delta\theta$, or $\theta_0 \pm \Delta\theta$, then defines an $100 \times m\%$ *credible interval*.
 
@@ -306,9 +313,9 @@ While the maximum (mode) of the posterior ($\theta_0$) can still be regarded as 
 
 Furthermore, the concept of a single error bar does not seem appropriate in this case, as it implicitly entails the idea of symmetry. A good way of expressing the reliability with which a parameter can be inferred, for an asymmetric posterior pdf, is rather through specifying the *credible interval*. Since the area under the posterior pdf between $[\theta_1,\theta_2]$ is proportional to how much we believe that $\theta$ lies in that range, the shortest interval that encloses $m$ probability mass represents an $100 \times m\%$ credible interval for the estimate. Obviously we can choose to provide any degree-of-belief intervals that we think are relevant for the case at hand. Assuming that the posterior pdf has been normalized, to have unit area, we need to find $\theta_1$ and $\theta_2$ such that: 
 
-$$
+\begin{equation}
 p(\theta_1 < \theta < \theta_2 | D,I) = \int_{\theta_1}^{\theta_2} p(\theta|D,I) d\theta = m.
-$$
+\end{equation}
 
 Note that oen can come up with other choices for the interval $[\theta_1,\theta_2]$ that still gives $m$ integrated probability mass. The choice for which the distance $\theta_2 - \theta_1$ is as small as possible is usually called the highest posterior density (HPD) interval.  
 
@@ -389,9 +396,9 @@ The example in the demonstration notebook is from Sivia's book. How do we infer 
 <!-- !split -->
 Start from Bayes theorem
 
-$$
+\begin{equation}
 p(\mu,\sigma | D, I) = \frac{p(D|\mu,\sigma,I) p(\mu,\sigma|I)}{p(D|I)}
-$$
+\end{equation}
 
 * Remind yourself about the names of the different terms.
 * It should become intuitive what the different probabilities (pdfs) describe.
@@ -401,23 +408,23 @@ $$
 Aside on the denominator, which is known as the "data probability" or "marginalized likelihood" or "evidence". 
 * With $\theta$ denoting a general vector of parameters we must have
 
-$$
+\begin{equation}
 p(D|I) = \int d\theta p(D|\theta,I) p(\theta|I).
-$$
+\end{equation}
 
 * This integration (or marginalization) over all parameters is often difficult to perform.
 * Fortunately, for **parameter estimation** we don't need $p(D|I)$ since it doesn't depend on $\theta$. We usually only need relative probabilities, or we can determine the normalization $N$ after we have computed the unnormalized posterior 
 
-$$
+\begin{equation}
 p(\theta | D,I) = \frac{1}{N} p(D|\theta,I) p(\theta|I).
-$$
+\end{equation}
 
 <!-- !split -->
 If we use a uniform prior $p(\theta | I ) \propto 1$ (in a finite volume), then the posterior is proportional to the **likelihood**
 
-$$
+\begin{equation}
 p(\theta | D,I) \propto p(D|\theta,I) = \mathcal{L}(\theta)
-$$
+\end{equation}
 
 In this particular situation, the mode of the likelihood (which would correspond to the point estimate of maximum likelihood) is equivalent to the mode of the posterior pdf in the Bayesian analysis.
 
@@ -432,28 +439,28 @@ The next example that we will study is the well known fit of a straight line.
 
 * Here the theoretical model is
 
-$$
+\begin{equation}
 y_\mathrm{th}(x; \theta) = m x + b,
-$$
+\end{equation}
 
 with parameters $\theta = [b,m]$. The theoretical model is related to reality via the statistical model
 
-$$
+\begin{equation}
 y_{i} = y_{\mathrm{th},i} + \varepsilon_i, 
-$$
+\end{equation}
 
 where we often assume that the experimental errors are independent and normally distributed (with a standard deviation $e_i$) so that
 
-$$
+\begin{equation}
 y_i \sim \mathcal{N} \left( y_\mathrm{th}(x_i; \theta), e_i^2 \right).
-$$
+\end{equation}
 
 
 * The statistical model for the data is
 
-$$
+\begin{equation}
 y_{\mathrm{exp},i} = y_{i} + \delta y_{\mathrm{exp},i},
-$$
+\end{equation}
 
 * Are independent errors always a good approximation?
 
@@ -461,29 +468,29 @@ $$
 ### Linear regression revisited
 At this point it is instructive to revisit the linear regression method that we started out with. It corresponds to models that are linear in the parameters such that
 
-$$
+\begin{equation}
 y_\mathrm{th} = \sum_{j=0}^{p-1} \theta_j g_j(x),
-$$
+\end{equation}
 
 with $p$ parameters and $g_j(x)$ denoting the basis functions.
 
 With a likelihood as before
 
-$$
+\begin{equation}
 p(D|\theta,I) = \prod_{i=0}^{N-1} \exp \left[ -\frac{\left(y_i - y_\mathrm{th}(x_i;\theta) \right)^2}{2\sigma_i^2} \right],
-$$
+\end{equation}
 
 and assuming a Gaussian prior with a single width $\sigma_\theta$ on the parameters
 
-$$
+\begin{equation}
 p(\theta|I) \propto \prod_{j=0}^{p-1} \exp \left[ -\frac{\theta_j^2}{2\sigma_\theta^2} \right].
-$$
+\end{equation}
 
 We note that the prior can be written $\exp\left( -|\theta|^2 / 2 \sigma_\theta^2\right)$, such that the log (unnormalized) posterior becomes
 
-$$
+\begin{equation}
 \log \left[ p(\theta|D,I) \right] = -\frac{1}{2} \left[ \sum_{i=0}^{N-1} \left( \frac{ y_i - y_\mathrm{th}(x_i;\theta)}{\sigma_i}\right)^2 + \frac{|\theta|^2}{\sigma_\theta^2} \right].
-$$
+\end{equation}
 
 The mode of the posterior pdf occurs at the minimum of this log-posterior function. You might recognise it as the modified cost function that we introduced in a rather *ad hoc* fashion when implementing linear regression with Ridge regularisation.  From our Bayesian perspective, linear regression with Ridge regularisation corresponds to the maximum a posteriori (MAP) estimate with a Gaussian prior on the parameters.
 
@@ -495,17 +502,17 @@ Let us give a quick motivation why Gaussian distributions show up so often. In f
 #### One-dimensional normal distributions
 The expression for a one-dimensional normal distribution is
 
-$$
+\begin{equation}
 p(\theta) = \frac{1}{N} \exp \left[ -\frac{1}{2} \frac{(\theta-\theta_0)^2}{\sigma^2} \right],
-$$
+\end{equation}
 
 where the normalization is $N=\sqrt{2\pi\sigma^2}$.
 
 The mode of this distribution is at $\theta=\theta_0$. The probability density at the mode is $p(\theta_0) = 1/N$, while it is a factor $e^{-1/2}$ smaller a distance $\sigma$ away. Furthermore, the integral
 
-$$
+\begin{equation}
 p(\theta_0-\sigma < \theta < \theta_0+\sigma | D,I) = \int_{\theta_0-\sigma}^{\theta_0+\sigma} p(\theta|D,I) d\theta \approx 0.68,
-$$
+\end{equation}
 
 which implies that the interval $[\theta_0-\sigma, \theta_0+\sigma]$ is a Bayesian 68% credible interval.
 
@@ -519,51 +526,51 @@ p(\theta|D,I) \approx \frac{1}{\sigma\sqrt{2\pi}} \exp \left[ -\frac{(\theta-\mu
 
 where the mean $\mu = \theta_0$ and the variance $\sigma = \left( - \left. \frac{d^2L}{d\theta^2} \right|_{\theta_0} \right)^{-1/2}$, where $L$ is the logarithm of the posterior $P$. Our inference about the quantity of interest is conveyed very concisely, therefore, by the 67% Bayesian credible interval $\theta = \theta_0 \pm \sigma$, and 
 
-$$
+\begin{equation}
 p(\theta_0-\sigma < \theta < \theta_0+\sigma | D,I) = \int_{\theta_0-\sigma}^{\theta_0+\sigma} p(\theta|D,I) d\theta \approx 0.67.
-$$
+\end{equation}
 
 
 #### The Laplace approximation
 
 Say that we have a general pdf $p(\theta | D,I)$ with a mode at $\theta = \theta_0$ where
 
-$$ 
+\begin{equation} 
 \left. 
 \frac{ \partial p }{ \partial \theta }
 \right|_{\theta=\theta_0} = 0, \qquad
 \left. \frac{ \partial^2 p }{ \partial \theta^2 }
 \right|_{\theta=\theta_0} < 0.
-$$
+\end{equation}
 
 The distribution usually varies very rapidly so we study $L(\theta) \equiv \log \left( p(\theta) \right)$ instead.
 
 When considering the behaviour of any function in the neighbourhood of a particular point, it is often helpful to carry out a Taylor series expansion; this is simply a standard tool for (locally) approximating a complicated function by a low-order polynomial. Near the peak, our pdf behaves as
 
-$$
+\begin{equation}
 L(\theta) = L(\theta_0) + \frac{1}{2} \left. \frac{\partial^2 L}{\partial \theta^2} \right|_{\theta_0} \left( \theta - \theta_0 \right)^2 + \ldots,
-$$
+\end{equation}
 
 where the first-order term is zero since we are expanding around a maximum and $\partial L / \partial\theta = 0$. The second term is negative since the curvature is negative at the peak,which we indicate by writing $-\frac{1}{2} \left| \frac{\partial^2 L}{\partial \theta^2} \right|_{\theta=\theta_0}$. Furthermore, higher order terms can be neglected **if**
 
-$$
+\begin{equation}
 (\theta-\theta_0)^k \frac{ \partial^{2+k} L }{ \partial \theta^{2+k} } \ll \frac{ \partial^2 L }{ \partial \theta^2 },
-$$
+\end{equation}
 
 for $k=1,2,\ldots$. This will often be true for small distances $\theta-\theta_0$.
 
 <!-- !split -->
 Consequently, if we neglect higher-order terms we find that 
 
-$$
+\begin{equation}
 p(\theta|D,I) \approx A \exp \left[ -\frac{1}{2} \left| \frac{\partial^2 L}{\partial \theta^2} \right|_{\theta=\theta_0} \left( \theta - \theta_0 \right)^2  \right],
-$$
+\end{equation}
 
 which is a Gaussian $\mathcal{N}(\mu,\sigma^2)$ with
 
-$$
+\begin{equation}
 \mu = \theta_0, \qquad \frac{1}{\sigma^2} = \left| \frac{\partial^2 L}{\partial \theta^2} \right|_{\theta=\theta_0} .
-$$
+\end{equation}
 
 <!-- !split -->
 ### Correlations
@@ -577,31 +584,31 @@ Let us explore correlations by studying the behavior of a bivariate pdf near the
 
 Independence implies that $p(x,y) = p_x(x) p_y(y)$. We will again consider the log-pdf $L(x,y) = \log\left( p(x,y) \right)$ which will then be
 
-$$
+\begin{equation}
 L(x,y) = L_x(x) + L_y(y).
-$$
+\end{equation}
 
 At the mode we will have $\partial p / \partial x = \partial p_x / \partial x = \partial L_x / \partial x = 0$, and similarly $\partial L_y / \partial y = 0$.
 
 The second derivatives will be
 
-$$
+\begin{equation}
 A \equiv \left. \frac{\partial^2 L_x}{\partial x^2} \right|_{x=x_0} < 0, \quad
 B \equiv \left. \frac{\partial^2 L_y}{\partial y^2} \right|_{y=y_0} < 0, \quad
 C \equiv \left. \frac{\partial L(x,y)}{\partial x \partial y} \right|_{x=x_0,y=y_0} = 0.
-$$
+\end{equation}
 
 such that our approximated (log) pdf near the mode will be
 
-$$
+\begin{equation}
 L(x,y) = L(x_0, y_0) - \frac{1}{2} |A| (x-x_0)^2 - \frac{1}{2} |B| (y-y_0)^2.
-$$
+\end{equation}
 
 We could visualize this bivariate pdf by plotting iso-probability contours. Or, equivalently, iso-log-probability contours which correspond to
 
-$$
+\begin{equation}
 |A| (x-x_0)^2 + |B| (y-y_0)^2 = \mathrm{constant}.
-$$
+\end{equation}
 
 This you should recognize as the equation for an ellipse with its center in $(x_0, y_0)$, the principal axes corresponding to the $x$ and $y$ directions, and with the width and height parameters $\sigma_x = 1/\sqrt{|A|}$ and $\sigma_y = 1/\sqrt{|B|}$, respectively.
 
@@ -609,27 +616,27 @@ This you should recognize as the equation for an ellipse with its center in $(x_
 
 For two dependent parameters we cannot separate $p(x,y)$ into a product of one-dimensional pdf:s. Instead, the Taylor expansion for the bivariate log-pdf $L(x,y)$ around the mode $(x_0,y_0)$ gives
 
-$$
+\begin{equation}
 L(x,y) \approx L(x_0,y_0) + \frac{1}{2} \begin{pmatrix} x-x_0 & y-y_0 \end{pmatrix}
 H
 \begin{pmatrix} x-x_0 \\ y-y_0 \end{pmatrix},
-$$
+\end{equation}
 
 where $H$ is the symmetric Hessian matrix
 
-$$
+\begin{equation}
 \begin{pmatrix}
 A & C \\ C & B
 \end{pmatrix}, 
-$$
+\end{equation}
 
 with elements
 
-$$
+\begin{equation}
 A = \left. \frac{\partial^2 L}{\partial x^2} \right|_{x_0,y_0} < 0, \quad
 B = \left. \frac{\partial^2 L}{\partial y^2} \right|_{x_0,y_0} < 0, \quad
 C = \left. \frac{\partial^2 L}{\partial x \partial y} \right|_{x_0,y_0} \neq 0.
-$$
+\end{equation}
 
 <!-- !split -->
 * So in this quadratic approximation the contour is an ellipse centered at $(x_0,y_0)$ with orientation and eccentricity determined by $A,B,C$.
@@ -639,24 +646,24 @@ $$
 
 Let us be explicit. The Hessian can be diagonalized (we will also change sign)
 
-$$
+\begin{equation}
 -H = U \begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix} U^{-1},
-$$
+\end{equation}
 
 where $a$, $b$ are the (positive) eigenvalues of $-H$, and $U = \begin{pmatrix} a_x & b_x \\ a_y & b_y \end{pmatrix}$ is constructed from the eigenvectors. Defining a new set of translated and linearly combined parameters
 
-$$
+\begin{equation}
 x' = a_x (x - x_0) + a_y (y - y_0) \\
 y' = b_x (x - x_0) + b_y (y - y_0) 
-$$
+\end{equation}
 
 we find that the pdf becomes independent in this new pair of parameters
 
-$$
+\begin{equation}
 L(x',y') = L(0,0) - \frac{1}{2} \begin{pmatrix} x' & y' \end{pmatrix}
 \begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix}
 \begin{pmatrix} x' \\ y' \end{pmatrix} \\
 \qquad = L(0, 0) - \frac{1}{2} a (x')^2 - \frac{1}{2} b (y')^2.
-$$
+\end{equation}
 
 * Take a minute to consider what has been achieved by this change of variables.

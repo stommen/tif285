@@ -29,11 +29,9 @@ Assess hypotheses by calculating their probabilities $p(H_i | \ldots)$ condition
 ## Bayes' theorem
 Bayes' theorem follows directly from the product rule
 
-$$
-
+\begin{equation}
 p(A|B,I) = \frac{p(B|A,I) p(A|I)}{p(B|I)}.
-
-$$
+\end{equation}
 
 The importance of this property to data analysis becomes apparent if we replace $A$ and $B$ by hypothesis($H$) and data($D$):
 \begin{align}

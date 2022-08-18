@@ -43,11 +43,11 @@ A very common statistic to use is the $\chi^2$ measure. A good example is found 
 * In this example, it is assumed that the measurement errors are independent and identically distributed (**iid**) according to a normal distribution with a fixed standard deviation $\sigma$ that is known beforehand.
 * The $\chi^2$ statistic from the data set is evaluated ($x_i$ is the data and $\bar{x}$ is the average from the sample)
 
-$$
+\begin{equation}
 
 \chi^2 = \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{\sigma^2}.
 
-$$
+\end{equation}
 
 <!-- !split -->
 * In our example we had 15 data points, but we are using them first to estimate the mean $\mu$. Therefore, we lose one degree of freedom and are left with 14. This number will determine the form of the $\chi^2$ distribution that will be used for comparison with our actual $\chi^2$ statistic.
@@ -134,9 +134,9 @@ having set the limits according to the specified range. Assuming that the sharp 
 do not cause a significant truncation of the Gaussian pdf of the likelihood,
 its integral will be equal to $(\delta\lambda) \sqrt{2\pi}$ times $p(D|\lambda_0,B,I)$. The troublesome term then reduces to
 
-$$
+\begin{equation}
 p(D|B,I) = \frac{1}{\lambda_\mathrm{max} - \lambda_\mathrm{min}} p(D|\lambda_0,B,I) (\delta\lambda) \sqrt{2\pi}.
-$$
+\end{equation}
 
 Substituting this into Eq. {eq}`eq:sivia_42`, we finally see that the ratio of the posteriors required to answer our original question decomposes into the product of three terms:
 
@@ -165,9 +165,9 @@ $$ (eq:sivia_49)
 <!-- !split -->
 This could represent the situation where we have to choose between a Gaussian and Lorentzian shape for a signal peak, but one associated parameter is not known. The position of the maximum may be fixed at the origin by theory, for example, and the amplitude constrained by the normalization of the data; A and B could then be the hypotheses favouring the alternative lineshapes, where $\delta\mu$ and $\delta\lambda$ are their related full-width-half-maxima. If we give equal weight to A and B before the analysis, and assign a similar large prior range for both $\mu$ and $\lambda$, then Eq. {eq}`eq:sivia_49` reduces to
 
-$$
+\begin{equation}
 \frac{p(A|D,I)}{p(B|D,I)} \approx  \frac{p(D|\mu_0,A,I)}{p(D|\lambda_0,B,I)} \times \frac{\delta\mu}{\delta\lambda}. 
-$$
+\end{equation}
 
 <!-- !split -->
 For data of good quality, the dominant factor will tend to be the best-fit likelihood ratio. If both give comparable agreement with the measurements, however, then the shape with the larger error-bar for its associated parameter will be favoured. At first sight, it might seem rather odd that the less discriminating theory can gain the upper hand. It appears less strange once we realize that, in the context of model selection, a larger ‘error-bar’ means that more parameter values are consistent with the given hypothesis; hence its preferential treatment.
@@ -177,9 +177,9 @@ For data of good quality, the dominant factor will tend to be the best-fit likel
 
 Finally, we can also consider the situation where Mr A and Mr B have the same physical theory but assign a different prior range for $\lambda$ (or $\mu$). Although Eq. {eq}`eq:sivia_48` can be seen as representing the case when $(\mu_\mathrm{max} - \mu_\mathrm{min})$ is infinitesimally small, so that A has no flexibility, Eq. {eq}`eq:sivia_49` is more appropriate when the limits set by both theorists are large enough to encompass all the parameter values giving a reasonable fit to the data. With equal initial weighting towards A and B, the latter reduces to
 
-$$
+\begin{equation}
 \frac{p(A|D,I)}{p(B|D,I)} =  \frac{\lambda_\mathrm{max} - \lambda_\mathrm{min}}{\mu_\mathrm{max} - \mu_\mathrm{min}}. 
-$$
+\end{equation}
 
 because the best-fit likelihood ratio will be unity (since $\lambda_0 = \mu_0$) and $\delta\lambda = \delta\mu$. Thus, our analysis will lead us to prefer the theorist who gives the narrower prior range; this is not unreasonable as he must have had some additional insight to be able to predict the value of the parameter more accurately.
 
@@ -210,47 +210,47 @@ The actual computation of Bayesian evidences can be a challenging task. Recall t
 The idea behind Laplace's method is simple, namely to use the Taylor expansion of a function around its peak to construct a Gaussian approximation which can be easily integrated. Let us consider an unnormalized density $P^*(\theta)$ that has a peak at a point $\theta_0$. 
 We are interested in the evidence, $Z_P$, which is given by the integral
 
-$$
+\begin{equation}
 Z_P = \int P^*(\theta) d^K\theta,
-$$ 
+\end{equation} 
 
 where we consider the general case in which $\theta$ is a $K$-dimensional vector of parameters. 
 
 <!-- !split -->
 We Taylor-expand the logarithm $\log P^*$ around the peak:
 
-$$
+\begin{equation}
 \log P^*(\theta) = \log P^*(\theta_0) - \frac{1}{2} (\theta - \theta_0)^T \Sigma^{-1} (\theta - \theta_0) + \ldots,
-$$
+\end{equation}
 
 where $\Sigma^{-1} \equiv H$ is the (Hessian) matrix of second derivatives at the maximum
 
-$$
+\begin{equation}
 H_{ij} = - \left. \frac{\partial^2}{\partial \theta_i \partial \theta_j}  \log P^*(\theta)\right|_{\theta=\theta_0}.
-$$
+\end{equation}
 
 <!-- !split -->
 By truncating the Taylor expansion at the second order we find that $P^*(\theta)$
 is approximated by an unnormalized Gaussian, 
 
-$$
+\begin{equation}
 P^*(\theta) \approx P^*(\theta_0) \exp \left[ - \frac{1}{2}(\theta - \theta_0)^T \Sigma^{-1} (\theta - \theta_0) \right].
-$$
+\end{equation}
 
 The integral of this Gaussian is given by $P^*(\theta_0)$ times (the inverse of) its normalization constant. Thus we approximate $Z_P$ by
 
-$$
+\begin{equation}
 Z_P \approx P^*(\theta_0) \sqrt{\frac{(2\pi)^K}{\det\Sigma^{-1}}}.
-$$
+\end{equation}
 
 Predictions can then be made using this approximation. Physicists also call this widely-used approximation the saddle-point approximation.
 
 <!-- !split -->
 Note, in particular, that if we consider a chi-squared likelihood: $P^*(\theta) = \mathcal{L}(D|\theta) = \exp \left( -\frac{1}{2} \chi^2(\theta)\right)$, then we get
 
-$$
+\begin{equation}
 Z_P \approx \exp \left( -\frac{1}{2} \chi^2(\theta_0)\right) \sqrt{\frac{(4\pi)^K}{\det\Sigma^{-1}}},
-$$
+\end{equation}
 
 where there is a factor $2^{K/2}$ that comes from the extra factor $1/2$ multiplying the covariance matrix $\Sigma^{-1}$ and therefore appearing in all $K$ eigenvalues.
 
@@ -261,14 +261,14 @@ Note that the Laplace approximation is basis-dependent: if $\theta$ is transform
 ### Normalization of a multivariate Gaussian
 The fact that the normalizing constant of a Gaussian is given by 
 
-$$
+\begin{equation}
 \int d^K\theta \exp \left[ - \frac{1}{2}\theta^T \Sigma^{-1} \theta \right] = \sqrt{\frac{(2\pi)^K}{\det\Sigma^{-1}}},
-$$
+\end{equation}
 
 can be proved by making an orthogonal transformation into the basis $u$ in which $\Sigma$ is transformed into a diagonal matrix of eigenvalues $\lambda_i$. The integral then separates into a product of one-dimensional integrals, each of the form
 
-$$
+\begin{equation}
 \int du_i \exp \left[ -\frac{1}{2} \lambda_i u_i^2 \right] = \sqrt{\frac{2\pi}{\lambda_i}}
-$$
+\end{equation}
 
 The product of the eigenvalues $\lambda_i$ is the determinant of $\Sigma^{-1}$.

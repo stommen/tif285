@@ -8,11 +8,11 @@ Consider a die with the usual six faces that was rolled a very large number of t
 <!-- !split -->
 The available information can be summarized as follows
 
-$$
+\begin{equation}
 
 \sum_{i=1}^6 p_i = 1, \qquad \sum_{i=1}^6 i p_i = 2.5
 
-$$
+\end{equation}
 
 This is obviously not a normal die, with uniform probability $p_i=1/6$, since the average result would then be 3.5. But there are many candidate pdfs that would reproduce the given information. Which one should we prefer?
 
@@ -22,14 +22,14 @@ It turns out that there are several different arguments that all point in a dire
 <!-- !split -->
 It will be shown below that the preferred pdf $\{ p_i \}$ is the one that maximizes
 
-$$
+\begin{equation}
 
 Q\left( \{ p_i \} ; \lambda_0, \lambda_1 \right)
 = -\sum_{i=1}^6 p_i \log(p_i) 
 + \lambda_0 \left( 1 - \sum_{i=1}^6 p_i \right)
 + \lambda_1 \left( 2.5 - \sum_{i=1}^6 i p_i \right),
 
-$$
+\end{equation}
 
 where the constraints are included via the method of [Lagrange multipliers](https://en.wikipedia.org/wiki/Lagrange_multiplier).
 
@@ -94,48 +94,48 @@ Now, let us see how this preferred solution corresponds to the pdf with the larg
 * There are $M^N$ different ways to distribute the balls.
 * The micro-states corresponding to a particular distribution $\{ n_i\}$ are all connected to the same pdf $\{ p_i \}$. Therefore, the frequency of a given pdf is given by
 
-$$
+\begin{equation}
 
 F(\{p_i\}) = \frac{\text{number of ways of obtaining } \{n_i\}}{M^N}
 
-$$
+\end{equation}
 
 * The number of micro-states, $W(\{n_i\}))$, in the nominator is equal to $N! / \prod_{i=1}^M n_i!$. 
 * We express the logarithm of this number using the Stirling approximation for factorials of large numbers, $\log(n!) \approx n\log(n) - n$, and finding a cancellation of $N-\sum_i n_i$.
 
-$$
+\begin{equation}
 
 \log(W(\{n_i\})) = \log(N!) − \sum_{i=1}^M \log(n_i!) 
 \approx N\log(N) - \sum_{i=1}^M n_i\log(n_i),
 
-$$
+\end{equation}
 
 <!-- !split -->
 * Therefore, the logarithm of the frequency of a given pdf is
 
-$$
+\begin{equation}
 
 \log(F(\{p_i\})) \approx -N \log(M) + N\log(N) - \sum_{i=1}^M n_i\log(n_i)
 
-$$
+\end{equation}
 
 Substituting $p_i = n_i/N$, and using the normalization condition finally gives
 
-$$
+\begin{equation}
 
 \log(F(\{p_i\})) \approx -N \log(M) - N \sum_{i=1}^M p_i\log(p_i)
 
-$$
+\end{equation}
 
 <!-- !split -->
 Recall that the preferred pdf is the one that appears most frequently, i.e., that maximizes the above expression.
 We further note that $N$ and $M$ are constants such that the preferred pdf is given by the $\{ p_i \}$ that maximizes
 
-$$
+\begin{equation}
 
 S = - \sum_{i=1}^M p_i\log(p_i).
 
-$$
+\end{equation}
 
 You might recognise this quantity as the *entropy* measure from statistical mechanics. The interpretation of entropy in statistical mechanics is the measure of uncertainty that remains about a system after its observable macroscopic properties, such as temperature, pressure and volume, have been properly taken into account. For a given set of macroscopic variables, the entropy measures the degree to which the probability of the system is spread out over different possible microstates. Specifically, entropy is a logarithmic measure of the number of micro-states with significant probability of being occupied $S = -k_B \sum_i p_i \log(p_i)$, where $k_B$ is the Boltzmann constant.
 
@@ -188,21 +188,21 @@ Four different variational functions $f\left( \{ p_i \} \right)$. The optimal $x
 
 Let us return to the monkeys, but now with different probabilities for each bin. Then
 
-$$
+\begin{equation}
 
 S= −\sum_{i=1}^M p_i \log \left( \frac{p_i}{m_i} \right),
 
-$$
+\end{equation}
 
 which is often known as the *Shannon-Jaynes entropy*, or the *Kullback number*, or the *cross entropy* (with opposite sign).
 
 Jaynes (1963) has pointed out that this generalization of the entropy, including a *Leqesgue measure* $m_i$, is necessary when we consider the limit of continuous parameters. 
 
-$$
+\begin{equation}
 
 S[p]= −\int p(x) \log \left( \frac{p(x)}{m(x)} \right).
 
-$$
+\end{equation}
 
 <!-- !split -->
 * In particular, $m(x)$ ensures that the entropy expression is invariant under a change of variables $x \to y=f(x)$.
@@ -221,96 +221,96 @@ In summary, the MaxEnt approach aims to maximize the Shannon-Jaynes entropy and 
 
 Suppose that we have a pdf $p(x|I)$ that is normalized over some interval $[ x_\mathrm{min}, x_\mathrm{max}]$. Assume that we have information about its mean value, i.e.,
 
-$$
+\begin{equation}
 
 \langle x \rangle = \int x p(x|I) dx = \mu.
 
-$$
+\end{equation}
 
 Based only on this information, what functional form should we assign for the pdf that we will now denote $p(x|\mu)$? 
 
 <!-- !split -->
 Let us use the principle of MaxEnt and maximize the entropy under the normalization and mean constraints. We will use Lagrange multipliers, and we will perform the optimization as a limiting case of a discrete problem; explicitly, we will maximize
 
-$$
+\begin{equation}
 
 Q = -\sum_i p_i \log \left( \frac{p_i}{m_i} \right) + \lambda_0 \left( 1 - \sum_i p_i \right) + \lambda_1 \left( \mu - \sum_i x_i p_i \right).
 
-$$
+\end{equation}
 
 <!-- !split -->
 Setting $\partial Q / \partial p_j = 0$ we obtain
 
-$$
+\begin{equation}
 
 p_j = m_j \exp \left[ -(1+\lambda_0) \right] \exp \left[ -\lambda_1 x_j \right].
 
-$$
+\end{equation}
 
 With a uniform measure $m_j = \mathrm{constant}$ we find (in the continuous limit) that
 
-$$
+\begin{equation}
 
 p(x|\mu) = \mathcal{N} \exp \left[ -\lambda_1 x \right].
 
-$$
+\end{equation}
 
 <!-- !split -->
 The normalization constant (related to $\lambda_0$) and the remaining Lagrange multiplier, $\lambda_1$, can easily determined by fulfilling the two constraints. 
 
 Assuming, e.g., that the normalization interval is $x \in [0, \infty[$ we obtain
 
-$$
+\begin{equation}
 
 \int_0^\infty p(x|\mu) dx = 1 = \left[ -\frac{\mathcal{N}}{\lambda_1} e^{-\lambda_1 x} \right]_0^\infty = \frac{\mathcal{N}}{\lambda_1} \quad \Rightarrow \quad \mathcal{N} = \lambda_1.
 
-$$
+\end{equation}
 
 The constraint for the mean then gives
 
-$$
+\begin{equation}
 
 \mu = \lambda_1 \int_0^\infty x  e^{-\lambda_1 x} dx = \lambda_1 \frac{1!}{\lambda_1^2}
 = \frac{1}{\lambda_1}
 \quad \Rightarrow \quad \lambda_1 = \frac{1}{\mu}.
 
-$$
+\end{equation}
 
 So that the properly normalized pdf from MaxEnt principles becomes the exponential distribution
 
-$$
+\begin{equation}
 
 p(x|\mu) = \frac{1}{\mu} \exp \left[ -\frac{x}{\mu} \right].
 
-$$
+\end{equation}
 
 <!-- !split -->
 ### Variance and the Gaussian pdf
 
 Suppose that we have information not only on the mean $\mu$ but also on the variance
 
-$$
+\begin{equation}
 
 \left\langle (x-\mu)^2 \right\rangle = \int (x-\mu)^2 p(x|I) dx = \sigma^2.
 
-$$
+\end{equation}
 
 The principle of MaxEnt will then result in the continuum assignment
 
-$$
+\begin{equation}
 
 p(x|\mu,\sigma) \propto \exp \left[ - \lambda_1 ( x - \mu )^2 \right].
 
-$$
+\end{equation}
 
 <!-- !split -->
 Assuming that the limits of integration are $\pm \infty$ we can determine both the normalization coefficient and the Lagrange multiplier. After some integration this results in the standard Gaussian pdf
 
-$$
+\begin{equation}
 
 p(x|\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi}} \exp \left[ - \frac{( x - \mu )^2}{2\sigma^2} \right].
 
-$$
+\end{equation}
 
 ```{admonition} The normal distribution
 This indicates that the normal distribution is the most honest representation of our state of knowledge when we only have information about the mean and the variance.
@@ -321,11 +321,11 @@ This indicates that the normal distribution is the most honest representation of
 *Notice.* 
 These arguments extend easily to the case of several parameters. For example, considering $\{x_k\}$ as the data $\{ D_k\}$ with error bars $\{\sigma_k\}$ and $\{\mu_k\}$ as the model predictions, this allows us to identify the least-squares likelihood as the pdf which best represents our state of knowledge given only the value of the expected squared-deviation between our predictions and the data
 
-$$
+\begin{equation}
 
 p\left( \{x_k\} | \{\mu_k, \sigma_k\} \right) = \prod_{k=1}^N \frac{1}{\sigma_k \sqrt{2\pi}} \exp \left[ - \frac{( x_k - \mu_k )^2}{2\sigma_k^2} \right].
 
-$$
+\end{equation}
 
 If we had convincing information about the covariance $\left\langle \left( x_i - \mu_i \right) \left( x_j - \mu_j \right) \right\rangle$, where $i \neq j$, then MaxEnt would assign a correlated, multivariate Gaussian pdf for $p\left( \{ x_k \} | I \right)$.
 
