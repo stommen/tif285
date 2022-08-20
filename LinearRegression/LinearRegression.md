@@ -1,4 +1,5 @@
 <!-- !split -->
+(sec:LinearRegression)=
 # Linear regression
 
 <!-- !split -->
