@@ -6,14 +6,13 @@
 ## Why Linear Regression (aka Ordinary Least Squares)
 
 Fitting a continuous function with linear parameterization in terms of the parameters  $\boldsymbol{\theta}$.
-* Often used for fitting a continuous function!
-* Gives an excellent introduction to central Machine Learning features with **understandable pedagogical** links to other methods like **Neural Networks**, **Support Vector Machines** etc
-* Analytical expression for the fitting parameters $\boldsymbol{\theta}$
-* Analytical expressions for statistical propertiers like mean values, variances, confidence intervals and more
-* Analytical relation with probabilistic interpretations 
-* Easy to introduce basic concepts like bias-variance tradeoff, cross-validation, resampling and regularization techniques and many other ML topics
-* Easy to code! And links well with classification problems and logistic regression and neural networks
-* Allows for **easy** hands-on understanding of gradient descent methods
+* Often used for fitting a continuous function.
+* The optimization of the fitting parameters $\boldsymbol{\theta}$ can be expressed analytically.
+* Easy to code; and allows for hands-on understanding of **gradient descent** methods.
+* Relations with probabilistic interpretations such as the Bayesian one.
+* Analytical expressions for statistical properties like mean values, variances, confidence intervals and more.
+* Allows to introduce basic Machine Learning concepts like **bias-variance tradeoff, cross-validation, resampling and regularization** techniques.
+*  Links well with **logistic regression** and classification problems and with **neural networks**, , **support vector machines**, etc.
 
 <!-- !split -->
 ### Regression analysis, overarching aims
@@ -260,7 +259,7 @@ C(\boldsymbol{\theta})=\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{X}\bol
 can be linked to the variance of the quantity $y_i$ if we interpret the latter as the mean value.  When linking (see the discussion below) with the maximum likelihood approach, we will indeed interpret $y_i$ as a mean value
 
 \begin{equation}
-y_{i}=\langle y_i \rangle = \theta_0x_{i,0}+\theta_1x_{i,1}+\theta_2x_{i,2}+\dots+\theta_{n-1}x_{i,n-1}+\epsilon_i,
+y_{i}=\langle y_i \rangle = \theta_0x_{i,0}+\theta_1x_{i,1}+\theta_2x_{i,2}+\dots+\theta_{p-1}x_{i,p-1}+\epsilon_i,
 \end{equation}
 
 where $\langle y_i \rangle$ is the mean value. Keep in mind also that
@@ -271,23 +270,24 @@ approximation to the true value. It is then always accompanied by an
 error estimate, often limited to a statistical error estimate. For now, we
 will treat $y_i$ as our exact value for the response variable.
 
-In order to find the parameters $\theta_i$ we will then minimize $C(\boldsymbol{\theta})$. Due to its quadratic form, this function is bounded from below and we just need to find the single extremum. That is we need to solve the problem
+In order to find the "optimal" set of parameters $\\boldsymbol{\theta}^*$ we will then minimize $C(\boldsymbol{\boldsymbol{\theta}})$. Due to its quadratic form, this function is bounded from below and we just need to find the single extremum. That is we need to solve the problem
 
 \begin{equation}
-{\displaystyle \min_{\boldsymbol{\theta}\in
+\boldsymbol{\theta}^* =
+{\displaystyle {\mathrm{arg} \min}_{\boldsymbol{\theta}\in
 {\mathbb{R}}^{p}}}\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\right)^T\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\right)\right\}.
 \end{equation}
 
 In practical terms it means we will require
 
 \begin{equation}
-\frac{\partial C(\boldsymbol{\theta})}{\partial \theta_j} = \frac{\partial }{\partial \theta_j}\left[ \frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{n-1}x_{i,n-1}\right)^2\right]=0, 
+\frac{\partial C(\boldsymbol{\theta})}{\partial \theta_j} = \frac{\partial }{\partial \theta_j}\left[ \frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}\right)^2\right]=0, 
 \end{equation}
 
 which results in
 
 \begin{equation}
-\frac{\partial C(\boldsymbol{\theta})}{\partial \theta_j} = -\frac{2}{n}\left[ \sum_{i=0}^{n-1}x_{ij}\left(y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{n-1}x_{i,n-1}\right)\right]=0. 
+\frac{\partial C(\boldsymbol{\theta})}{\partial \theta_j} = -\frac{2}{n}\left[ \sum_{i=0}^{n-1}x_{ij}\left(y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}\right)\right]=0. 
 \end{equation}
 
 The gradient of the cost function can be succinctly expressed in matrix-vector form as
@@ -298,11 +298,12 @@ $$ (eq:LinearRegression:gradient)
 
 The minimum of $C$, where ${\partial C(\boldsymbol{\theta})} / {\partial \boldsymbol{\theta}} = 0$, then corresponds to
 
-\begin{equation}
+$$
 \boldsymbol{X}^T\boldsymbol{y} = \boldsymbol{X}^T\boldsymbol{X}\boldsymbol{\theta},  
-\end{equation}
+$$ (eq:NormalEquation)
 
-and if the matrix $\boldsymbol{X}^T\boldsymbol{X}$ is invertible we have the solution
+which is known as the **normal equation**.
+Now, if the matrix $\boldsymbol{X}^T\boldsymbol{X}$ is invertible then we have the solution
 
 \begin{equation}
 \boldsymbol{\theta} =\left(\boldsymbol{X}^T\boldsymbol{X}\right)^{-1}\boldsymbol{X}^T\boldsymbol{y}.
@@ -329,7 +330,7 @@ We can easily test our fit by computing various **training scores**. Several suc
 \mathrm{MSE}(\boldsymbol{\theta}) = \frac{1}{n} \sum_{i=1}^n \left( y_{\mathrm{data},i} - y_{\mathrm{model},i}(\boldsymbol{\theta}) \right)^2,
 \end{equation}
 
-where we have $n$ training data and our model is a function of the parameter vector $\boldsymbol{\theta}$.
+where we have $n$ training data and our model is a function of the parameter vector $\boldsymbol{\theta}$. Note that this is the metric that we are minimizing when solving the normal equation Eq. {eq}`eq:NormalEquation`.
 
 Furthermore, we have the **mean absolute error** (MAE) defined as.
 
@@ -371,13 +372,13 @@ where the matrix $\boldsymbol{\Sigma}$ is a diagonal $n \times n$ matrix with $\
 In order to find the parameters $\theta_i$ we will then minimize the $\chi^2(\boldsymbol{\theta})$ function by requiring
 
 \begin{equation}
-\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = \frac{\partial }{\partial \theta_j}\left[ \frac{1}{n}\sum_{i=0}^{n-1}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{n-1}x_{i,n-1}}{\sigma_i}\right)^2\right]=0, 
+\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = \frac{\partial }{\partial \theta_j}\left[ \frac{1}{n}\sum_{i=0}^{n-1}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}}{\sigma_i}\right)^2\right]=0, 
 \end{equation}
 
 which results in
 
 \begin{equation}
-\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = -\frac{2}{n}\left[ \sum_{i=0}^{n-1}\frac{x_{ij}}{\sigma_i}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{n-1}x_{i,n-1}}{\sigma_i}\right)\right]=0, 
+\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = -\frac{2}{n}\left[ \sum_{i=0}^{n-1}\frac{x_{ij}}{\sigma_i}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}}{\sigma_i}\right)\right]=0, 
 \end{equation}
 
 or in a matrix-vector form as
