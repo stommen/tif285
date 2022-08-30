@@ -231,10 +231,11 @@ and in order to find the optimal parameters $\theta_i$ instead of solving the ab
 C(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\tilde{y}_i\right)^2=\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)^T\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)\right\},
 \end{equation}
 
-or using the matrix $\boldsymbol{X}$ and in a more compact matrix-vector notation as
+or using the matrix $\boldsymbol{X}$ and a more compact matrix-vector notation, as
 
 \begin{equation}
-C(\boldsymbol{\theta})=\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\right)^T\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\right)\right\}.
+C(\boldsymbol{\theta})=\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\right)^T\left(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta}\right)\right\}
+= \frac{1}{n} \boldsymbol{\epsilon}^2.
 \end{equation}
 
 This function is one possible way to define the so-called **cost function**.
@@ -341,10 +342,10 @@ Furthermore, we have the **mean absolute error** (MAE) defined as.
 And the $R2$ score, also known as *coefficient of determination* is
 
 \begin{equation}
-\mathrm{R2}(\boldsymbol{\theta}) = 1 - \frac{\sum_{i=1}^n \left( y_{\mathrm{data},i} - y_{\mathrm{model},i}(\boldsymbol{\theta}) \right)^2}{\sum_{i=1}^n \left( y_{\mathrm{data},i} - \bar{y}_\mathrm{model}(\boldsymbol{\theta}) \right)^2},
+\mathrm{R2}(\boldsymbol{\theta}) = 1 - \frac{\sum_{i=1}^n \left( y_{\mathrm{data},i} - y_{\mathrm{model},i}(\boldsymbol{\theta}) \right)^2}{\sum_{i=1}^n \left( y_{\mathrm{data},i} - \bar{y}_\mathrm{data} \right)^2},
 \end{equation}
 
-where $\bar{y}_\mathrm{model}(\boldsymbol{\theta}) = \frac{1}{n} \sum_{i=1}^n y_{\mathrm{model},i} (\boldsymbol{\theta})$ is the mean of the model predictions.
+where $\bar{y}_\mathrm{data} = \frac{1}{n} \sum_{i=1}^n y_{\mathrm{data},i} $ is the mean of the data. This metric therefore represents the proportion of variance (of $y$) that has been explained by the independent variables in the model.
 
 
 <!-- !split -->
