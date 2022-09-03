@@ -300,14 +300,14 @@ $$ (eq:LinearRegression:gradient)
 The minimum of $C$, where ${\partial C(\boldsymbol{\theta})} / {\partial \boldsymbol{\theta}} = 0$, then corresponds to
 
 $$
-\boldsymbol{X}^T\boldsymbol{y} = \boldsymbol{X}^T\boldsymbol{X}\boldsymbol{\theta},  
+\boldsymbol{X}^T\boldsymbol{y} = \boldsymbol{X}^T\boldsymbol{X}\boldsymbol{\theta}^*,  
 $$ (eq:NormalEquation)
 
 which is known as the **normal equation**.
 Now, if the matrix $\boldsymbol{X}^T\boldsymbol{X}$ is invertible then we have the solution
 
 \begin{equation}
-\boldsymbol{\theta} =\left(\boldsymbol{X}^T\boldsymbol{X}\right)^{-1}\boldsymbol{X}^T\boldsymbol{y}.
+\boldsymbol{\theta}^* =\left(\boldsymbol{X}^T\boldsymbol{X}\right)^{-1}\boldsymbol{X}^T\boldsymbol{y}.
 \end{equation}
 
 We note also that since our design matrix is defined as $\boldsymbol{X}\in
