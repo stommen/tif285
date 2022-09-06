@@ -76,11 +76,11 @@ The posterior pdf for the mass of saturn (adapted from Sivia {cite}`Sivia2006`)
 
 
 <!-- !split -->
-## Probability density functions (pdf:s)
+## Probabilities and probability density functions (PDFs)
 
  * $p(A|B)$ reads “probability of $A$ given $B$”
- * Simplest examples are discrete, but physicists often interested in continuous case, e.g., parameter estimation.
- * When integrated, continuous pdfs become probabilities $\Rightarrow$ pdfs are NOT dimensionless, even though probabilities are.
+ * Simplest examples are discrete, but physicists often interested in continuous case, e.g., for parameter estimation.
+ * When integrated, continuous PDFs become probabilities $\Rightarrow$ PDFs are NOT dimensionless, even though probabilities are.
  * 68%, 95%, etc. intervals can then be computed by integration 
  * Certainty about a parameter corresponds to $p(x) = \delta(x-x_0)$
 
@@ -99,8 +99,9 @@ positivity (assuming that the PDF is normalized)
 \end{equation}
 
 Naturally, it would be nonsensical for any of the values of the domain
-to occur with a probability less than $0$. Also,
-the PDF must be normalized. That is, all the probabilities must add up
+to occur with a probability less than $0$. 
+
+Also, the PDF must be normalized. That is, all the probabilities must add up
 to unity.  The probability of "anything" to happen is always unity. For
 discrete and continuous PDFs, respectively, this condition is
 
@@ -112,10 +113,11 @@ discrete and continuous PDFs, respectively, this condition is
 
 
 <!-- !split -->
-### Important distributions, the uniform distribution
+### Important univariate distributions
 Let us consider some important, univariate distributions.
-The first one
-is the most basic PDF; namely the uniform distribution
+
+#### The uniform distribution
+The first one is the most basic PDF; namely the uniform distribution
 
 \begin{equation}
 p(x) = \frac{1}{b-a}\theta(x-a)\theta(b-x).
@@ -137,7 +139,7 @@ p(x) = \left\{
 
 
 <!-- !split -->
-### Gaussian distribution
+#### The normal (Gaussian) distribution
 The second one is the univariate Gaussian Distribution
 
 \begin{equation}
@@ -170,7 +172,7 @@ A particularly useful class of special expectation values are the
 follows
 
 \begin{equation}
-\langle x^n \rangle \equiv \int\! x^n p(x)\,dx
+\mathbb{E}[x^n] \equiv \langle x^n \rangle \equiv \int\! x^n p(x)\,dx
 \end{equation}
 
 
@@ -182,7 +184,7 @@ $p$. The first moment, $\langle x\rangle$, is called the *mean* of $p$
 and often denoted by the letter $\mu$
 
 \begin{equation}
-\langle x\rangle  \equiv \mu = \int x p(x)dx,
+\mathbb{E}[x] \equiv \langle x\rangle  \equiv \mu = \int x p(x)dx,
 \end{equation}
 
 for a continuous distribution and 
@@ -216,7 +218,7 @@ The 68/95 percent probability regions are shown in dark/light shading. When appl
 A special version of the moments is the set of *central moments*, the n-th central moment defined as
 
 \begin{equation}
-\langle (x-\langle x\rangle )^n\rangle  \equiv \int\! (x-\langle x\rangle)^n p(x)\,dx
+\mathbb{E}\left[ \left( x - \mathbb{E}[x]\right)^n \right] \equiv \langle (x-\langle x\rangle )^n\rangle  \equiv \int\! (x-\langle x\rangle)^n p(x)\,dx
 \end{equation}
 
 The zero-th and first central moments are both trivial, equal $1$ and
