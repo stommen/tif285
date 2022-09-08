@@ -388,7 +388,7 @@ or in a matrix-vector form as
 \frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} = 0 = \boldsymbol{A}^T\left( \boldsymbol{b}-\boldsymbol{A}\boldsymbol{\theta}\right).  
 \end{equation}
 
-where we have defined the matrix $\boldsymbol{A} =\boldsymbol{X} \boldsymbol{\Sigma}^{-1/2}$ with matrix elements $a_{ij} = x_{ij}/\sigma_i$ and the vector $\boldsymbol{b}$ with elements $b_i = y_i/\sigma_i$.
+where we have defined the matrix $\boldsymbol{A} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{X}$ with matrix elements $a_{ij} = x_{ij}/\sigma_i$ and the vector $\boldsymbol{b} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{y}$ with elements $\boldsymbol{b}$ with elements $b_i = y_i/\sigma_i$.
 
 
 
