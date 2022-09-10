@@ -1,3 +1,14 @@
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
 
 <!-- !split -->
 # Inference With Parametric Models
@@ -99,14 +110,14 @@ The question is, given this set of measurements $D = \{F_i\}_{i=0}^{N-1}$, and t
 Because the measurements are number counts, a Poisson distribution is a good approximation to the measurement process:
 
 
-```python
+ ```{code-cell} python3
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 import emcee
 ```
 
-```python
+ ```{code-cell} python3
 np.random.seed(1)      # for repeatability
 F_true = 1000          # true flux, say number of photons measured in 1 second
 N = 50                 # number of measurements
@@ -118,7 +129,8 @@ e = np.sqrt(F)         # errors on Poisson counts estimated via square root
 Now let's make a simple visualization of the "observed" data, see {numref}`fig-flux`.
 
 
-```python
+ ```{code-cell} python3
+ :tags: [hide-output]
 fig, ax = plt.subplots()
 ax.errorbar(F, np.arange(N), xerr=e, fmt='ok', ecolor='gray', alpha=0.5)
 ax.vlines([F_true], 0, N, linewidth=5, alpha=0.2)
@@ -199,15 +211,12 @@ We can go further and ask what the error of our estimate is. In the frequentist 
 These results are fairly simple calculations; let's evaluate them for our toy dataset:
 
 
-```
+ ```{code-cell} python3
 w=1./e**2
 print(f"""
 F_true = {F_true}
 F_est = {(w * F).sum() / w.sum():.0f} +/- { w.sum() ** -0.5:.0f} (based on {N} measurements) """)
 ```
-
-`F_true = 1000` <br/>
-`F_est = 998 +/- 4 (based on 50 measurements)` <br/>
 
 We find that for 50 measurements of the flux, our estimate has an error of about 0.4% and is consistent with the input value.
 
@@ -237,7 +246,7 @@ But as the dimension of the model grows, this direct approach becomes increasing
 To perform this MCMC, we start by defining Python functions for the prior $p(F_\mathrm{true} | I)$, the likelihood $p(D | F_\mathrm{true},I)$, and the posterior $p(F_\mathrm{true} | D,I)$, noting that none of these need be properly normalized. Our model here is one-dimensional, but to handle multi-dimensional models we'll define the model in terms of an array of parameters $\boldsymbol{\theta}$, which in this case is $\boldsymbol{\theta} = [F_\mathrm{true}]$
 
 
-```python
+ ```{code-cell} python3
 def log_prior(theta):
     if theta>0 and theta<10000:
         return 0 # flat prior
@@ -245,8 +254,7 @@ def log_prior(theta):
         return -np.inf
 
 def log_likelihood(theta, F, e):
-    return -0.5 * np.sum(np.log(2 * np.pi * e ** 2) \ 
-                             + (F - theta[0]) ** 2 / e ** 2)
+    return -0.5 * np.sum(np.log(2 * np.pi * e ** 2) + (F - theta[0]) ** 2 / e ** 2)
                              
 def log_posterior(theta, F, e):
     return log_prior(theta) + log_likelihood(theta, F, e)
@@ -255,7 +263,7 @@ def log_posterior(theta, F, e):
 Now we set up the problem, including generating some random starting guesses for the multiple chains of points.
 
 
-```python
+ ```{code-cell} python3
 ndim = 1      # number of parameters in the model
 nwalkers = 50 # number of MCMC walkers
 nwarm = 1000  # "warm-up" period to let chains stabilize
@@ -272,7 +280,8 @@ samples = sampler.chain[:, nwarm:, :].reshape((-1, ndim))
 If this all worked correctly, the array sample should contain a series of 50,000 points drawn from the posterior. Let's plot them and check. See results in {numref}`fig-flux-bayesian`.
 
 
-```python
+ ```{code-cell} python3
+ :tags: [hide-output]
 fig, ax = plt.subplots()
 ax.hist(samples, bins=50, histtype="stepfilled", alpha=0.3, density=True)
 ax.set_xlabel(r'$F_\mathrm{est}$')
@@ -361,7 +370,7 @@ Let's try again to understand this for the special case of a 95% confidence inte
 To compute these numbers for our example, you would run:
 
 
-```python
+ ```{code-cell} python3
 sampper=np.percentile(samples, [2.5, 16.5, 50, 83.5, 97.5],axis=0).flatten()
 print(f"""
 F_true = {F_true}
@@ -372,14 +381,6 @@ or using credibility intervals:
 ...F_est in [{sampper[1]:.0f}, {sampper[3]:.0f}] (67% credibility interval) 
 ...F_est in [{sampper[0]:.0f}, {sampper[4]:.0f}] (95% credibility interval) """)
 ```
-
-`F_true = 1000` <br/>
-`Based on 50 measurements the posterior point estimates are:` <br/>
-`...F_est = 998 +/- 4` <br/>
-`or using credibility intervals:` <br/>
-`...F_est = 998          (posterior median)`  <br/>
-`...F_est in [993, 1002] (67% credibility interval)`  <br/>
-`...F_est in [989, 1006] (95% credibility interval)`  <br/>
 
 In this particular example, the posterior pdf is actually a Gaussian (since it is constructed as a product of Gaussians), and the mean and variance from the quadratic approximation will agree exactly with the frequentist approach.
 
@@ -657,13 +658,21 @@ x' = a_x (x - x_0) + a_y (y - y_0) \\
 y' = b_x (x - x_0) + b_y (y - y_0) 
 \end{equation}
 
-we find that the pdf becomes independent in this new pair of parameters
+we find that the log-pdf in the new coordinates becomes
 
 \begin{equation}
-L(x',y') = L(0,0) - \frac{1}{2} \begin{pmatrix} x' & y' \end{pmatrix}
+\begin{gathered}
+L(x',y') &= L(0,0) - \frac{1}{2} \begin{pmatrix} x' & y' \end{pmatrix}
 \begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix}
 \begin{pmatrix} x' \\ y' \end{pmatrix} \\
-\qquad = L(0, 0) - \frac{1}{2} a (x')^2 - \frac{1}{2} b (y')^2.
+&= L(0, 0) - \frac{1}{2} a (x')^2 - \frac{1}{2} b (y')^2.
+\end{gathered}
 \end{equation}
 
-* Take a minute to consider what has been achieved by this change of variables.
+```{admonition} Discuss
+What has been achieved by this change of variables?
+```
+
+```{toggle}
+The joint pdf now factorizes which implies that the transformed variables are independent.
+```
