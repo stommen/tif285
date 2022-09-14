@@ -34,10 +34,11 @@ p(A|B,I) = \frac{p(B|A,I) p(A|I)}{p(B|I)}.
 \end{equation}
 
 The importance of this property to data analysis becomes apparent if we replace $A$ and $B$ by hypothesis($H$) and data($D$):
-\begin{align}
-p(H|D,I) &= \frac{p(D|H,I) p(H|I)}{p(D|I)}.
-\label{eq:bayes}
-\end{align}
+
+$$
+p(H|D,I) = \frac{p(D|H,I) p(H|I)}{p(D|I)}.
+$$ (eq:bayes)
+
 The power of Bayes’ theorem lies in the fact that it relates the quantity of interest, the probability that the hypothesis is true given the data, to the term we have a better chance of being able to assign, the probability that we would have observed the measured data if the hypothesis was true.
 
 
@@ -111,21 +112,22 @@ heads=flips<pH              # boolean array, heads[i]=True if flip i is heads
 In the light of this data, our inference about the fairness of this coin is summarized by the conditional pdf: $p(p_H|D,I)$. This is, of course, shorthand for the limiting case of a continuum of propositions for the value of $p_H$; that is to say, the probability that $p_H$ lies in an infinitesimally narrow range is given by $p(p_H|D,I) dp_H$. 
 
 <!-- !split -->
-To estimate this posterior pdf, we need to use Bayes’ theorem ([eq:bayes](#eq:bayes)). We will ignore the denominator $p(D|I)$ as it does not involve bias-weighting explicitly, and it will therefore not affect the shape of the desired pdf. At the end we can evaluate the missing constant subsequently from the normalization condition 
-\begin{equation}
+To estimate this posterior pdf, we need to use Bayes’ theorem Eq. {eq}`eq:bayes`. We will ignore the denominator $p(D|I)$ as it does not involve bias-weighting explicitly, and it will therefore not affect the shape of the desired pdf. At the end we can evaluate the missing constant subsequently from the normalization condition 
+
+$$
 \int_0^1 p(p_H|D,I) dp_H = 1.
-\label{eq:coin_posterior_norm}
-\end{equation}
+$$ (eq:coin_posterior_norm)
 
 <!-- !split -->
 The prior pdf, $p(p_H|I)$, represents what we know about the coin given only the information $I$ that we are dealing with a ‘strange coin’. We could keep a very open mind about the nature of the coin; a simple probability assignment which reflects this is a uniform, or flat, prior
-\begin{equation}
+
+$$
 p(p_H|I) = \left\{ \begin{array}{ll}
 1 & 0 \le p_H \le 1, \\
 0 & \mathrm{otherwise}.
 \end{array} \right.
-\label{eq:coin_prior_uniform}
-\end{equation}
+$$ (eq:coin_prior_uniform)
+
 We will get back later to the choice of prior and its effect on the analysis.
 
 <!-- !split -->
@@ -136,7 +138,7 @@ p(D|p_H,I) \propto p_H^H (1-p_H)^{N-H}.
 \end{equation}
 
 <!-- !split -->
-It seems reasonable because $p_H$ is the chance of obtaining a head on any flip, and there were $H$ of them, and $1-p_H$ is the corresponding probability for a tail, of which there were $N-H$. We note that this binomial distribution also contains a normalization factor, but we will ignore it since it does not depend explicitly on $p_H$, the quantity of interest. It will be absorbed by the normalization condition ([eq:coin_posterior_norm](#eq:coin_posterior_norm)).
+It seems reasonable because $p_H$ is the chance of obtaining a head on any flip, and there were $H$ of them, and $1-p_H$ is the corresponding probability for a tail, of which there were $N-H$. We note that this binomial distribution also contains a normalization factor, but we will ignore it since it does not depend explicitly on $p_H$, the quantity of interest. It will be absorbed by the normalization condition Eq. {eq}`eq:coin_posterior_norm`.
 
 <!-- !split -->
 We perform the setup of this Bayesian framework on the computer.
@@ -185,13 +187,13 @@ The evolution of the posterior pdf for the bias-weighting of a coin, as the numb
 ```
 
 <!-- !split -->
-The panel in the top left-hand corner shows the posterior pdf for $p_H$ given no data, i.e., it is the same as the prior pdf of Eq. ([eq:coin_prior_uniform](#eq:coin_prior_uniform)). It indicates that we have no more reason to believe that the coin is fair than we have to think that it is double-headed, double-tailed, or of any other intermediate bias-weighting.
+The panel in the top left-hand corner shows the posterior pdf for $p_H$ given no data, i.e., it is the same as the prior pdf of Eq. {eq}`eq:coin_prior_uniform`. It indicates that we have no more reason to believe that the coin is fair than we have to think that it is double-headed, double-tailed, or of any other intermediate bias-weighting.
 
 <!-- !split -->
 The first flip is obviously tails. At this point we have no evidence that the coin has a side with heads, as indicated by the pdf going to zero as $p_H \to 1$. The second flip is obviously heads and we have now excluded both extreme options $p_H=0$ (double-tailed) and $p_H=1$ (double-headed). We can note that the posterior at this point has the simple form $p(p_H|D,I) = p_H(1-p_H)$ for $0 \le p_H \le 1$.
 
 <!-- !split -->
-The remainder of Fig. [fig:coinflipping](#fig:coinflipping) shows how the posterior pdf evolves as the number of data analysed becomes larger and larger. We see that the position of the maximum moves around, but that the amount by which it does so decreases with the increasing number of observations. The width of the posterior pdf also becomes narrower with more data, indicating that we are becoming increasingly confident in our estimate of the bias-weighting. For the coin in this example, the best estimate of $p_H$ eventually converges to 0.6, which, of course, was the value chosen to simulate the flips.
+The remainder of Fig. {numref}`fig-coinflipping` shows how the posterior pdf evolves as the number of data analysed becomes larger and larger. We see that the position of the maximum moves around, but that the amount by which it does so decreases with the increasing number of observations. The width of the posterior pdf also becomes narrower with more data, indicating that we are becoming increasingly confident in our estimate of the bias-weighting. For the coin in this example, the best estimate of $p_H$ eventually converges to 0.6, which, of course, was the value chosen to simulate the flips.
 
 <!-- !split -->
 ## Take aways: Coin tossing

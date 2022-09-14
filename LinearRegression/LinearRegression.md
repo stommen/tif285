@@ -300,14 +300,14 @@ $$ (eq:LinearRegression:gradient)
 The minimum of $C$, where ${\partial C(\boldsymbol{\theta})} / {\partial \boldsymbol{\theta}} = 0$, then corresponds to
 
 $$
-\boldsymbol{X}^T\boldsymbol{y} = \boldsymbol{X}^T\boldsymbol{X}\boldsymbol{\theta},  
+\boldsymbol{X}^T\boldsymbol{y} = \boldsymbol{X}^T\boldsymbol{X}\boldsymbol{\theta}^*,  
 $$ (eq:NormalEquation)
 
 which is known as the **normal equation**.
 Now, if the matrix $\boldsymbol{X}^T\boldsymbol{X}$ is invertible then we have the solution
 
 \begin{equation}
-\boldsymbol{\theta} =\left(\boldsymbol{X}^T\boldsymbol{X}\right)^{-1}\boldsymbol{X}^T\boldsymbol{y}.
+\boldsymbol{\theta}^* =\left(\boldsymbol{X}^T\boldsymbol{X}\right)^{-1}\boldsymbol{X}^T\boldsymbol{y}.
 \end{equation}
 
 We note also that since our design matrix is defined as $\boldsymbol{X}\in
@@ -388,7 +388,7 @@ or in a matrix-vector form as
 \frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} = 0 = \boldsymbol{A}^T\left( \boldsymbol{b}-\boldsymbol{A}\boldsymbol{\theta}\right).  
 \end{equation}
 
-where we have defined the matrix $\boldsymbol{A} =\boldsymbol{X} \boldsymbol{\Sigma}^{-1/2}$ with matrix elements $a_{ij} = x_{ij}/\sigma_i$ and the vector $\boldsymbol{b}$ with elements $b_i = y_i/\sigma_i$.
+where we have defined the matrix $\boldsymbol{A} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{X}$ with matrix elements $a_{ij} = x_{ij}/\sigma_i$ and the vector $\boldsymbol{b} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{y}$ with elements $\boldsymbol{b}$ with elements $b_i = y_i/\sigma_i$.
 
 
 
