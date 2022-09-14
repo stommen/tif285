@@ -94,7 +94,7 @@ Imagine that we point our telescope to the sky, and observe the light coming fro
 We'll assume that we perform a series of $N$ measurements with our telescope, where the i:th measurement reports an observed photon flux $F_i$ and is accompanied by an error model given by $e_i$[^errors].
 The question is, given this set of measurements $D = \{F_i\}_{i=0}^{N-1}$, and the statistical model $F_i = F_\mathrm{true} + e_i$, what is our best estimate of the true flux $F_\mathrm{true}$?
 
-[^errors]: We'll make the reasonable assumption that errors are Gaussian. In a Frequentist perspective, $e_i$ is the standard deviation of the results of a single measurement event in the limit of repetitions of *that event*. In the Bayesian perspective, $e_i$ is the standard deviation of the (Gaussian) probability distribution describing our knowledge of that particular measurement given its observed value.
+[^errors]: We'll make the reasonable assumption that errors are Gaussian such that $e_i \sim \mathcal{N}( 0,\sigma_i^2)$. In a Frequentist perspective, $\sigma_i$ is the standard deviation of the results of a single measurement event in the limit of repetitions of *that event*. In the Bayesian perspective, $\sigma_i$ is the standard deviation of the (Gaussian) probability distribution describing our knowledge of that particular measurement given its observed value.
 
 Because the measurements are number counts, a Poisson distribution is a good approximation to the measurement process:
 
@@ -134,7 +134,7 @@ Single photon counts (flux measurements).
 ```
 
 
-These measurements each have a different error $e_i$ which is estimated from Poisson statistics using the standard square-root rule. In this toy example we know the true flux that was used to generate the data, but the question is this: given our measurements and statistical model, what is our best estimate of $F_\mathrm{true}$?
+These measurements each have a different error $\sigma_i$ which is estimated from Poisson statistics using the standard square-root rule. In this toy example we know the true flux that was used to generate the data, but the question is this: given our measurements and statistical model, what is our best estimate of $F_\mathrm{true}$?
 
 Let's take a look at the frequentist and Bayesian approaches to solving this.
 
@@ -143,11 +143,11 @@ Let's take a look at the frequentist and Bayesian approaches to solving this.
 We'll start with the classical frequentist maximum likelihood approach. Given a single observation $D_i = F_i$, we can compute the probability distribution of the measurement given the true flux $F_\mathrm{true}$ and our assumption of Gaussian errors
 
 \begin{equation}
-p(D_i | F_\mathrm{true}, I) = \frac{1}{\sqrt{2\pi e_i^2}} \exp \left( \frac{-(F_i-F_\mathrm{true})^2}{2e_i^2} \right).
+p(D_i | F_\mathrm{true}, I) = \frac{1}{\sqrt{2\pi \sigma_i^2}} \exp \left( \frac{-(F_i-F_\mathrm{true})^2}{2\sigma_i^2} \right).
 \end{equation}
 
 This should be read "the probability of $D_i$ given $F_\mathrm{true}$
-equals ...". You should recognize this as a normal distribution with mean $F_\mathrm{true}$ and standard deviation $e_i$.
+equals ...". You should recognize this as a normal distribution with mean $F_\mathrm{true}$ and standard deviation $\sigma_i$.
 
 We construct the *likelihood function* by computing the product of the probabilities for each data point
 
@@ -165,13 +165,13 @@ In the following we will use $\log$ to denote the natural logarithm. We will wri
 Combining the previous two equations and computing the log, we have
 
 \begin{equation}
-\log\mathcal{L} = -\frac{1}{2} \sum_{i=1}^N \left[ \log(2\pi e_i^2) +  \frac{(F_i-F_\mathrm{true})^2}{e_i^2} \right].
+\log\mathcal{L} = -\frac{1}{2} \sum_{i=1}^N \left[ \log(2\pi \sigma_i^2) +  \frac{(F_i-F_\mathrm{true})^2}{\sigma_i^2} \right].
 \end{equation}
 
 In this approach we will determine $F_\mathrm{true}$ such that the likelihood is maximized. At this pont we can note that that problem of maximizing the likelihood is equivalent to the minimization of the sum
 
 \begin{equation}
-\sum_{i=1}^N \frac{(F_i-F_\mathrm{true})^2}{e_i^2},
+\sum_{i=1}^N \frac{(F_i-F_\mathrm{true})^2}{\sigma_i^2},
 \end{equation}
 
 which you should recognize as the chi-squared function encountered in the linear regression model.
@@ -179,10 +179,10 @@ which you should recognize as the chi-squared function encountered in the linear
 Therefore, it is not surprising that this particular maximization problem can be solved analytically (i.e. by setting $d\log\mathcal{L}/d F_\mathrm{true} = 0$). This results in the following observed estimate of $F_\mathrm{true}$
 
 \begin{equation}
-F_\mathrm{est} = \frac{ \sum_{i=1}^N w_i F_i }{ \sum_{i=1}^N w_i}, \quad w_i = 1/e_i^2.
+F_\mathrm{est} = \frac{ \sum_{i=1}^N w_i F_i }{ \sum_{i=1}^N w_i}, \quad w_i = 1/\sigma_i^2.
 \end{equation}
 
-Notice that in the special case of all errors $e_i$ being equal, this reduces to
+Notice that in the special case of all errors $\sigma_i$ being equal, this reduces to
 
 \begin{equation}
 F_\mathrm{est} = \frac{1}{N} \sum_{i=1} F_i.
@@ -344,16 +344,15 @@ E.g. a 95% DOB interval implies that the Baysian data analyser would bet 20-to-1
 
 
 <!-- !split -->
-A frequentist $d \%$ *confidence interval* should be understood as follows: 
+A frequentist $d \%$ *confidence interval* should be understood in terms of a (hypothetical) space of repeated experiments 
 
 ```{admonition} Frequentist confidence interval
-  *There is a $d \%$ probability that when I compute a confidence interval from data of this sort that he true value of the parameter will fall within the (hypothetical) space of observations*
+  *The confidence level $d$ represents the long-run proportion of corresponding confidence intervals that contain the true value of the parameter. *
   ```
 
+A 95% confidence level does not mean that for a given realized interval there is a 95% probability that the parameter lies within the interval (i.e., a 95% probability that the interval covers the parameter). According to the strict frequentist interpretation, once an interval is calculated, this interval either covers the parameter value or it does not; it is no longer a matter of probability. The 95% probability relates to the reliability of the estimation procedure, not to a specific calculated interval.
+
 So the parameter is fixed (no pdf) and the confidence interval is based on random sampling of data. 
-
-Let's try again to understand this for the special case of a 95% confidence interval: If we make a large number of repeated samples, then 95% of the intervals extracted in this way will include the true value of the parameter.
-
 
 
 ### Simple Photon Counts: Best estimates and credible intervals
@@ -449,10 +448,10 @@ with parameters $\theta = [b,m]$. The theoretical model is related to reality vi
 y_{i} = y_{\mathrm{th},i} + \varepsilon_i, 
 \end{equation}
 
-where we often assume that the experimental errors are independent and normally distributed (with a standard deviation $e_i$) so that
+where we often assume that the experimental errors are independent and normally distributed (with a standard deviation $\sigma_i$) so that
 
 \begin{equation}
-y_i \sim \mathcal{N} \left( y_\mathrm{th}(x_i; \theta), e_i^2 \right).
+y_i \sim \mathcal{N} \left( y_\mathrm{th}(x_i; \theta), \sigma_i^2 \right).
 \end{equation}
 
 
@@ -496,7 +495,7 @@ The mode of the posterior pdf occurs at the minimum of this log-posterior functi
 
 
 <!-- !split -->
-### Why normal distributions?
+### Normal distributions and the Laplace approximation
 Let us give a quick motivation why Gaussian distributions show up so often. In fact, most distributions look like a Gaussian one in the vicinity of a mode (as will be shown below). Replacing a general pdf by a Gaussian one is called the *Laplace approximation*. It helps by providing analytical expressions for various quantities, but it is not always a very good approximations as you move further away from the mode.
 
 #### One-dimensional normal distributions
@@ -515,20 +514,6 @@ p(\theta_0-\sigma < \theta < \theta_0+\sigma | D,I) = \int_{\theta_0-\sigma}^{\t
 \end{equation}
 
 which implies that the interval $[\theta_0-\sigma, \theta_0+\sigma]$ is a Bayesian 68% credible interval.
-
-
-
-To obtain a measure of the reliability of this best estimate, we need to look at the width or spread of the posterior pdf about $\theta_0$. The linear term is zero at the maximum and the quadratic term is often the dominating one determining the width of the posterior pdf. Ignoring all the higher-order terms we arrive at the Gaussian approximation (see more details below)
-
-\begin{equation}
-p(\theta|D,I) \approx \frac{1}{\sigma\sqrt{2\pi}} \exp \left[ -\frac{(\theta-\mu)^2}{2\sigma^2} \right],
-\end{equation}
-
-where the mean $\mu = \theta_0$ and the variance $\sigma = \left( - \left. \frac{d^2L}{d\theta^2} \right|_{\theta_0} \right)^{-1/2}$, where $L$ is the logarithm of the posterior $P$. Our inference about the quantity of interest is conveyed very concisely, therefore, by the 67% Bayesian credible interval $\theta = \theta_0 \pm \sigma$, and 
-
-\begin{equation}
-p(\theta_0-\sigma < \theta < \theta_0+\sigma | D,I) = \int_{\theta_0-\sigma}^{\theta_0+\sigma} p(\theta|D,I) d\theta \approx 0.67.
-\end{equation}
 
 
 #### The Laplace approximation
@@ -554,13 +539,13 @@ L(\theta) = L(\theta_0) + \frac{1}{2} \left. \frac{\partial^2 L}{\partial \theta
 where the first-order term is zero since we are expanding around a maximum and $\partial L / \partial\theta = 0$. The second term is negative since the curvature is negative at the peak,which we indicate by writing $-\frac{1}{2} \left| \frac{\partial^2 L}{\partial \theta^2} \right|_{\theta=\theta_0}$. Furthermore, higher order terms can be neglected **if**
 
 \begin{equation}
-(\theta-\theta_0)^k \frac{ \partial^{2+k} L }{ \partial \theta^{2+k} } \ll \frac{ \partial^2 L }{ \partial \theta^2 },
+\left| (\theta-\theta_0)^k \frac{ \partial^{2+k} L }{ \partial \theta^{2+k} } \right| \ll \left| \frac{ \partial^2 L }{ \partial \theta^2 } \right|,
 \end{equation}
 
 for $k=1,2,\ldots$. This will often be true for small distances $\theta-\theta_0$.
 
 <!-- !split -->
-Consequently, if we neglect higher-order terms we find that 
+Consequently, if we neglect these higher-order terms we find that 
 
 \begin{equation}
 p(\theta|D,I) \approx A \exp \left[ -\frac{1}{2} \left| \frac{\partial^2 L}{\partial \theta^2} \right|_{\theta=\theta_0} \left( \theta - \theta_0 \right)^2  \right],
@@ -572,9 +557,11 @@ which is a Gaussian $\mathcal{N}(\mu,\sigma^2)$ with
 \mu = \theta_0, \qquad \frac{1}{\sigma^2} = \left| \frac{\partial^2 L}{\partial \theta^2} \right|_{\theta=\theta_0} .
 \end{equation}
 
+The amplitude $A = p(\theta_0)$ is **not** in general equal to the Gaussian normalisation factor $1/\sqrt{2\pi\sigma^2}$ but can easily be used to extract an approximate value for the probability mass contained in the mode. 
+
 <!-- !split -->
 ### Correlations
-In the "fitting a straight-line" example you should find that the joint pdf for the slope and the intercept $[m, b]$ corresponds to a slanted ellipse. That result implies that the model parameters are **correlated**.
+In the "fitting a straight-line" example you should find that the joint pdf for the slope and the intercept $[m, b]$ corresponds to a slanted ellipse. That result implies that the model parameters are (anti) **correlated**.
 
 * Try to understand the correlation that you find in this example.
 
@@ -641,7 +628,7 @@ C = \left. \frac{\partial^2 L}{\partial x \partial y} \right|_{x_0,y_0} \neq 0.
 <!-- !split -->
 * So in this quadratic approximation the contour is an ellipse centered at $(x_0,y_0)$ with orientation and eccentricity determined by $A,B,C$.
 * The principal axes are found from the eigenvectors of $H$.
-* Depending on the skewness of the ellipse, the parameters are either (i) not correlated, (ii) correlated, or (iii) anti-correlated.
+* Depending on the skewness of the ellipse, the parameters are either (i) not correlated ($C=0$), (ii) correlated, or (iii) anti-correlated.
 * Take a minute to consider what that implies.
 
 Let us be explicit. The Hessian can be diagonalized (we will also change sign)
@@ -660,10 +647,12 @@ y' = b_x (x - x_0) + b_y (y - y_0)
 we find that the pdf becomes independent in this new pair of parameters
 
 \begin{equation}
-L(x',y') = L(0,0) - \frac{1}{2} \begin{pmatrix} x' & y' \end{pmatrix}
+\begin{gathered}
+L(x',y') $= L(0,0) - \frac{1}{2} \begin{pmatrix} x' & y' \end{pmatrix}
 \begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix}
 \begin{pmatrix} x' \\ y' \end{pmatrix} \\
-\qquad = L(0, 0) - \frac{1}{2} a (x')^2 - \frac{1}{2} b (y')^2.
+$= L(0, 0) - \frac{1}{2} a (x')^2 - \frac{1}{2} b (y')^2.
+\end{gathered}
 \end{equation}
 
 * Take a minute to consider what has been achieved by this change of variables.

@@ -271,7 +271,7 @@ approximation to the true value. It is then always accompanied by an
 error estimate, often limited to a statistical error estimate. For now, we
 will treat $y_i$ as our exact value for the response variable.
 
-In order to find the "optimal" set of parameters $\\boldsymbol{\theta}^*$ we will then minimize $C(\boldsymbol{\boldsymbol{\theta}})$. Due to its quadratic form, this function is bounded from below and we just need to find the single extremum. That is we need to solve the problem
+In order to find the "optimal" set of parameters $\boldsymbol{\theta}^*$ we will then minimize $C(\boldsymbol{\boldsymbol{\theta}})$. Due to its quadratic form, this function is bounded from below and we just need to find the single extremum. That is we need to solve the problem
 
 \begin{equation}
 \boldsymbol{\theta}^* =
