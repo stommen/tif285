@@ -135,7 +135,7 @@ The basic structure of the Metropolis (and Metropolis-Hastings) algorithm is the
 T( \boldsymbol{\theta}_i , \boldsymbol{\theta}_{i+1}) = S( \boldsymbol{\theta}_i , \boldsymbol{\theta}_{i+1}) A( \boldsymbol{\theta}_i , \boldsymbol{\theta}_{i+1})
 \end{equation}
 
-The acceptance probability can then be designed to fulfil the so called *detailed balance* relation*
+The acceptance probability can then be designed to fulfil the so called *detailed balance* relation
 
 \begin{equation}
 p(\boldsymbol{\theta} | D,I)T(\boldsymbol{\theta},\boldsymbol{\theta}') = p(\boldsymbol{\theta}' | D,I) T(\boldsymbol{\theta}',\boldsymbol{\theta}),
@@ -145,11 +145,11 @@ which eventually results in the following algorithm
 
 1. Initialize the sampling by choosing a starting point $\boldsymbol{\theta}_0$.
 2. Collect samples by repeating the following:
-   1. Given $\boldsymbol{\theta}_i$, *propose* a new point $\boldsymbol{\phi}$, sampled from a proposal distribution $T(  \boldsymbol{\theta}_i, \boldsymbol{\phi} )$. This proposal distribution could take many forms. However, for concreteness you can imagine it as a multivariate normal with mean given by $\boldsymbol{\theta}_i$ and variance $\boldsymbol{\sigma}^2$ specified by the user.
-      * The transition density will (usually) give a smaller probability for visiting positions that are far from the current position.
+   1. Given $\boldsymbol{\theta}_i$, *propose* a new point $\boldsymbol{\phi}$, sampled from a proposal distribution $S(  \boldsymbol{\theta}_i, \boldsymbol{\phi} )$. This proposal distribution could take many forms. However, for concreteness you can imagine it as a multivariate normal with mean given by $\boldsymbol{\theta}_i$ and variance $\boldsymbol{\sigma}^2$ specified by the user.
+      * The proposal distribution will (usually) give a smaller probability for visiting positions that are far from the current position.
       * The width $\boldsymbol{\sigma}$ determines the average step size and is known as the proposal width.
    2. Compute the Metropolis(-Hastings) ratio $r$ (defined below). Note that the second factor is equal to one if the proposal distribution is symmetric. It is then known as the Metropolis algorithm.
-   3. Decide whether or not to accept candidate $\boldsymbol{\phi}$ for $\boldsymbol{\theta}_{i+1}$. 
+   3. Use the acceptance probability to decide whether or not to accept candidate $\boldsymbol{\phi}$ for $\boldsymbol{\theta}_{i+1}$. 
       * If $r \geq 1$: accept the proposal position and set $\boldsymbol{\theta}_{i+1} = \boldsymbol{\phi}$.
       * If $r < 1$: accept the position with probability $r$ by sampling a uniform $\mathrm{U}(0,1)$ distribution (note that now we have $0 \leq r < 1$). 
         - If $u \sim \mathrm{U}(0,1) \leq r$, then $\boldsymbol{\theta}_{i+1} = \boldsymbol{\phi}$ (accept); 
