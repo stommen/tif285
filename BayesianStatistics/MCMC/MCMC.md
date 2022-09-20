@@ -164,12 +164,13 @@ The Metropolis(-Hastings) ratio is
 
 \begin{equation}
     r = \frac{p( \boldsymbol{\phi} | D,I)}{p( \boldsymbol{\theta}_i | D,I)}
-    \times \frac{T(  \boldsymbol{\phi}, \boldsymbol{\theta}_i )}{T( \boldsymbol{\theta}_i, \boldsymbol{\phi} )}.
+    \times \frac{S(  \boldsymbol{\phi}, \boldsymbol{\theta}_i )}{s( \boldsymbol{\theta}_i, \boldsymbol{\phi} )}.
 \end{equation}
 
 * The Metropolis algorithm dates back to the 1950s in physics, but didn't become widespread in statistics until almost 1980.
 * It enabled Bayesian methods to become feasible.
 * Note, however, that nowadays there are much more sophisticated samplers than the original Metropolis one.
+* The work leading to the Metropolis algorithm is an interesting piece of science history. A key person in that project was Arianna Rosenbluth who did all of the coding. See this [obituary](https://www.nytimes.com/2021/02/09/science/arianna-wright-dead.html) and this [APS article](https://www.aps.org/publications/apsnews/202203/history.cfm) to learn a bit about the history.
 
 <!-- !split -->
 ## Visualizations of MCMC
