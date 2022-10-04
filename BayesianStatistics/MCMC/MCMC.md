@@ -94,17 +94,14 @@ The main uncertainty lies in assuming that a Gaussian approximation is valid. No
 <!-- !split -->
 The key problem is that too much time is wasted in sampling regions where $p( \boldsymbol{\theta} |D,I )$ is very small. Consider a situation in which the significant region of the pdf is concentrated in a $10^{-1}$ fraction of the full range for one of the parameters. With such a concentration in $m$ dimensions, the significant fraction of the total volume would be $10^{-m}$! This situation necessitates *importance sampling* which reweighs the integrand to more appropriately distribute points (e.g. the [VEGAS algorithm](https://en.wikipedia.org/wiki/VEGAS_algorithm)), but this is difficult to accomplish.
 
-<!-- !split -->
-The bottom line is that its not feasible to draw a series of independent random samples from $p ( \boldsymbol{\theta} | D,I )$ from large $\boldsymbol{\theta}$ dimensions. Independence means if $\boldsymbol{\theta}_0, \boldsymbol{\theta}_1, \ldots$ is the series, knowing $\boldsymbol{\theta}_1$ doesn't tell us anything about $\boldsymbol{\theta}_2$.
-
-<!-- !split -->
-However, the samples don't actually need to be independent. they just need to generate a distribution that is proportional to $p ( \boldsymbol{\theta} |D,I)$. E.g., a histogram of the samples should approximate the true distribution.
 
 <!-- !split -->
 ## Markov Chain Monte Carlo
-A solution is therefore to do a *random walk* in the parameter space of $\boldsymbol{\theta}$ such that the probability for being in a region is proportional to the value of $p( \boldsymbol{\theta} | D,I)$ in that region.
-* The position $\boldsymbol{\theta}_{i+1}$ follows from $\boldsymbol{\theta}_i$ by a transition probability (kernel) $t ( \boldsymbol{\theta}_{i+1} | \boldsymbol{\theta}_i )$.
+A solution to the importance problem is to do a *random walk* in the parameter space of $\boldsymbol{\theta}$ such that the probability for being in a region is proportional to the value of $p( \boldsymbol{\theta} | D,I)$ in that region.
+* The position $\boldsymbol{\theta}_{i+1}$ follows from $\boldsymbol{\theta}_i$ by a transition probability (kernel) $T ( \boldsymbol{\theta}_i , \boldsymbol{\theta}_{i+1})$[^transitiondensity].
 * The transition probability is *time independent*, which means that $t ( \boldsymbol{\theta}_{i+1} | \boldsymbol{\theta}_i )$ is always the same.
+
+[^transitiondensity]: This quantity is found with many different notations. You can find $T(\boldsymbol{\theta}_i \to \boldsymbol{\theta}_{i+1})$, $T(\boldsymbol{\theta}_{i+1} \leftarrow \boldsymbol{\theta}_{i})$, $T(\boldsymbol{\theta}_{i+1} \vert \boldsymbol{\theta}_{i})$, and possibly other versions as well.
 
 A sequence of points generated according to these rules is called a *Markov Chain* and the method is called Markov Chain Monte Carlo (MCMC).
 
@@ -132,17 +129,33 @@ We have been using emcee extensively in this course. It is based on ensemble sam
 
 <!-- !split -->
 ## The Metropolis Hastings algorithm
-The basic structure of the Metropolis (and Metropolis-Hastings) algorithm is the following:
+The basic structure of the Metropolis (and Metropolis-Hastings) algorithm is the design of a transition density $T$ as a product of a step proposal function $S$ and an acceptance probability $A$ 
+
+\begin{equation}
+T( \boldsymbol{\theta}_i , \boldsymbol{\theta}_{i+1}) = S( \boldsymbol{\theta}_i , \boldsymbol{\theta}_{i+1}) A( \boldsymbol{\theta}_i , \boldsymbol{\theta}_{i+1})
+\end{equation}
+
+The acceptance probability can then be designed to fulfil the so called *detailed balance* relation
+
+\begin{equation}
+p(\boldsymbol{\theta} | D,I)T(\boldsymbol{\theta},\boldsymbol{\theta}') = p(\boldsymbol{\theta}' | D,I) T(\boldsymbol{\theta}',\boldsymbol{\theta}),
+\end{equation}
+
+which eventually results in the following algorithm
 
 1. Initialize the sampling by choosing a starting point $\boldsymbol{\theta}_0$.
 2. Collect samples by repeating the following:
-   1. Given $\boldsymbol{\theta}_i$, *propose* a new point $\boldsymbol{\phi}$, sampled from a proposal distribution $q( \boldsymbol{\phi} | \boldsymbol{\theta}_i )$. This proposal distribution could take many forms. However, for concreteness you can imagine it as a multivariate normal with mean given by $\boldsymbol{\theta}_i$ and variance $\boldsymbol{\sigma}^2$ specified by the user.
-      * The transition density will (usually) give a smaller probability for visiting positions that are far from the current position.
+   1. Given $\boldsymbol{\theta}_i$, *propose* a new point $\boldsymbol{\phi}$, sampled from a proposal distribution $S(  \boldsymbol{\theta}_i, \boldsymbol{\phi} )$. This proposal distribution could take many forms. However, for concreteness you can imagine it as a multivariate normal with mean given by $\boldsymbol{\theta}_i$ and variance $\boldsymbol{\sigma}^2$ specified by the user.
+      * The proposal distribution will (usually) give a smaller probability for visiting positions that are far from the current position.
       * The width $\boldsymbol{\sigma}$ determines the average step size and is known as the proposal width.
    2. Compute the Metropolis(-Hastings) ratio $r$ (defined below). Note that the second factor is equal to one if the proposal distribution is symmetric. It is then known as the Metropolis algorithm.
-   3. Decide whether or not to accept candidate $\boldsymbol{\phi}$ for $\boldsymbol{\theta}_{i+1}$. 
+   3. Use the acceptance probability to decide whether or not to accept candidate $\boldsymbol{\phi}$ for $\boldsymbol{\theta}_{i+1}$. 
       * If $r \geq 1$: accept the proposal position and set $\boldsymbol{\theta}_{i+1} = \boldsymbol{\phi}$.
-      * If $r < 1$: accept the position with probability $r$ by sampling a uniform $\mathrm{U}(0,1)$ distribution (note that now we have $0 \leq r < 1$). If $u \sim \mathrm{U}(0,1) \leq r$, then $\boldsymbol{\theta}_{i+1} = \boldsymbol{\phi}$ (accept); else $\boldsymbol{\theta}_{i+1} = \boldsymbol{\theta}_i$ (reject). Note that the chain always grows since you add the current position again if the proposed step is rejected.
+      * If $r < 1$: accept the position with probability $r$ by sampling a uniform $\mathrm{U}(0,1)$ distribution (note that now we have $0 \leq r < 1$). 
+        - If $u \sim \mathrm{U}(0,1) \leq r$, then $\boldsymbol{\theta}_{i+1} = \boldsymbol{\phi}$ (accept); 
+        - else $\boldsymbol{\theta}_{i+1} = \boldsymbol{\theta}_i$ (reject). 
+        
+      Note that the chain always grows since you add the current position again if the proposed step is rejected.
    4. Iterate until the chain has reached a predetermined length or passes some convergence tests.
 
 
@@ -150,15 +163,14 @@ The basic structure of the Metropolis (and Metropolis-Hastings) algorithm is the
 The Metropolis(-Hastings) ratio is
 
 \begin{equation}
-    
     r = \frac{p( \boldsymbol{\phi} | D,I)}{p( \boldsymbol{\theta}_i | D,I)}
-    \times \frac{q( \boldsymbol{\theta}_i | \boldsymbol{\phi} )}{q( \boldsymbol{\phi} | \boldsymbol{\theta}_i )}.
-    
+    \times \frac{S(  \boldsymbol{\phi}, \boldsymbol{\theta}_i )}{s( \boldsymbol{\theta}_i, \boldsymbol{\phi} )}.
 \end{equation}
 
 * The Metropolis algorithm dates back to the 1950s in physics, but didn't become widespread in statistics until almost 1980.
 * It enabled Bayesian methods to become feasible.
 * Note, however, that nowadays there are much more sophisticated samplers than the original Metropolis one.
+* The work leading to the Metropolis algorithm is an interesting piece of science history. A key person in that project was Arianna Rosenbluth who did all of the coding. See this [obituary](https://www.nytimes.com/2021/02/09/science/arianna-wright-dead.html) and this [APS article](https://www.aps.org/publications/apsnews/202203/history.cfm) to learn a bit about the history.
 
 <!-- !split -->
 ## Visualizations of MCMC
