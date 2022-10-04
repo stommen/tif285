@@ -19,6 +19,12 @@ and a set of target values
 * Furthermore, we will use the subscript $N$ to denote a set of $N$ vectors (or scalars): $\boldsymbol{X}_N$ ($\boldsymbol{t}_N$),
 * ... while a single instance $i$ is denoted by a superscript: $\boldsymbol{x}^{(i)}$ ($t^{(i)}$).
 
+```{admonition} Summary
+We will sometimes use the notation $\mathcal{D}_N = [\boldsymbol{X}_N, \boldsymbol{t}_N]$ for the data. 
+* A shorthand for $p(\boldsymbol{t}_N | \boldsymbol{X}_N)$ could therefore be $p(\mathcal{D}_N)$. 
+* Note also that a target is always associated with an input vector so we sometimes write $p(\boldsymbol{t}_N)$ instead of $p(\boldsymbol{t}_N | \boldsymbol{X}_N)$.
+```
+
 <!-- !split -->
 We will consider two different *inference problems*:
 
@@ -68,23 +74,16 @@ A Gaussian process is a stochastic process (a collection of random variables ind
 
 Let us express $y(\boldsymbol{x})$ in terms of a model function $y(\boldsymbol{x}; \boldsymbol{\theta})$ that depends on a vector of model parameters $\boldsymbol{\theta}$.
 
-For example, using a set of basis functions $\left\{ \phi^{(h)} (\boldsymbol{x}) \right\}_{h=1}^H$ with linear weights $\boldsymbol{\theta}_H$ we have
+For example, using a set of basis functions $\left\{ \phi_{h} (\boldsymbol{x}) \right\}_{h=1}^H$ with linear weights $\boldsymbol{\theta} \in \mathbb{R}^H$ we have
 
 \begin{equation}
 
-y (\boldsymbol{x}, \boldsymbol{\theta}) = \sum_{h=1}^H \theta^{(h)} \phi^{(h)} (\boldsymbol{x})
+y (\boldsymbol{x}, \boldsymbol{\theta}) = \sum_{h=1}^H \theta_{h} \phi_{h} (\boldsymbol{x})
 
 \end{equation}
 
 *Notice.* 
-The basis functions can be non-linear in $\boldsymbol{x}$ such as Gaussians (aka *radial basis functions*)
-
-\begin{equation}
-
-\phi^{(h)} (\boldsymbol{x}) = \exp \left[ -\frac{\left( \boldsymbol{x} - \boldsymbol{c}^{(h)} \right)^2}{2 (\sigma^{(h)})^2} \right].
-
-\end{equation}
-
+The basis functions can be non-linear in $\boldsymbol{x}$ such as Gaussians (aka *radial basis functions*).
 Still, this constitutes a linear model since $y (\boldsymbol{x}, \boldsymbol{\theta})$ depends linearly on the parameters $\boldsymbol{\theta}$.
 
 
@@ -126,7 +125,7 @@ Consider the linear model and define the $N \times H$ design matrix $\boldsymbol
 
 \begin{equation}
 
-R_{nh} \equiv \phi^{(h)} \left( \boldsymbol{x}^{(n)} \right).
+R_{nh} \equiv \phi_{h} \left( \boldsymbol{x}^{(n)} \right).
 
 \end{equation}
 
@@ -134,7 +133,7 @@ Then $\boldsymbol{y}_N = \boldsymbol{R} \boldsymbol{\theta}$ is the vector of mo
 
 \begin{equation}
 
-y^{(n)} = \sum_{h=1}^H R_{nh} \boldsymbol{\theta^{(h)}}.
+y^{(n)} = \sum_{h=1}^H R_{nh} \theta_{h}.
 
 \end{equation}
 
@@ -150,7 +149,7 @@ Now, since $y$ is a linear function of $\boldsymbol{\theta}$, it is also Gaussia
 
 \begin{equation}
 
-\boldsymbol{Q} = \langle \boldsymbol{y} \boldsymbol{y}^T \rangle = \langle \boldsymbol{R} \boldsymbol{\theta} \boldsymbol{\theta}^T \boldsymbol{R}^T \rangle
+\boldsymbol{Q} = \langle \boldsymbol{y}_N \boldsymbol{y}_N^T \rangle = \langle \boldsymbol{R} \boldsymbol{\theta} \boldsymbol{\theta}^T \boldsymbol{R}^T \rangle
 = \sigma_\theta^2 \boldsymbol{R} \boldsymbol{R}^T,
 
 \end{equation}
@@ -159,13 +158,13 @@ which implies that
 
 \begin{equation}
 
-p(\boldsymbol{y}) = \mathcal{N} \left( \boldsymbol{y}; 0, \sigma_\theta^2 \boldsymbol{R} \boldsymbol{R}^T \right).
+p(\boldsymbol{y}_N) = \mathcal{N} \left( \boldsymbol{y}_N; 0, \sigma_\theta^2 \boldsymbol{R} \boldsymbol{R}^T \right).
 
 \end{equation}
 
 This will be true for any set of points $\boldsymbol{X}_N$; which is the defining property of a **Gaussian process**.
 
-* What about the target values $\boldsymbol{t}$?
+* What about the target values $\boldsymbol{t}_N$?
 
 Well, if $t^{(n)}$ is assumed to differ by additive Gaussian noise, i.e., 
 
@@ -175,11 +174,11 @@ t^{(n)} = y^{(n)} + \varepsilon^{(n)},
 
 \end{equation}
 
-where $\varepsilon^{(n)} \sim \mathcal{N} \left( 0, \sigma_\nu^2 \right)$; then $\boldsymbol{t}$ also has a Gaussian distribution
+where $\varepsilon^{(n)} \sim \mathcal{N} \left( 0, \sigma_\nu^2 \right)$; then $\boldsymbol{t}_N$ also has a Gaussian distribution
 
 \begin{equation}
 
-p(\boldsymbol{t}) = \mathcal{N} \left( \boldsymbol{t}; 0, \boldsymbol{C} \right),
+p(\boldsymbol{t}_N) = \mathcal{N} \left( \boldsymbol{t}_N; 0, \boldsymbol{C} \right),
 
 \end{equation}
 
@@ -198,7 +197,7 @@ The covariance matrices are given by
 
 \begin{equation}
 
-Q_{nn'} = \sigma_\theta^2 \sum_h \phi^{(h)} \left( \boldsymbol{x}^{(n)} \right) \phi^{(h)} \left( \boldsymbol{x}^{(n')} \right),
+Q_{nn'} = \sigma_\theta^2 \sum_h \phi_{h} \left( \boldsymbol{x}^{(n)} \right) \phi_{h} \left( \boldsymbol{x}^{(n')} \right),
 
 \end{equation}
 
@@ -262,11 +261,11 @@ A very standard kernel is the RBF (also known as Exponentiated Quadratic or Gaus
 
 \begin{equation}
  
-C_\mathrm{RBF}(\mathbf{x},\mathbf{x}'; \boldsymbol{\alpha}) = \alpha_0 + \alpha_1 \exp \left[ -\frac{1}{2} \sum_{i=1}^I \frac{(x_{i} - x_{i}')^2}{r_i^2} \right] 
+C_\mathrm{RBF}(\mathbf{x},\mathbf{x}'; \boldsymbol{\alpha}) = \alpha_0 \delta_{\mathbf{x},\mathbf{x}'}+ \alpha_1 \exp \left[ -\frac{1}{2} \sum_{i=1}^p \frac{(x_{i} - x_{i}')^2}{r_i^2} \right] 
 
 \end{equation}
 
-where $I$ denotes the dimensionality of the input space. The hyperparameters of the RBF kernel, $\boldsymbol{\alpha} = \{ \alpha_0, \alpha_1, \vec{r} \}$, are known, respectively, as the noise, the variance and the correlation length(s). Sometimes, a single correlation length $r_i=r$ is used.
+where $p$ denotes the dimensionality of the input space (i.e., $\mathbf{x} \in \mathbb{R}^p$). The hyperparameters of the RBF kernel, $\boldsymbol{\alpha} = \{ \alpha_0, \alpha_1, \vec{r} \}$, are known, respectively, as the noise, the variance and the correlation length(s). Sometimes, a single correlation length $r_i=r$ is used.
 
 
 <!-- !split -->
@@ -283,7 +282,7 @@ p \left( t^{(N+1)} | \boldsymbol{t}_N \right) = \frac{p \left( t^{(N+1)}, \bolds
 
 \end{equation}
 
-First, let us note that $\boldsymbol{t}_{N+1} = \left\{ \boldsymbol{t}_N, t^{(N+1)} \right\}$
+First, let us note that $\boldsymbol{t}_{N+1} = \left\{ \boldsymbol{t}_N, t^{(N+1)} \right\}$ such that $p \left( t^{(N+1)}, \boldsymbol{t}_N \right) = p \left(  \boldsymbol{t}_{N+1} \right)$.
 
 Since both $p \left( \boldsymbol{t}_{N+1} \right)$ and $p \left( \boldsymbol{t}_N \right)$ are Gaussian distributions, then the conditional distribution, obtained by the ratio, must also be a Gaussian. Let us use the notation $\boldsymbol{C}_{N+1}$ for the $(N+1) \times (N+1)$ covariance matrix for $\boldsymbol{t}_{N+1}$. This implies that
 
@@ -318,7 +317,7 @@ Let us split the $\boldsymbol{C}_{N+1}$ covariance matrix into four different bl
 
 where $\boldsymbol{C}_N$ is the $N \times N$ covariance matrix (which depends on the positions $\boldsymbol{X}_N$), $\boldsymbol{k}$ is an $N \times 1$ vector (that describes the covariance of $\boldsymbol{X}_N$ with $\boldsymbol{x}^{(N+1)}$), while $\kappa$ is the single diagonal element obtained from $\boldsymbol{x}^{(N+1)}$.
 
-We can use the partitioned inverse equations (Barnett, 1979) to rewrite $\boldsymbol{C}_{N+1}^{-1}$ in terms of $\boldsymbol{C}_{N}^{-1}$ and $\boldsymbol{C}_{N}$ as follows
+We can use the partitioned inverse equations (Barnett, 1979) to rewrite $\boldsymbol{C}_{N+1}^{-1}$ in terms of $\boldsymbol{C}_{N}^{-1}$ and $\boldsymbol{C}_{N+1}$ as follows
 
 \begin{equation}
 
@@ -444,6 +443,6 @@ p \left( t^{(N+1)} | \boldsymbol{t}_N \right) = \int d\boldsymbol{\alpha} p \lef
 = \int d\boldsymbol{\alpha} p \left( t^{(N+1)} | \boldsymbol{t}_N, \boldsymbol{\alpha} \right) p(\boldsymbol{\alpha} | \boldsymbol{t}_N)
 $$ (eq:tN1marg)
 
-The former approach is absolutely dominating the literature on GP regression. The covariance function hyperparameters are first optimized and then used for regression. The second approach gives a better quantification of the uncertainties, but is much more computationally demanding.
+The former approach is absolutely dominating the literature on GP regression. The covariance function hyperparameters are first optimized and then used for regression. The second approach gives a better quantification of the uncertainties, but is more computationally demanding.
 
 
