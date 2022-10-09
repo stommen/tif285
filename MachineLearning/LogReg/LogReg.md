@@ -61,14 +61,14 @@ made of $n$ samples, each of which carries $p$ features or predictors. The
 primary goal is to identify the classes to which new unseen samples
 belong.
 
-*Notice.* 
+```{admonition} Notation
 We will use the following notation:
 * $\boldsymbol{x}$: independent (input) variables, typically a vector of length $p$. A matrix of $n$ instances of input vectors is denoted $\boldsymbol{X}$, and is also known as the *design matrix*.
 * $t$: dependent, response variable, also known as the target. For binary classification the target $t^{(i)} \in \{0,1\}$. For $K$ different classes we would have $t^{(i)} \in \{1, 2, \ldots, K\}$. A vector of $n$ targets from $n$ instances of data is denoted $\boldsymbol{t}$.
 * $\mathcal{D}$: is the data, where $\mathcal{D}^{(i)} = \{ (\boldsymbol{x}^{(i)}, t^{(i)} ) \}$.
 * $\boldsymbol{y}$: is the output of our classifier that will be used to quantify probabilities $p_{t=C}$ that the target belongs to class $C$.
 * $\boldsymbol{w}$: will be the parameters (weights) of our classification model.
-
+```
 
 
 <!-- !split  -->
@@ -88,62 +88,60 @@ t^{(i)} = \begin{bmatrix} 0 \\  1 \end{bmatrix}
 
 
 <!-- !split -->
-### Linear classifier
+### The perceptron
 
-Before moving to the logistic model, let us try to use our linear
-regression model to classify these two outcomes. We could for example
-fit a linear model to the default case if $y^{(i)} > 0.5$ and the no
-default case $y^{(i)} \leq 0.5$.
+Before moving to the logistic model, let us try to use a linear regression model to classify these two outcomes. We could use a linear model 
 
-We would then have our 
-weighted linear combination, namely 
 \begin{equation}
-\boldsymbol{\tilde{y}} = \boldsymbol{X}^T\boldsymbol{w} +  \boldsymbol{\epsilon},
+\boldsymbol{\tilde{y}} = \boldsymbol{X}^T\boldsymbol{w},
 \end{equation}
-where $\boldsymbol{y}$ is a vector representing the possible outcomes, $\boldsymbol{X}$ is our
-$n\times p$ design matrix and $\boldsymbol{w}$ represents our estimators/predictors.
 
-<!-- !split -->
-### Some selected properties
+where $\boldsymbol{\tilde{y}}$ is a vector representing the possible outcomes, $\boldsymbol{X}$ is our $n\times p$ design matrix and $\boldsymbol{w}$ are the model parameters.
 
-The main problem with our function is that it takes values on the
-entire real axis. In the case of logistic regression, however, the
-labels $t^{(i)}$ are discrete variables. 
+Note however that our outputs $\tilde{y}^{(i)}$ take values on the
+entire real axis. Our targets $t^{(i)}$, however, are discrete variables. 
 
 One simple way to get a discrete output is to have sign
 functions that map the output of a linear regressor to values $y^{(i)} \in \{ 0, 1 \}$,
 $y^{(i)} = f(\tilde{y}^{(i)})=\frac{\mathrm{sign}(\tilde{y}^{(i)})+1}{2}$, which will map to one if $\tilde{y}^{(i)}\ge 0$ and zero otherwise. 
-We will encounter this model in our first demonstration of neural networks. Historically it is called the *perceptron* model in the machine learning
-literature. This model is extremely simple. However, in many cases it is more
-favorable to use a *soft* classifier that outputs
-the probability of a given category. This leads us to the logistic function.
-
-
-<!-- !split -->
-### The logistic function
+Historically this model is called the *perceptron*  in the machine learning
+literature. 
 
 The perceptron is an example of a "hard classification" model. We
 will encounter this model when we discuss neural networks as
 well. Each datapoint is deterministically assigned to a category (i.e
-$y^{(i)}=0$ or $y^{(i)}=1$). In many cases, it is favorable to have a "soft"
+$y^{(i)}=0$ or $y^{(i)}=1$). In many cases, it is favorable to have a *soft*
 classifier that outputs the probability of a given category rather
 than a single value. For example, given $\boldsymbol{x}^{(i)}$, the classifier
-outputs the probability of being in a category $k$.  Logistic regression
-is the most common example of such a soft classifier. In logistic
-regression, the probability that a data point $\boldsymbol{x}^{(i)}$
-belongs to a category $t^{(i)} \in \{0,1\}$ is given by the so-called *logit* function (an example of a S-shape or *Sigmoid* function) which is meant to represent the likelihood for a given event, 
+outputs the probability of being in a category $k$. 
+
+<!-- !split -->
+### The logistic function
+
+Logistic regression is the simplest example of the use of such a soft classifier. Let us assume that we have two classes such that $t^{(i)}$ is either $0$ or $1$. 
+
+In logistic regression, we will use the so-called *logit* function
 
 \begin{equation}
-
 y(\boldsymbol{x}; \boldsymbol{w}) = y(z) = \frac{1}{1+e^{-z}} = \frac{e^z}{1+e^z},
-
 \end{equation}
 
-where the so called *activation* $z = z(\boldsymbol{x}; \boldsymbol{w})$. 
+with the so called *activation* $z = z(\boldsymbol{x}; \boldsymbol{w})$. 
+This function is no longer linear in the model parameters $\boldsymbol{w}$. It is an example of a S-shape or *Sigmoid* function. 
+
+We let $y^{(i)}$ give the probability that a data point $\boldsymbol{x}^{(i)}$ belongs to category $t^{(i)} = 1$, 
+
+\begin{equation}
+p \left( t^{(i)} = 1 \vert \boldsymbol{x}^{(i)}, \boldsymbol{w} \right) = y(\boldsymbol{x}^{(i)}; \boldsymbol{w}).
+\end{equation}
+
 
 * Most frequently one uses $z = z(\boldsymbol{x}, \boldsymbol{w}) \equiv \boldsymbol{x} \cdot \boldsymbol{w}$.
+* With $x_0^{(i)}=1$ for all $i$ we have that $w_0$ is the bias.
 * Note that $1-y(z)= y(-z)$.
-* The sigmoid function can be motivated in several different ways. E.g. in information theory this function represents the probability of a signal $s=1$ rather than $s=0$ when transmission occurs over a noisy channel.
+* The sigmoid function can be motivated in several different ways:
+  * In information theory this function represents the probability of a signal $s=1$ rather than $s=0$ when transmission occurs over a noisy channel.
+  * It can be seen as an artificial neuron that mimics aspects of its biological counterpart.
 
 <!-- !split -->
 ### Standard activation functions
@@ -153,7 +151,7 @@ where the so called *activation* $z = z(\boldsymbol{x}; \boldsymbol{w})$.
 ```{figure} ./figs/logistic_functions.png
 :name: fig-logistic-functions
 
-The sigmoid, step,and (normalized) tanh functions; three common classifier functions used in classification and neural networks. 
+The sigmoid, step,and (normalized) tanh functions; three common classifier functions used in classification and neural networks. In these lecture notes we use the letter $z$ to denote the activation.
 ```
 
 <!-- !split -->
@@ -227,10 +225,10 @@ The maximum likelihood estimator is defined as the set of parameters (weights) t
 Since the cost (error) function is here defined as the negative log-likelihood, for logistic regression, we have that
 
 \begin{equation}
-
 \mathcal{C}(\boldsymbol{w})=-\sum_{i=1}^n  \left[ t^{(i)} (w_0+w_1x^{(i)}) -\log{ \left( 1+\exp{(w_0+w_1x^{(i)})} \right) } \right].
-
 \end{equation}
+
+MLE should give the weights $\boldsymbol{w}^*$ that minimizes this cost function.
 
 <!-- !split -->
 #### Regularization
@@ -247,8 +245,10 @@ In particular, Ridge regularization is obtained by defining another cost functio
 
 where $E_W (\boldsymbol{w}) = \frac{1}{2} \sum_j w_j^2$ and $\alpha$ is known as the *weight decay*.
 
-```{admonition} Can you motivate why $\alpha$ is known as the weight decay?
+```{admonition} Question
 :class: tip
+Can you motivate why $\alpha$ is known as the weight decay?
+
 *Hint*: Recall the origin of this regularizer from a Bayesian perspective.
 ```
 
@@ -304,7 +304,7 @@ Within a binary classification problem, we can easily expand our model to includ
 
 \begin{equation}
 
-a( \boldsymbol{x}^{(i)}, \boldsymbol{w} ) = w_0 + w_1 x_1^{(i)} + w_2 x_2^{(i)} + \dots + w_p x_p^{(i)}.
+z( \boldsymbol{x}^{(i)}, \boldsymbol{w} ) = w_0 + w_1 x_1^{(i)} + w_2 x_2^{(i)} + \dots + w_p x_p^{(i)}.
 
 \end{equation}
 
