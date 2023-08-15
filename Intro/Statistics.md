@@ -12,34 +12,28 @@ kernelspec:
 
 # Statistics concepts and notation
 
-```{epigraph}
-> “If your result needs a statistician then you should design a better experiment.”
+## Notation
 
--- Ernest Rutherford
-```
-
-## English--Swedish dictionary
-
-| English | Swedish | General notation |
-| :------ | :------ | :------: |
-| Conditional probability | Betingad sannolikhet | $\cprob{A}{B}$ |
-| Covariance | Kovarians | $\mathrm{Cov}(X,Y)$ |
-| Distribution function | Fördelningsfunktion | $P(x)$ |
-| Empty set | Tomma mängden | $\emptyset$ |
-| Event | Händelse | $A$ |
-| Expectation value | Väntevärde | $\expect{X}$ |
-| Likelihood function | Trolighetsfunktion | $\mathcal{L}(\theta)$
-| Model parameters | Modellparametrar | $\par$
-| Outcome | Utfall |
-| Posterior distribution | À-posteriorifördelning | 
-| Prior distribution | À-priorifördelning | 
-| Probability density function | Täthetsfunktion | $p(x)$ |
-| Probability mass function | Frekvensfunktion | $p(x)$ |
-| Probability measure | Sannolikhetsmått | $\prob $ |
-| Random variable | Slumpvariabel | $X$ |
-| Sample space | Utfallsrum | $S$ |
-| Standard deviation | Standardavvikelse | $\mathrm{Std}(X)$ |
-| Variance | Varians | $\mathrm{Var}(X)$ |
+| English | General notation |
+| :------ | :------: |
+| Conditional probability | $\cprob{A}{B}$ |
+| Covariance | $\mathrm{Cov}(X,Y)$ |
+| Distribution function | $P(x)$ |
+| Empty set | $\emptyset$ |
+| Event | $A$ |
+| Expectation value | $\expect{X}$ |
+| Likelihood function | $\mathcal{L}(\theta)$
+| Model parameters | $\par$
+| Outcome | 
+| Posterior distribution | 
+| Prior distribution |  
+| Probability density function | $p(x)$ |
+| Probability mass function | $p(x)$ |
+| Probability measure | $\prob $ |
+| Random variable | $X$ |
+| Sample space | $S$ |
+| Standard deviation | $\mathrm{Std}(X)$ |
+| Variance | $\mathrm{Var}(X)$ |
 
 ## Important definitions
 
