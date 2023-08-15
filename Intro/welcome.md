@@ -32,7 +32,7 @@ These lecture notes have been authored by [Christian Forssén](https://www.chalm
 <!-- ======= Acknowledgements ======= -->
 ## Acknowledgements
 
-These notes originated from an intensive three-week summer school course taught at the [University of York](https://www.york.ac.uk/) in 2019 by Christian Forssén, Dick Furnstahl, and Daniel Phillips as part of the [TALENT](https://fribtheoryalliance.org/TALENT/) initiative. The original notes and subsequent revisions have been informed by interactions with many colleagues; I am particularly grateful to:
+These notes originated from an intensive three-week summer school course taught at the [University of York](https://www.york.ac.uk/) in 2019 by Christian Forssén, Dick Furnstahl, and Daniel Phillips as part of the [TALENT](https://fribtheoryalliance.org/TALENT/) initiative. The original notes and subsequent revisions have been informed by interactions with many colleagues. I am particularly grateful to:
 
 * Dr. Andreas Ekström, Chalmers University of Technology
 * Prof. Richard Furnstahl, Ohio State University
