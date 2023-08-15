@@ -159,93 +159,72 @@ with $t$ a finite positive number.
 
 For more discussions of Ridge and Lasso regression, see: [Wessel van Wieringen's](https://arxiv.org/abs/1509.09169) {cite}`Vanwieringen2015` article or [Mehta et al's](https://arxiv.org/abs/1803.08823) {cite}`Mehta2019` article.
 
-<!-- !split -->
 ## The bias-variance tradeoff
 
-We will discuss the bias-variance tradeoff in the context of
-continuous predictions such as regression. However, many of the
-intuitions and ideas discussed here also carry over to classification
-tasks. 
+We will discuss the bias-variance tradeoff in the context of continuous predictions such as regression. However, many of the intuitions and ideas discussed here also carry over to classification tasks. 
 
-Consider a dataset $\mathcal{D}$ consisting of the data
-$\{(x_j, y_j), j=1\ldots n\}$. Let us assume that the data is generated from a true model plus experimental noise 
+Consider a dataset $\trainingdata = \{\inputs_i, \output_i\}_{i=1}^N$. Let us assume that the data is generated from a true model plus experimental noise 
 
 \begin{equation}
-{y}_j = f({x_j}) + {\epsilon}_{j,\mathrm{exp}},
+\output_i = f({\inputs_i}) + {\epsilon}_{i},
 \end{equation}
 
-where ${\epsilon}_{j,\mathrm{exp}}$ is a random variable. We will assume that these are drawn from a distribution with expectation value $\mathbb{E}[{\epsilon}_\mathrm{exp}] = 0$ and variance $\mathrm{Var}[{\epsilon}_\mathrm{exp}] = \sigma^2_\mathrm{exp}$. 
-(Remember that $\mathbb{E}(t)$ denotes the expectation value for the random variable $t$. and that the variance is given by $\mathrm{Var}(t) = \mathbb{E} \left[ \left(t -  \mathbb{E}(t)\right)^2 \right]$.)
+where ${\epsilon}_{i}$ is an irreducible error described by a random variable. That is, even if we would find the function $f$ we would not reproduce the data more accurately than $\epsilon$ permits. We will assume that these errors are i.i.d. with expectation value $\expect{\epsilon} = 0$ and variance $\var{\epsilon} = \sigma^2_\epsilon$. 
+(Remember that $\expect{t}$ denotes the expectation value for the random variable $t$. and that the variance is given by $\var{t} = \expect{\left(t -  \expect{t}\right)^2}$.)
 
-Our model $\tilde{y}(x)$ is an approximation to the function $f(x)$.
-In our study of linear regression we defined this model in terms of some parameters
-$\boldsymbol{\theta}$ and a design matrix $\boldsymbol{X}$,
-that is 
+Our model $\MLoutput(\inputs)$ is an approximation to the function $f(\inputs)$. Let us now consider the following scenario:
+ 
+- We make a prediction with our trained model at a new point $\testinputs$, that is $\MLtestoutput \equiv {\MLoutput}(\testinputs)$. 
+- This prediction should be compared with a future observation $\testoutput \equiv y(\testinputs) = f(\testinputs)+\epsilon^\odot \equiv f^\odot+\epsilon^\odot$
+- Specifically, we are interested in the prediction error, $\testoutput - \MLtestoutput = f^\odot+\epsilon^\odot - \MLtestoutput$, to judge the predictive power of our model.
 
-\begin{equation}
-{f}({x}_j) = f_j \approx  {\tilde{y}_j} = {\tilde{y}}({x}_j) =(\boldsymbol{X}\boldsymbol{\theta})_j. 
-\end{equation}
+What can we say about this prediction error? We will make the following experiment:
 
-Thereafter we found the optimum set of model parameters $\boldsymbol{\theta}^*$ by minimizing the mean-squared residuals via the so-called cost function
-
-\begin{equation}
-C(\boldsymbol{X},\boldsymbol{\theta}) =\frac{1}{n}\sum_{i=1}^{n}(y_i-\tilde{y}_i)^2.
-\end{equation}
-
-However, the arguments given here are not restricted to linear-regression models. In fact, the bias-variance-tradeoff is more often discussed in the context of highly non-linear models such as neural networks.
-
-Let us now consider the situation of making a prediction with our trained model at a new point $x_0$, that is ${\tilde{y}}_0 = {\tilde{y}}({x}_0)$. This prediction should be compared with a new observation $y_0 = y(x_0) = f(x_0)+{\epsilon}_{0,\mathrm{exp}} = f_0+{\epsilon}_0$ and we are interested in the error $y_0 - {\tilde{y}}_0 = f_0+{\epsilon}_0 - {\tilde{y}}_0$ to judge the predictive power of our model.
-
-We will make the following experiment:
-1. Draw a size $n$ sample, $\mathcal{D} = \{(x_j, y_j), j=1\ldots n\}$
-2. Train your model ${\tilde{y}}$ using $\mathcal{D}$.
-3. Make the prediction at $x_0$ and evaluate $y_0 - {\tilde{y}}_0$
-Repeat this multiple times, using different sets of data $\mathcal{D}$ to fit your model. What is the expectation value $\mathbb{E}\left[(y_0-\tilde{y}_0)^2\right]$?
+1. Draw a size $n$ sample, $\trainingdata_n = \{(\inputs_j, y_j), j=1\ldots n\}$
+2. Train our model ${\MLoutput}$ using $\trainingdata_n$.
+3. Make the prediction at $\testinputs$ and evaluate $\testoutput - \MLtestoutput$
+Repeat this multiple times, using different sets of data $\trainingdata_n$ to fit your model. What is the expectation value $\expect{(\testoutput-\MLtestoutput)^2}$?
 
 We will show that we can rewrite this expectation value as 
 
 \begin{equation}
-\mathbb{E}\left[(y_0-\tilde{y}_0)^2\right] = (f_0-\mathbb{E}\left[\tilde{y}_0\right])^2 + \mathbb{E}\left[ (\tilde{y}_0-\mathbb{E}\left[\tilde{y}_0\right])^2\right] +\sigma^2_\mathrm{exp}.
+\expect{(\testoutput-\MLtestoutput)^2} = (f^\odot-\expect{\MLtestoutput})^2 + \expect{ (\MLtestoutput-\expect{\MLtestoutput})^2} +\sigma^2_\epsilon.
 \end{equation}
 
-The first of the three terms represents the square of the bias of the learning
-method, which can be thought of as the error caused by the simplifying
-assumptions built into the method. The second term represents the
-variance of the chosen model and finally the last terms is the irreducible error $\epsilon_\mathrm{exp}$. We will view these terms from a slightly different angle once we familiarise ourselves with Bayesian methods.
+The first of the three terms represents the square of the bias of the machine-learning model, which can be thought of as the error caused by a lack of flexibility that inhibits our model to fully recreate $f$. The second term represents the variance of the chosen model (which can be thought of as its sensitivity to the choice of training data) and finally the last term comes from the irreducible error $\epsilon$. 
 
-To derive this equation, we need to recall that the variance of $y_0$ and $\epsilon_0$ are both equal to $\sigma^2_\mathrm{exp}$. The mean value of $\epsilon_0$ is by definition equal to zero. Furthermore, the function evaluation $f_0 = f(x_0)$ is not a stochastic variable.
-We use a more compact notation in terms of the expectation value 
+To derive this equation, we need to recall that the variance of $\testoutput$ and $\epsilon^\odot$ are both equal to $\sigma^2_\epsilon$ since the function evaluation $f^\odot = f(\testinputs)$ is not a stochastic variable. The mean value of $\epsilon^\odot$ is equal to zero. We use a more compact notation in terms of the expectation value 
 
 \begin{equation}
-\mathbb{E}\left[(y_0-\tilde{y}_0)^2\right] = \mathbb{E}\left[({f}_0+\epsilon_0-\tilde{y}_0)^2\right],
+\expect{(\testoutput-\MLtestoutput)^2} = \expect{(f^\odot+\epsilon^\odot-\MLtestoutput)^2},
 \end{equation}
 
-and adding and subtracting $\mathbb{E}\left[\tilde{y}_0\right]$ we get
+and adding and subtracting $\expect{\MLtestoutput}$ we get
 
 \begin{equation}
-\mathbb{E}\left[(y_0-\tilde{y}_0)^2\right]=\mathbb{E}\left[({f}_0+\epsilon_0-\tilde{y}_0+\mathbb{E}\left[\tilde{y}_0\right]-\mathbb{E}\left[\tilde{y}_0\right])^2\right].
+\expect{(\testoutput-\MLtestoutput)^2}=\expect{(f^\odot+\epsilon^\odot-\MLtestoutput+\expect{\MLtestoutput}-\expect{\MLtestoutput})^2}.
 \end{equation}
 
 We can rewrite this expression as a sum of three terms:
-* The first one is the (squared) bias of the model plus the irreducible data error $\sigma_\mathrm{exp}^2$
+* The first one is the (squared) bias of the model plus the irreducible data error $\sigma_\epsilon^2$
 
 \begin{equation}
-\mathbb{E}\left[({f}_0+\epsilon_0-\mathbb{E}\left[\tilde{y}_0\right])^2\right] = \mathbb{E}\left[({f}_0-\mathbb{E}\left[\tilde{y}_0\right])^2\right] + \mathbb{E}\left[\epsilon_0^2\right]+0.
+\expect{(f^\odot+\epsilon^\odot-\expect{\MLtestoutput})^2} = \expect{(f^\odot-\expect{\MLtestoutput})^2} + \expect{{\epsilon^\odot}^2}+0.
 \end{equation}
 
-* The second one is the variance of the model $\mathrm{Var}\left[ \tilde{y}_0 \right]$
+* The second one is the variance of the model $\var{\MLtestoutput}$
 
 \begin{equation}
-\mathbb{E}\left[(\mathbb{E}\left[\tilde{y}_0\right] - \tilde{y}_0)^2\right],
+\expect{(\expect{\MLtestoutput} - \MLtestoutput)^2},
 \end{equation}
 
 * and the last one is zero
 
 \begin{equation}
-2\mathbb{E}\left[(y_0-\mathbb{E}\left[\tilde{y}_0\right])(\mathbb{E}\left[\tilde{y}_0\right]-\tilde{y}_0)\right] = 2\mathbb{E}\left[y_0-\mathbb{E}\left[\tilde{y}_0\right]\right] \left( \mathbb{E}\left[\mathbb{E}\left[\tilde{y}_0\right]\right] - \mathbb{E}\left[\tilde{y}_0\right]\right) = 0.
+2\expect{(\testoutput-\expect{\MLtestoutput})(\expect{\MLtestoutput}-\MLtestoutput)} = 2\expect{\testoutput-\expect{\MLtestoutput}} \left( \expect{\expect{\MLtestoutput}} - \expect{\MLtestoutput}\right) = 0.
 \end{equation}
 
-The tradeoff between bias and variance is illustrated in {numref}`fig-bias_variance` from the demonstration notebook.
+The tradeoff between bias and variance is illustrated in {numref}`fig-bias_variance`.
 
 <!-- ![<p><em>The bias-variance for different polynomial models of our noisy data set. <div id="fig-bias_variance"></div></em></p>](./figs/bias_variance.png) -->
 
@@ -255,7 +234,7 @@ The tradeoff between bias and variance is illustrated in {numref}`fig-bias_varia
 The bias-variance for different polynomial models of our noisy data set.
 ```
 
-## Summing up
+### Remarks on bias and variance
 
 
 The bias-variance tradeoff summarizes the fundamental tension in
@@ -273,8 +252,7 @@ The above equations tell us that in
 order to minimize the expected validation error, we need to select a
 statistical learning method that simultaneously achieves low variance
 and low bias. Note that variance is inherently a nonnegative quantity,
-and squared bias is also nonnegative. Hence, we see that the expected
-validation MSE can never lie below $\mathrm{Var}(\boldsymbol{\epsilon}_\mathrm{exp}) \equiv \sigma^2_\mathrm{exp}$, the irreducible error.
+and squared bias is also nonnegative. Hence, we see that the prediction error can never lie below $\var{\epsilon}) \equiv \sigma^2_\epsilon$, the irreducible error.
 
 
 What do we mean by the variance and bias of a statistical learning
@@ -289,31 +267,20 @@ flexible statistical methods have higher variance.
 
 
 <!-- !split  -->
-## Model validation strategy
-
-Let us summarize the basic recipe for applying a supervise machine-learning model:
-
- 1. Choose a class of models
- 2. Choose model hyperparameters
- 3. Fit the model to the training data
- 4. Use the model for predictions
-
-In our examples so far, the class of models has been linear regression models with polynomial basis functions. Hyperparameters then correspond to the choice of polynomial degree, and the Ridge regularization factor $\lambda$ if we use this technique, etc. 
+## Model validation
 
 In order to make an informed choice for these hyperparameters we need to validate that our model and its hyperparameters provide a good fit to the data. This important step is typically known as *model validation*, and it most often involves splitting the data into two sets: the training set and the validation set. 
 
-The model is then trained on the first set of data, while it is validated (by computing your choice of performance score) on the validation set.
+The model is then trained on the first set of data, while it is validated (by computing your choice of performance score/error function) on the validation set.
 
-```{warning} 
+```{caution} 
 Why is it important not to train and evaluate the model on the same data?
 ```
 
-
-<!-- !split  -->
-## Cross-validation
+### Cross-validation
 
 Cross-validation is a strategy to find model hyperparameters that yield a model with good prediction
-performance. A common practice is to hold back some subset of the data from the training of the model and then use this holdout set to check the model performance. The splitting of data can be performed using the the `train_test_split` utility in Scikit-Learn.
+performance. A common practice is to hold back some subset of the data from the training of the model and then use this holdout set to check the model performance. The splitting of data can, e.g., be performed using the the `train_test_split` utility in Scikit-Learn.
 
 One of these two data sets, called the 
 *training set*, plays the role of **original** data on which the model is
@@ -325,19 +292,16 @@ procedure (model building and prediction evaluation on training and
 validation set, respectively) is done for a collection of possible choices for the hyperparameters. The parameter that yields the model with
 the best prediction performance is to be preferred. 
 
-<!-- !split -->
 The validation set approach is conceptually simple and is easy to implement. But it has two potential drawbacks:
 
 * The validation estimate of the validation error rate can be highly variable, depending on precisely which observations are included in the training set and which observations are included in the validation set. There might be data points that are critical for training the model, and the performance metric will be very bad if those happen to be excluded from the training set.
 * In the validation approach, only a subset of the observations, those that are included in the training set rather than in the validation set are used to fit the model. Since statistical methods tend to perform worse when trained on fewer observations, this suggests that the validation set error rate may tend to overestimate the validation error rate for the model fit on the entire data set.
 
-<!-- !split  -->
 To reduce the sensitivity on a particular data split, one can use perform several different splits. For each split the model is fit using the training data and
 evaluated on the corresponding validation set. The hyperparameter that performs best on average (in some sense) is then selected.
 
 
-<!-- !split  -->
-### $k$-fold cross validation cross-validation
+### $k$-fold cross validation
 
 When the repetitive splitting of the data set is done randomly,
 samples may accidently end up in a fast majority of the splits in
@@ -360,16 +324,16 @@ cross-validation (LOOCV).
 * Define a range of interest for the  model hyperparameter(s) $\lambda$.
 * Divide the data set $\mathcal{D} = \{1, \ldots, n\}$ into $k$ exhaustive and mutually exclusive subsets $\mathcal{D}_{i} \subset \mathcal{D}$ for $i=1,\ldots,k$, and $\mathcal{D}_{i} \cap \mathcal{D}_{j} = \emptyset$ for $i \neq j$.
 * For $i \in \{1, \ldots, k\}$:
-  * Define $\mathcal{D}_{i}$ as the validation set and $\mathcal{D}_{-i} = \mathcal{D} - \mathcal{D}_i$ as the training set.
-  * Fit the model for each choice of the hyperparameter using the training set, which will give a best fit $\boldsymbol{\theta}_{-i}(\lambda)$.
-  * Evaluate the prediction performance of these models on the validation set by the MAE, MSE, or the R2 score function. 
+  * Define $\mathcal{D}_{i}$ as the validation set and all other data $\mathcal{D}_{-i} = \left( \mathcal{D} \cap \mathcal{D}_i\right)^c$ as the training set.
+  * Fit the model for each choice of the hyperparameter using the training set $\mathcal{D}_{-i}$, which will give a best fit $\pars^*_{i}(\lambda)$.
+  * Evaluate the prediction performance of these models on the validation set by the MAE, MSE, or the R2 score function. Let's denote, e.g., the MSE score $\mathrm{MSE} \left( \pars^*_{i}(\lambda) \right)$.
 
 * Average the prediction performances of the validation sets at each grid point of the hyperparameter by computing the *cross-validated error*. It is an estimate of the prediction performance of the model corresponding to this value of the penalty parameter on novel data. For example, using the MSE measure it is defined as
 
-\begin{align*}
+\begin{align}
 \mathrm{CV}_k(\lambda) \equiv
-\frac{1}{k} \sum_{i = 1}^k \mathrm{MSE} \left( \boldsymbol{\theta}_{-i}(\lambda) \right).
-\end{align*}
+\frac{1}{k} \sum_{i = 1}^k \mathrm{MSE} \left( \pars^*_{i}(\lambda) \right).
+\end{align}
 
 * The value of the hyperparameter that minimizes the cross-validated error is the value of choice. 
 
@@ -377,3 +341,5 @@ cross-validation (LOOCV).
 \lambda^* = \underset{\lambda}{\operatorname{argmin}}
 \mathrm{CV}_k(\lambda).
 \end{equation}
+
+* Fix $\lambda = \lambda^*$ and train the model on all data $\data$.
