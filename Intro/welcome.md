@@ -3,7 +3,7 @@
 These are the lecture notes for the master-level course "Learning from data" (TIF285/FYM285) that is taught at Chalmers University of Technology and Göteborg University. 
 
 ```{admonition} Accompanying git repository
-  All source files, including the jupyter notebooks used for exercises and demonstrations, can be found in the accompanying git repository (see the github icon ![github download icon](./figs/GitHub-Mark-32px.png) at the top-middle-right and click on repository).
+  All source files, including the jupyter notebooks used for exercises and demonstrations, can be found in the accompanying git repository (see the gitlab icon ![gitlab download icon](./figs/gitlab-1-32.png) at the top-middle-right and click on Source repository).
   ```
 
 ## Course aim
@@ -17,7 +17,7 @@ The course is project-based, and students will be exposed to fundamental researc
 These lecture notes have been authored by [Christian Forssén](https://www.chalmers.se/en/Staff/Pages/Christian-Forssen.aspx) and are released under a [Creative Commons BY-NC license](https://creativecommons.org/licenses/by-nc/4.0/). The book format is powered by [Jupyter Book](https://jupyterbook.org/).
 
 ```{admonition} Open an issue
-  If you find a problem or have a suggestion when using this Jupyter Book (on physics, statistics, python, or formatting), from any page go under the github icon ![github download icon](./figs/GitHub-Mark-32px.png) at the top-middle-right and select "open issue" (you may want to open in a new tab by *right-clicking* on "open issue"). This will take you to the Issues section of the Github repository for the book. You can either use the title already there or write your own, and then describe in the bigger box your problem or suggestion.
+  If you find a problem or have a suggestion when using this Jupyter Book (on physics, statistics, python, or formatting), from any page go under the gitlab icon ![gitlab download icon](./figs/gitlab-1-32.png) at the top-middle-right and go to the Source repository. Click on Issues in the left hand margin and select New issue in the top. You might need to create a gitlab account before being allowed to proceed. This will take you to the Issues section of the gitlab repository for the book. Enter a descriptive title and then describe in the bigger box your problem or suggestion.
   ```
   
 ## Brief guide to online Jupyter Book features
