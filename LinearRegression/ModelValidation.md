@@ -133,10 +133,11 @@ Ridge regularization with different penalty parameters $\lambda$ for different p
 Using the matrix-vector expression for Ridge regression,
 
 \begin{equation}
-C(\boldsymbol{X},\boldsymbol{\theta})=\frac{1}{n}\left\{(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta})^T(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta})\right\}+\lambda\boldsymbol{\theta}^T\boldsymbol{\theta},
+C(\boldsymbol{X},\boldsymbol{\theta})=\left\{(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta})^T(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{\theta})\right\}+\lambda\boldsymbol{\theta}^T\boldsymbol{\theta},
 \end{equation}
 
-by taking the derivatives with respect to $\boldsymbol{\theta}$ we obtain then
+where we have absorbed the $1/n$ factor of the first term into a renormalization of $\lambda$ in the second one.
+By taking the derivatives with respect to $\boldsymbol{\theta}$ we obtain then
 a slightly modified matrix inversion problem which for finite values
 of $\lambda$ does not suffer from singularity problems. We obtain
 
