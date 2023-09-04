@@ -9,7 +9,7 @@ kernelspec:
   language: python
   name: python3
 ---
-
+(sec:Statistics)=
 # Statistics concepts and notation
 
 ## Notation
