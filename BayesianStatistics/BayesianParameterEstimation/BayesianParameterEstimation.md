@@ -47,7 +47,7 @@ p(D|\boldsymbol{\theta}_i, M_i)
   
   $\Rightarrow$ How do they compare with each other? Do we have evidence to say that, e.g. $M_1$, is better than $M_2$?
   ```
-```{Admonition} Model adequacy:
+```{Admonition} Model checking:
   :class: tip
   Premise: We have a model $M_1$
   

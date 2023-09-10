@@ -2,6 +2,9 @@
 # The Bayesian recipe
 Assess hypotheses by calculating their probabilities $p(H_i | \ldots)$ conditional on known and/or presumed information using the rules of probability theory.
 
+```{note}
+From now we will almost exclusively encounter conditional probabilities. Furthermore, we will use a probability notation with lower-case $p$ since our statistical approach will most often be applied to continuous variables for which the probability density is the relevant measure.  
+```
 
 
 ## Probability Theory Axioms:
@@ -23,6 +26,8 @@ Assess hypotheses by calculating their probabilities $p(H_i | \ldots)$ condition
   
   $\bar{A}$ denotes the proposition that $A$ is false.
 ```
+
+As mentioned, we are considering conditional probability densities. In the literature you might find, e.g., the product rule written as $\prob(A, B) = \cprob{B}{A}\prob{A}$.
 
 
 <!-- !split -->
