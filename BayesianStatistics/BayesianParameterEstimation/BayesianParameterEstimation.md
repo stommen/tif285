@@ -152,7 +152,7 @@ Let's take a look at the frequentist and Bayesian approaches to solving this.
 
 ### Simple Photon Counts: Frequentist Approach
 
-We'll start with the classical frequentist maximum likelihood approach. Given a single observation $D_i = F_i$, we can compute the probability distribution of the measurement given the true flux $F_\mathrm{true}$ and our assumption of Gaussian errors
+We'll start with the classical frequentist maximum likelihood approach. Given a single observation $D_i = F_i$, we can compute the probability distribution of the measurement given the true flux $F_\mathrm{true}$ and our error model. Assuming that we are dealing with counting errors described by a Poisson distribution, and that the counts are rather large, we will approximately treat errors as following a Gaussian distribution such that 
 
 \begin{equation}
 p(D_i | F_\mathrm{true}, I) = \frac{1}{\sqrt{2\pi \sigma_i^2}} \exp \left( \frac{-(F_i-F_\mathrm{true})^2}{2\sigma_i^2} \right).
