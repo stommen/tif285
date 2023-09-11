@@ -172,8 +172,6 @@ here $D = \{D_i\}$ represents the entire set of measurements. Because the value 
 *Notice.* 
 In the following we will use $\log$ to denote the natural logarithm. We will write $\log_{10}$ if we specifically mean the logarithm with base 10.
 
-
-
 Combining the previous two equations and computing the log, we have
 
 \begin{equation}
@@ -202,20 +200,22 @@ F_\mathrm{est} = \frac{1}{N} \sum_{i=1} F_i.
 
 That is, in agreement with intuition, $F_\mathrm{est}$ is simply the mean of the observed data when errors are equal.
 
-We can go further and ask what the error of our estimate is. In the frequentist approach, this can be accomplished by fitting a Gaussian approximation to the likelihood curve at maximum; in this simple case this can also be solved analytically (the sum of Gaussians is also a Gaussian). It can be shown that the standard deviation of this Gaussian approximation is $\sigma_\mathrm{est}$, which is given by
-
-\begin{equation}
-\frac{ 1 } {\sigma_\mathrm{est}^2} = \sum_{i=1}^N w_i .
-\end{equation}
-
-These results are fairly simple calculations; let's evaluate them for our toy dataset:
+We can go further and ask what the error of our estimate is. In the frequentist approach, this can be approached by computing a confidence interval. Below is an attempt of doing that under the assumptions that the central limit theorem is applicable and that the *statistic* $T = \frac{\bar{F} - F}{S/\sqrt{N}}$, with $\bar{F}$ the sample mean and $S^2$ the sample variance, a Student's t distribution with $(N-1)$ degrees of freedom. The 68% confidence interval following this recipe is computed below for our toy dataset:
 
 
  ```{code-cell} python3
 w=1./e**2
+F_est = (w * F).sum() / w.sum()
+Fbar = F.sum()/N
+S = np.sqrt(np.sum( (F-Fbar)**2 ) / (N-1))
+alpha = 0.68
+(lo,hi) = stats.distributions.t.interval(alpha, N-1)
+assert np.abs(hi+lo)<1e-6
+c = hi
+F_error = c*S/np.sqrt(N)
 print(f"""
 F_true = {F_true}
-F_est = {(w * F).sum() / w.sum():.0f} +/- { w.sum() ** -0.5:.0f} (based on {N} measurements) """)
+F_est = {F_est:.0f} +/- { F_error:.0f} (based on {N} measurements) """)
 ```
 
 We find that for 50 measurements of the flux, our estimate has an error of about 0.4% and is consistent with the input value.
