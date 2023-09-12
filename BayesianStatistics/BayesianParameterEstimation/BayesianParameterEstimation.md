@@ -200,7 +200,7 @@ F_\mathrm{est} = \frac{1}{N} \sum_{i=1} F_i.
 
 That is, in agreement with intuition, $F_\mathrm{est}$ is simply the mean of the observed data when errors are equal.
 
-We can go further and ask what the error of our estimate is. In the frequentist approach, this can be approached by computing a confidence interval. Below is an attempt of doing that under the assumptions that the central limit theorem is applicable and that the *statistic* $T = \frac{\bar{F} - F}{S/\sqrt{N}}$, with $\bar{F}$ the sample mean and $S^2$ the sample variance, a Student's t distribution with $(N-1)$ degrees of freedom. The 68% confidence interval following this recipe is computed below for our toy dataset:
+We can go further and ask what the error of our estimate is. In the frequentist approach, this can be approached by computing a confidence interval. Below is an attempt of doing that under the assumptions that the central limit theorem is applicable. The *statistic* $T = \frac{\bar{F} - F}{S/\sqrt{N}}$, with $\bar{F}$ the sample mean and $S^2$ the sample variance, then follows a Student's t distribution with $(N-1)$ degrees of freedom. The 68% confidence interval following this recipe is computed below for our toy dataset:
 
 
  ```{code-cell} python3
@@ -218,7 +218,7 @@ F_true = {F_true}
 F_est = {F_est:.0f} +/- { F_error:.0f} (based on {N} measurements) """)
 ```
 
-We find that for 50 measurements of the flux, our estimate has an error of about 0.4% and is consistent with the input value.
+We find that for 50 measurements of the flux, our estimate has an error of about 0.5% and is consistent with the input value.
 
 
 ### Simple Photon Counts: Bayesian Approach
@@ -381,7 +381,7 @@ or using credibility intervals:
 ...F_est in [{sampper[0]:.0f}, {sampper[4]:.0f}] (95% credibility interval) """)
 ```
 
-In this particular example, the posterior pdf is actually a Gaussian (since it is constructed as a product of Gaussians), and the mean and variance from the quadratic approximation will agree exactly with the frequentist approach.
+In this particular example, the posterior pdf is actually a Gaussian (since it is constructed as a product of Gaussians), and the mean and variance from the quadratic approximation agrees closely with the frequentist confidence interval.
 
 From this final result you might come away with the impression that the Bayesian method is unnecessarily complicated, and in this case it certainly is. Using an MCMC sampler to characterize a one-dimensional normal distribution is a bit like using the Death Star to destroy a beach ball, but we did this here because it demonstrates an approach that can scale to complicated posteriors in many, many dimensions, and can provide nice results in more complicated situations where an analytic likelihood approach is not possible.
 
