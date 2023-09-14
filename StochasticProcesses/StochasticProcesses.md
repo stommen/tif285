@@ -223,22 +223,6 @@ Define your own stochastic process by creating your own initial and update metho
 ```
 
 
-## Special case: Gaussian process
-
-::::{admonition} extra material
-:class: danger
-Material will be added in the future.
-::::
-
-
-## Special case: The Poisson process
-
-::::{admonition} extra material
-:class: danger
-Material will be added in the future.
-::::
-
-
 ## Example: Random walk
 
 One of the simplest random processes is the so called *random walk*. This process can arise in many ways. A standard example is the coin-flip casino game in which a gambler G starts with a fortune $a$. The croupier tosses a (possibly biased) coin. Each time heads appears, the gambler gets one euro (let us assume that the game takes place in Monte Carlo). If tails appears, the player loses one euro. 
@@ -285,6 +269,36 @@ for step in [9,16,25,36,49,64,81,100]:
 
 These walks can be made more general by allowing the steps $X_n$ to have some continuous distribution on the reals, and it can be placed in a multi-dimensional space with both positions and steps in $\mathbb{R}^p$. A particularly well-known random walk process involves the motion of a particle in a fluid where it is subjected to multiple collisions. This gives a so called *Brownian motion*.
 
+
+## Special case: Gaussian process
+
+::::{admonition} extra material
+:class: danger
+{{ sub_extra }}
+::::
+
+The joint density function for a multivariate normal distribution was presented in Eq. {eq}`eq:Statistics:multivariate-normal-PDF` for $\boldsymbol{x} = (x_1, x_2, \ldots, x_k)$ corresponding to random variables $X_1, X_2, \ldots X_k$. This normal distribution is completely determined by its mean vector, $\boldsymbol{\mu}$, and covariance matrix, \boldsymbol{\Sigma}, where elements $\mu_i = \expect{X_i}$ and $\Sigma_{ij} = \cov{X_i}{X_j}$.
+
+The multivariate normal distribution has the remarkable property that all marginal and conditional distributions are normal, and specified by the corresponding subsets of the mean vector and covariance matrix. 
+
+A Gaussian process extends the multivariate normal distribution to a stochastic process with a continuous time index $T$.
+
+```{prf:definition} Gaussian process
+:label: definition:gaussian-process
+
+A Gaussian process $(X_T)_{T \geq 0}$ is a stochastic process with a continuous-time index $T \in [0,\inf)$ if the random variables 
+$$
+X_{T_1}, X_{T_2}, \ldots, X_{T_k}
+$$ 
+have a multivariate distribution for $k = 1, 2, \ldots$ and $0 \leq T_1 \le \ldots \le T_k$.
+
+A Gaussian process is completely determined by its mean function $\mu(X_T)$ and covariance function $C(X_S, X_T)$ for $S, T \geq 0$.
+
+```  
+
+## Special case: The Poisson process
+
+{{ sub_extra_admonition }}
 
 ## Solutions
 
