@@ -289,7 +289,7 @@ $$
 X_{T_1}, X_{T_2}, \ldots, X_{T_k}
 $$ 
 
-have a multivariate distribution for $k = 1, 2, \ldots$ and $0 \leq T_1 \le \ldots \le T_k$.
+have a multivariate distribution for any $k = 1, 2, \ldots$ and $0 \leq T_1 < \ldots < T_k$.
 
 A Gaussian process is completely determined by its *mean function* $\mu(X_T)$ and *covariance function* $C(X_S, X_T)$ for $S, T \geq 0$.
 
