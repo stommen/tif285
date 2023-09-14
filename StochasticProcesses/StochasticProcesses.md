@@ -272,12 +272,9 @@ These walks can be made more general by allowing the steps $X_n$ to have some co
 
 ## Special case: Gaussian process
 
-::::{admonition} extra material
-:class: danger
-{{ sub_extra }}
-::::
+{{ sub_extra_admonition }}
 
-The joint density function for a multivariate normal distribution was presented in Eq. {eq}`eq:Statistics:multivariate-normal-PDF` for $\boldsymbol{x} = (x_1, x_2, \ldots, x_k)$ corresponding to random variables $X_1, X_2, \ldots X_k$. This normal distribution is completely determined by its mean vector, $\boldsymbol{\mu}$, and covariance matrix, \boldsymbol{\Sigma}, where elements $\mu_i = \expect{X_i}$ and $\Sigma_{ij} = \cov{X_i}{X_j}$.
+The joint density function for a multivariate normal distribution was presented in Eq. {eq}`eq:Statistics:multivariate-normal-PDF` for $\boldsymbol{x} = (x_1, x_2, \ldots, x_k)$ corresponding to random variables $X_1, X_2, \ldots X_k$. This normal distribution is completely determined by its mean vector, $\boldsymbol{\mu}$, and covariance matrix, $\boldsymbol{\Sigma}$, where elements $\mu_i = \expect{X_i}$ and $\Sigma_{ij} = \cov{X_i}{X_j}$.
 
 The multivariate normal distribution has the remarkable property that all marginal and conditional distributions are normal, and specified by the corresponding subsets of the mean vector and covariance matrix. 
 
@@ -286,19 +283,23 @@ A Gaussian process extends the multivariate normal distribution to a stochastic 
 ```{prf:definition} Gaussian process
 :label: definition:gaussian-process
 
-A Gaussian process $(X_T)_{T \geq 0}$ is a stochastic process with a continuous-time index $T \in [0,\inf)$ if the random variables 
+A Gaussian process $(X_T)_{T \geq 0}$ is a stochastic process with a continuous-time index $T \in [0,\infty)$ if the random variables 
+
 $$
 X_{T_1}, X_{T_2}, \ldots, X_{T_k}
 $$ 
+
 have a multivariate distribution for $k = 1, 2, \ldots$ and $0 \leq T_1 \le \ldots \le T_k$.
 
-A Gaussian process is completely determined by its mean function $\mu(X_T)$ and covariance function $C(X_S, X_T)$ for $S, T \geq 0$.
+A Gaussian process is completely determined by its *mean function* $\mu(X_T)$ and *covariance function* $C(X_S, X_T)$ for $S, T \geq 0$.
 
 ```  
 
 ## Special case: The Poisson process
 
 {{ sub_extra_admonition }}
+
+Material will be added.
 
 ## Solutions
 
