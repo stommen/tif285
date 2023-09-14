@@ -442,9 +442,9 @@ We sometimes denote distributions using a notation like $\mathcal{N}(x|\mu,\sigm
 
 The univariate [](sec:univariate_gaussian) can be generalized to a multivariate distribution. A multivariate random variable $\boldsymbol{X} \sim \mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma})$ is normally distributed with mean _vector_ $\boldsymbol{\mu} \in \mathbb{R}^k$ and covariance _matrix_ $\boldsymbol{\Sigma} \in \mathbb{R}^{k \times k}$ with
 
-\begin{equation}
+$$
 \mathcal{N}(\boldsymbol{\mu},\boldsymbol{\Sigma}) = \frac{1}{(2\pi)^{k/2} |\boldsymbol{\Sigma}|^{1/2}} \exp{ \left( -\frac{1}{2}(\boldsymbol{x} - \boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\boldsymbol{x} - \boldsymbol{\mu})\right)}.
-\end{equation}
+$$ (eq:Statistics:multivariate-normal-PDF)
 
 This distribution only exists for a positive definite covariance matrix $\boldsymbol{\Sigma}$.
 
