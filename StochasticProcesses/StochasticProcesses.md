@@ -283,17 +283,19 @@ A Gaussian process extends the multivariate normal distribution to a stochastic 
 ```{prf:definition} Gaussian process
 :label: definition:gaussian-process
 
-A Gaussian process $(X_T)_{T \geq 0}$ is a stochastic process with a continuous-time index $T \in [0,\infty)$ if the random variables 
+A Gaussian process $(X(t))_{t \geq 0}$ is a stochastic process with a continuous-time index $t \in [0,\infty)$ if each finite-dimensional vector of random variables 
 
 $$
-X_{T_1}, X_{T_2}, \ldots, X_{T_k}
+X(t_1), X(t_2), \ldots, X(t_k)
 $$ 
 
-have a multivariate distribution for any $k = 1, 2, \ldots$ and $0 \leq T_1 < \ldots < T_k$.
+has a multivariate distribution for $0 \leq t_1 < \ldots < t_k$.
 
-A Gaussian process is completely determined by its *mean function* $\mu(X_T)$ and *covariance function* $C(X_S, X_T)$ for $S, T \geq 0$.
+A Gaussian process is completely determined by its *mean function* $\mu(X(t))$ and *covariance function* $C(X(s), X(t))$ for $s, t \geq 0$.
 
 ```  
+
+A Gaussian process is stationary if the mean function $\mu(X(t))$ is constant for all $t$ and if the covariance function fulfils $C(X(s), X(t)) = C(X(s+h), X(t+h))$ with $h \geq 0$. Note that stationarity is not a requirement for a Gaussian process.
 
 ## Special case: The Poisson process
 
