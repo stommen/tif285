@@ -28,24 +28,24 @@ We will sometimes use the notation $\mathcal{D}_N = [\boldsymbol{X}_N, \boldsymb
 <!-- !split -->
 We will consider two different *inference problems*:
 
-1. The prediction of a *new target* $t^{(N+1)}$ given the data $\boldsymbol{X}_N, \boldsymbol{t}_N$ and a new input $\boldsymbol{x}^{(N+1)}$.
-2. The inference of a *model function* $y(\boldsymbol{x})$ from the data $\boldsymbol{X}_N, \boldsymbol{t}_N$.
+1. The prediction of a *new target* $t^{(N+1)}$ given the data $\mathcal{D}_N$ and a new input $\boldsymbol{x}^{(N+1)}$.
+2. The inference of a *model function* $y(\boldsymbol{x})$ from the data $\mathcal{D}_N$.
 
 <!-- !split -->
 The former can be expressed with the pdf
 
 \begin{equation}
  
-p\left( t^{(N+1)} | \boldsymbol{t}_N, \boldsymbol{X}_{N}, \boldsymbol{x}^{(N+1)} \right)
+p\left( t^{(N+1)} | \mathcal{D}_N, \boldsymbol{x}^{(N+1)} \right)
 
 \end{equation}
 
 while the latter can be written using Bayes' formula (in these notes we will not be including information $I$ explicitly in the conditional probabilities)
 
 \begin{equation}
- p\left( y(\boldsymbol{x}) | \boldsymbol{t}_N, \boldsymbol{X}_N \right)
-= \frac{p\left( \boldsymbol{t}_N | y(\boldsymbol{x}), \boldsymbol{X}_N \right) p \left( y(\boldsymbol{x}) \right) }
-{p\left( \boldsymbol{t}_N | \boldsymbol{X}_N \right) } 
+ p\left( y(\boldsymbol{x}) | \mathcal{D}_N \right)
+= \frac{p\left( \mathcal{D}_N | y(\boldsymbol{x}) \right) p \left( y(\boldsymbol{x}) \right) }
+{p\left( \mathcal{D}_N \right) } 
 \end{equation}
 
 <!-- !split -->
@@ -92,19 +92,19 @@ The inference of model parameters should be a well-known problem by now. We stat
 
 \begin{equation}
 
-p \left( \boldsymbol{\theta} | \boldsymbol{t}_N, \boldsymbol{X}_N \right)
-= \frac{ p \left( \boldsymbol{t}_N | \boldsymbol{\theta}, \boldsymbol{X}_N \right) p \left( \boldsymbol{\theta} \right)}{p \left( \boldsymbol{t}_N | \boldsymbol{X}_N \right)}
+p \left( \boldsymbol{\theta} | \mathcal{D}_N \right)
+= \frac{ p \left( \mathcal{D}_N | \boldsymbol{\theta} \right) p \left( \boldsymbol{\theta} \right)}{p \left( \mathcal{D}_N \right)}
 
 \end{equation}
 
-Having solved this inference problem (note that the likelihhod is Gaussian, cf linear regression) a prediction can be made through marginalization
+Having solved this inference problem (note that the likelihood is Gaussian, cf linear regression) a prediction can be made through marginalization
 
 \begin{equation}
 
-p\left( t^{(N+1)} | \boldsymbol{t}_N, \boldsymbol{X}_{N}, \boldsymbol{x}^{(N+1)} \right) 
+p\left( t^{(N+1)} | \mathcal{D}_N, \boldsymbol{x}^{(N+1)} \right) 
 = \int d^H \boldsymbol{\theta} 
 p\left( t^{(N+1)} | \boldsymbol{\theta}, \boldsymbol{x}^{(N+1)} \right)
-p \left( \boldsymbol{\theta} | \boldsymbol{t}_N, \boldsymbol{X}_N \right).
+p \left( \boldsymbol{\theta} | \mathcal{D}_N \right).
 
 \end{equation}
 
@@ -112,8 +112,8 @@ Here it is important to note that the final answer does not make any explicit re
 
 Assuming that we have a fixed set of basis functions and Gaussian prior distributions (with zero mean) on the weights $\boldsymbol{\theta}$ we will show that:
 
-* The joint pdf of the observed data given the model $p( \boldsymbol{t}_N |  \boldsymbol{X}_N)$, is a multivariate Gaussian with mean zero and with a covariance matrix that is determined by the basis functions.
-* This implies that the conditional distribution $p( t^{(N+1)} | \boldsymbol{t}_N, \boldsymbol{X}_{N+1})$, is also a multivariate Gaussian whose mean depends linearly on $\boldsymbol{t}_N$.
+* The joint pdf of the observed data given the model $p( \mathcal{D}_N)$, is a multivariate Gaussian with mean zero and with a covariance matrix that is determined by the basis functions.
+* This implies that the conditional distribution $p( t^{(N+1)} | \mathcal{D}_N, \boldsymbol{X}_{N+1})$, is also a multivariate Gaussian whose mean depends linearly on $\boldsymbol{t}_N$.
 
 
 ```{admonition} Sum of normally distributed random variables.
@@ -242,7 +242,7 @@ C_{nn'} = C \left( \boldsymbol{x}^{(n)}, \boldsymbol{x}^{(n')}, \boldsymbol{\alp
 
 \end{equation}
 
-where $\Delta$ is usually included as a flexible noise model.
+where $\Delta$ is often included as a flexible white noise component. It is usually good practice to include a small white noise term, $\Delta = \sigma_\nu^2 \ll 1$, even if your data has negligible errors, since it helps with numerical stability and making sure that your covariance matrix is positive definite.
 
 <!-- !split -->
 #### Stationary kernels
@@ -257,15 +257,24 @@ C \left( \boldsymbol{x}, \boldsymbol{x}', \boldsymbol{\alpha} \right) = D \left(
 
 where the function $D$ is often referred to as a *kernel*. Note that the $(\boldsymbol{x} - \boldsymbol{x}')$-dependence must be such that the kernel is symmetric.
 
-A very standard kernel is the RBF (also known as Exponentiated Quadratic or Gaussian kernel) which is differentiable infinitely many times (hence, very smooth),
+A very standard kernel is the RBF (radial basis function, but also known as Exponentiated Quadratic or Gaussian kernel) which is differentiable infinitely many times (hence, very smooth),
 
 \begin{equation}
  
-C_\mathrm{RBF}(\mathbf{x},\mathbf{x}'; \boldsymbol{\alpha}) = \alpha_0 \delta_{\mathbf{x},\mathbf{x}'}+ \alpha_1 \exp \left[ -\frac{1}{2} \sum_{i=1}^p \frac{(x_{i} - x_{i}')^2}{r_i^2} \right] 
+C_\mathrm{RBF}(\mathbf{x},\mathbf{x}'; \boldsymbol{\alpha}) = \exp \left[ -\frac{1}{2} \sum_{i=1}^p \frac{(x_{i} - x_{i}')^2}{l_i^2} \right] 
 
 \end{equation}
 
-where $p$ denotes the dimensionality of the input space (i.e., $\mathbf{x} \in \mathbb{R}^p$). The hyperparameters of the RBF kernel, $\boldsymbol{\alpha} = \{ \alpha_0, \alpha_1, \vec{r} \}$, are known, respectively, as the noise, the variance and the correlation length(s). Sometimes, a single correlation length $r_i=r$ is used.
+where $p$ denotes the dimensionality of the input space (i.e., $\mathbf{x} \in \mathbb{R}^p$). The hyperparameters of the RBF kernel, $\boldsymbol{\alpha} = \vec{l}$, are known as the correlation length(s). Sometimes, a single correlation length $l_i=l$ is used for all dimensions.
+
+Different kernels can be combined to build the most relevant covariance function. For example, the RBF kernel is often multiplied by a constant kernel (which then becomes known as signal noise) followed by the addition of a diagonal white noise kernel. This would result in
+
+\begin{equation}
+ 
+C_(\mathbf{x},\mathbf{x}'; \boldsymbol{\alpha}) = \sigma_f^2 _\exp \left[ -\frac{1}{2} \sum_{i=1}^p \frac{(x_{i} - x_{i}')^2}{l_i^2} \right] + \sigma_\nu^2 \delta_{\mathbf{x},\mathbf{x}'},
+\end{equation}
+
+with the complete set of hyperparameters $\boldsymbol{\alpha} = \{ \sigma_\nu^2, \sigma_f^2, \vec{l} \}$ known as the white noise variance, signal variance, and RBF correlation length(s).
 
 
 <!-- !split -->
@@ -398,7 +407,7 @@ where $\boldsymbol{k}$ is now an $N \times M$ matrix and $\boldsymbol{\kappa}$ a
 The prediction for $M$ new targets $\boldsymbol{t}_M$ becomes a multivariate Gaussian
 
 $$
-p \left( \boldsymbol{t}_{N+M} | \boldsymbol{t}_N \right) = \frac{1}{Z} \exp
+p \left( \boldsymbol{t}_{M} | \boldsymbol{t}_N \right) = \frac{1}{Z} \exp
 \left[
 -\frac{1}{2} \left( \boldsymbol{t}_M - \hat{\boldsymbol{t}}_M \right)^T \boldsymbol{\Sigma}_M^{-1} \left( \boldsymbol{t}_M - \hat{\boldsymbol{t}}_M \right)
 \right],
