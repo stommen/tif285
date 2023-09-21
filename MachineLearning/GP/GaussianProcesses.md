@@ -271,7 +271,8 @@ Different kernels can be combined to build the most relevant covariance function
 
 \begin{equation}
  
-C_(\mathbf{x},\mathbf{x}'; \boldsymbol{\alpha}) = \sigma_f^2 _\exp \left[ -\frac{1}{2} \sum_{i=1}^p \frac{(x_{i} - x_{i}')^2}{l_i^2} \right] + \sigma_\nu^2 \delta_{\mathbf{x},\mathbf{x}'},
+C_(\mathbf{x},\mathbf{x}'; \boldsymbol{\alpha}) = \sigma_f^2 \exp \left[ -\frac{1}{2} \sum_{i=1}^p \frac{(x_{i} - x_{i}')^2}{l_i^2} \right] + \sigma_\nu^2 \delta_{\mathbf{x},\mathbf{x}'},
+
 \end{equation}
 
 with the complete set of hyperparameters $\boldsymbol{\alpha} = \{ \sigma_\nu^2, \sigma_f^2, \vec{l} \}$ known as the white noise variance, signal variance, and RBF correlation length(s).
