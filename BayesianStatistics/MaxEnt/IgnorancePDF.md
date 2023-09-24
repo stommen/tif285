@@ -1,9 +1,9 @@
 <!-- !split -->
-# Ignorance pdfs: Indifference and translation groups
+# Assigning probabilities (I): Indifferences and translation groups
 
 <!-- !split -->
 ## Discrete permutation invariance
-* Consider a six-sided die
+* Consider a six-sided dice
 * How do we assign $p_i \equiv p(X_i|I)$, $i \in \{1, 2, 3, 4, 5, 6\}$?
 * We do know $\sum_i p(X_i|I) = 1$
 * Invariance under labeling $\Rightarrow p(X_i|I)=1/6$

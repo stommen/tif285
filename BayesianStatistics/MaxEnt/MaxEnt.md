@@ -1,5 +1,5 @@
 <!-- !split -->
-# The principle of maximum entropy
+# Assigning probabilities (II): The principle of maximum entropy
 
 Having dealt with ignorance, let us move on to more enlightened situations.
 
@@ -196,7 +196,7 @@ S= −\sum_{i=1}^M p_i \log \left( \frac{p_i}{m_i} \right),
 
 which is often known as the *Shannon-Jaynes entropy*, or the *Kullback number*, or the *cross entropy* (with opposite sign).
 
-Jaynes (1963) has pointed out that this generalization of the entropy, including a *Leqesgue measure* $m_i$, is necessary when we consider the limit of continuous parameters. 
+Jaynes (1963) has pointed out that this generalization of the entropy, including a *Lebesgue measure* $m_i$, is necessary when we consider the limit of continuous parameters. 
 
 \begin{equation}
 
