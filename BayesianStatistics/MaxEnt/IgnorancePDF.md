@@ -129,6 +129,39 @@ p(\theta_0, \theta_1 | I) \propto \frac{1}{\left( 1 + \theta_1^2 \right)^{3/2}}.
 
 <!-- !split -->
 <!-- <img src="fig/MaxEnt/slope_priors.png" width=800><p><em>100 samples of straight lines with fixed intercept equal to 0 and slopes sampled from three different pdfs. Note in particular the  prior preference for large slopes that results from using a uniform pdf.</em></p> -->
-![<p><em>100 samples of straight lines with fixed intercept equal to 0 and slopes sampled from three different pdfs. Note in particular the  prior preference for large slopes that results from using a uniform pdf.</em></p>](./figs/slope_priors.png)
+<!-- ![<p><em>100 samples of straight lines with fixed intercept equal to 0 and slopes sampled from three different pdfs. Note in particular the  prior preference for large slopes that results from using a uniform pdf.</em></p>](./figs/slope_priors.png) -->
+
+```{code-cell} python3
+:tags: [hide-output]
+import matplotlib.pyplot as plt
+import numpy as np
+
+# straight line model with fixed intercept at y=x=0.
+uniformSamples = np.random.uniform(size=100).reshape(1,-1)
+priorSamplesSlope = {'uniform': 10*uniformSamples, #[0,10]
+                         'scale': 10**(3*uniformSamples-2), #[0.01,10]
+                         'symmetry': np.tan(np.arcsin(uniformSamples))}
+xLinspace = np.array([0,1]).reshape(-1,1)
+
+fig_slopeSamples, axs = plt.subplots(nrows=1,ncols=3,sharey=True, sharex=True)
+
+for iax, (prior,slopes) in enumerate(priorSamplesSlope.items()):
+    ax=axs[iax]
+    ax.plot(xLinspace, xLinspace*slopes, color='k', alpha=0.1)
+    ax.set_ylim(0,1)
+    ax.set_xlabel(r'$x$')
+    if ax.get_subplotspec().is_first_col():
+        ax.set_ylabel(r'$y = \theta x$')
+    ax.set_title(f'{prior} prior')
+
+from myst_nb import glue
+glue("slopeSamples_fig", fig_slopeSamples, display=False)
+```
+
+```{glue:figure} slopeSamples_fig
+:name: "fig-slopeSamples"
+
+100 samples of straight lines with fixed intercept equal to 0 and slopes sampled from three different prior pdfs. Note in particular the  prior preference for large slopes that results from using a uniform pdf.
+```
 
 
