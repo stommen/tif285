@@ -19,10 +19,9 @@ and a set of target values
 * Furthermore, we will use the subscript $N$ to denote a set of $N$ vectors (or scalars): $\boldsymbol{X}_N$ ($\boldsymbol{t}_N$),
 * ... while a single instance $i$ is denoted by a superscript: $\boldsymbol{x}^{(i)}$ ($t^{(i)}$).
 
-```{admonition} Summary
-We will sometimes use the notation $\mathcal{D}_N = [\boldsymbol{X}_N, \boldsymbol{t}_N]$ for the data. 
-* A shorthand for $p(\boldsymbol{t}_N | \boldsymbol{X}_N)$ could therefore be $p(\mathcal{D}_N)$. 
-* Note also that a target is always associated with an input vector so we sometimes write $p(\boldsymbol{t}_N)$ instead of $p(\boldsymbol{t}_N | \boldsymbol{X}_N)$.
+```{admonition} Notation
+We will use the notation $\mathcal{D}_N = [\boldsymbol{X}_N, \boldsymbol{t}_N]$ for the data. 
+* Note that a target is always associated with an input vector. When our focus is on the prediction of targets, we sometimes write $p(\boldsymbol{t}_N)$ without including $\boldsymbol{X}_N$ explcitly.
 ```
 
 <!-- !split -->
@@ -422,7 +421,7 @@ where the $M \times 1$ mean vector and $M \times M$ covariance matrix are
 ```
 
 
-### Optimizing the GP model hyperparameters
+### Choosing the GP model hyperparameters
 
 Predictions can be made once we have
 1. Chosen an appropriate covariance function.
@@ -440,7 +439,7 @@ p \left( \boldsymbol{t}_N \right) = \frac{1}{Z_N} \exp \left[ -\frac{1}{2} \bold
 
 This pdf is basically a data likelihood.
 
-* The frequentist approach would be to find the set of hyperparameters $\boldsymbol{\alpha}^*$ that maximizes the data likelihood, i.e.,
+* The simplest approach is therefore to find the set of hyperparameters $\boldsymbol{\alpha}^*$ that maximizes the data likelihood, i.e.,
 
 $$
 \boldsymbol{\alpha}^* = \underset{\alpha}{\operatorname{argmin}}  \boldsymbol{t}_N^T \boldsymbol{C}_{N}^{-1}(\alpha) \boldsymbol{t}_N
@@ -453,6 +452,6 @@ p \left( t^{(N+1)} | \boldsymbol{t}_N \right) = \int d\boldsymbol{\alpha} p \lef
 = \int d\boldsymbol{\alpha} p \left( t^{(N+1)} | \boldsymbol{t}_N, \boldsymbol{\alpha} \right) p(\boldsymbol{\alpha} | \boldsymbol{t}_N)
 $$ (eq:tN1marg)
 
-The former approach is absolutely dominating the literature on GP regression. The covariance function hyperparameters are first optimized and then used for regression. The second approach gives a better quantification of the uncertainties, but is more computationally demanding.
+The optimization approach is absolutely dominating the literature on GP regression. The data likelihood is maximized with respect to the hyperparameters and the resulting covariance function is then used for regression. The second approach gives a better quantification of the uncertainties, but is more computationally demanding.
 
 
