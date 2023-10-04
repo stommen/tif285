@@ -1,6 +1,12 @@
 # Introduction
 
-These are the lecture notes for the master-level course "Learning from data" (TIF285/FYM285) that is taught at Chalmers University of Technology and Göteborg University. 
+```{epigraph}
+> "We demand rigidly defined areas of doubt and uncertainty!"
+
+-- Douglas Adams, *The Hitchhiker's Guide to the Galaxy*
+```
+
+These are the lecture notes for the advanced-level course "Learning from data".
 
 ```{admonition} Accompanying git repository
   All source files, including the jupyter notebooks used for exercises and demonstrations, can be found in the accompanying git repository (see the gitlab icon ![gitlab download icon](./figs/gitlab-1-32.png) at the top-middle-right and click on Source repository).
