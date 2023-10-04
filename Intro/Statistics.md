@@ -12,6 +12,12 @@ kernelspec:
 (sec:Statistics)=
 # Statistics concepts and notation
 
+```{epigraph}
+> “If your result needs a statistician then you should design a better experiment.”
+
+-- Ernest Rutherford
+```
+
 ## Notation
 
 | English | General notation |
