@@ -1,4 +1,11 @@
 # Learning from data: Inference
+
+```{epigraph}
+> "The goal is to turn data into information, and information into insight."
+
+-- Carly Fiorina
+```
+
 The general problem that will be adressed in this series of lectures is illustrated in the following figure. The learning process depicted there is known as **inference** and involves steps in reasoning to move from premises to logical consequences. 
 
 <!-- <img src="./figs/inference.png" width=600><p><em>Learning from data is an inference process. <div id="fig-inference"></div></em></p> -->
@@ -275,11 +282,6 @@ number crunching and leave the post-analysis of the data to the above
 mentioned Python modules or software packages.  However, with the developments taking place in for example the Python community, and seen
 the changes during the last decade, the above situation may change in the not too distant future. 
 
-### Software and needed installations
-
-See the Getting started guide on the course web page.
-
-<!-- !split -->
 ### Data handling, machine learning  and ethical aspects
 
 The data collection (or selection) process in a machine learning pipeline is the most serious ethical aspect since undetected biases will propagate via the training process to model predictions. In physics, the model might be less opaque, and we might have better control over data generation, but we should still develop a sound
@@ -305,37 +307,3 @@ easier today to gain traction and acceptance for making your science
 reproducible. From a societal stand, this is an important element
 since many of the developers are employees of large public institutions like
 universities and research labs.
-
-Let us also add a disclaimer concerning the fantastic progress of machine learning technology. Even though
-we may dream of computers developing some kind of higher learning
-capabilities, at the end (even if the artificial intelligence
-community keeps touting our ears full of fancy futuristic avenues), it is we, yes you reading these lines,
-who end up constructing and instructing, via various algorithms, the
-machine learning approaches. 
-
-For self-driving vehicles, where the standard machine
-learning algorithms discussed here enter into the software, there are
-stages where the human programmer has to make choices. As an example,
-all carmakers have the safety of the
-driver and the accompanying passengers as their utmost priority. Consider the scenario where the programmer has to construct an *if* statement that decides in an accident scenario between crashing into a truck or steering into a group of bicyclists.  
-
-This leads to serious ethical aspects. Who s entitled to make such
-choices? Keep in mind that many of the algorithms you will encounter in
-this series of lectures, or that you will hear about later, are indeed based on
-simple programming instructions. And you are very likely to be one of
-the people who end up writing such a code. Thus, developing a
-sound ethical attitude is much needed. The example of the self-driving cars is
-just one of infinitely many cases where we have to make choices. When
-you analyze data on economic inequalities, who guarantees that you are
-not cherrypicking data to reach a specific conclusion which may support your political views?
-
-We do not have the answers here, nor will we venture into a deeper
-discussions of these aspects, but we want you think over these topics
-in a more overarching way.  A statistical data analysis with its dry
-numbers and graphs meant to guide the eye, does not necessarily
-reflect the truth, whatever that is.  As a scientist, and after a
-university education, you are supposedly a highly qualified citizen, with an
-improved critical view and understanding of the scientific method, and
-perhaps some deeper understanding of the ethics of science at
-large. Use these insights. You owe it to our
-society.
