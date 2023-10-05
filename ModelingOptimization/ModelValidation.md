@@ -92,7 +92,9 @@ In order to find the optimal parameters $\pars^*$ we will minimize the $\chi^2(\
 \boldsymbol{A}^T\boldsymbol{b} = \boldsymbol{A}^T\boldsymbol{A}\pars^*,  
 \end{equation}
 
-where we have defined the matrix $\boldsymbol{A} = \boldsymbol{\Sigma}^{-1/2}\dmat$ with matrix elements $A_{ij} = X_{ij}/\sigma_i$ and the vector $\boldsymbol{b} = \boldsymbol{\Sigma}^{-1/2}\outputs$ with elements $b_i = \output_i/\sigma_i$. Given that the matrix $\boldsymbol{A}^T\boldsymbol{A}$ is invertible we have the solution
+where we have defined the matrix $\boldsymbol{A} = \boldsymbol{\Sigma}^{-1/2}\dmat$ with matrix elements $A_{ij} = X_{ij}/\sigma_i$ and the vector $\boldsymbol{b} = \boldsymbol{\Sigma}^{-1/2}\outputs$ with elements $b_i = \output_i/\sigma_i$. 
+Recall that the matrix elements of the design matrix are $X_{ij} = f_j(x_i)$.
+Given that the matrix $\boldsymbol{A}^T\boldsymbol{A}$ is invertible we have the solution
 
 \begin{equation}
 \pars^* =\left(\boldsymbol{A}^T\boldsymbol{A}\right)^{-1}\boldsymbol{A}^T\boldsymbol{b}.
