@@ -59,16 +59,24 @@ Inductive inference with parametric models is a very important tool in the natur
 * Consider $N$ different models $M_i$ ($i = 1, \ldots, N$), each with a parameter vector $\boldsymbol{\theta}_i$. The number of parameters (length of $\boldsymbol{\theta}_i$) might be different for different models. Each of them implies a sampling distribution for possible data
 
 \begin{equation}
-\pdf{\data}{\boldsymbol{\theta}_i, M_i}
+
+p(D|\boldsymbol{\theta}_i, M_i)
+
 \end{equation}
 
+* The likelihood function is the pdf of the actual, observed data ($D_\mathrm{obs}$) given a set of parameters $\boldsymbol{\theta}_i$:
+
+\begin{equation}
+
+\mathcal{L}_i (\boldsymbol{\theta}_i) \equiv p(D_\mathrm{obs}|\boldsymbol{\theta}_i, M_i)
+
+\end{equation}
 * We may be uncertain about $M_i$ (model uncertainty),
 * or uncertain about $\boldsymbol{\theta}_i$ (parameter uncertainty).
 
 
-
 <!-- !split -->
-```{Admonition} Parameter estimation:
+```{Admonition} Parameter Estimation:
   :class: tip
   Premise: We have chosen a model (say $M_1$)
   
@@ -78,7 +86,7 @@ Inductive inference with parametric models is a very important tool in the natur
   :class: tip
   Premise: We have a set of different models $\{M_i\}$
   
-  $\Rightarrow$ How do they compare with each other? Do we have evidence to say that, e.g., $M_1$ is better than $M_2$?
+  $\Rightarrow$ How do they compare with each other? Do we have evidence to say that, e.g. $M_1$, is better than $M_2$?
   ```
 ```{Admonition} Model checking:
   :class: tip
@@ -86,8 +94,23 @@ Inductive inference with parametric models is a very important tool in the natur
   
   $\Rightarrow$ Is $M_1$ adequate?
   ```
+```{Admonition} Hybrid Uncertainty:
+  :class: tip
+  Premise: Models share some common parameters: $\boldsymbol{\theta}_i = \{ \boldsymbol{\varphi}, \boldsymbol{\eta}_i\}$
+  
+  $\Rightarrow$ What can we say about $\boldsymbol{\varphi}$? (Systematic error is an example)
+```
   
 Further discussion on parameter estimation and scientific model predictions will appear in subsequent chapters. 
+
+```{figure} ./figs/m1m2.png
+:name: fig-m1m2
+:width: 600px
+:align: center
+
+Joint pdf for the masses of two black holes merging obtained from the data analysis of a gravitational wave signal. This representation of a joint pdf is known as a corner plot. 
+```
+
 
 
 ## Error propagation (I): Nuisance parameters and marginalization
