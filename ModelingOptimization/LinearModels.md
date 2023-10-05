@@ -20,7 +20,7 @@ kernelspec:
 -- Susan Greenfield
 ```
 
-In this chapter we will discuss models $M$ that are linear in their parameters $\pars$. Although linear models are simple, they are sometimes useful for analyzing real-world data.
+In this chapter we will discuss models $M$ that are linear in their parameters $\pars$. Although linear models are simple, they are sometimes useful for analyzing real-world data. A fraction of the text in this chapter was written by Andreas Ekström.
 
 ## Definition of linear models
 
