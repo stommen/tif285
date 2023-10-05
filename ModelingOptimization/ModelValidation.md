@@ -4,6 +4,7 @@
 In this lecture we will continue to explore linear regression and we will encounter several concepts that are common for machine learning methods. These concepts are:
   * Model validation
   * Overfitting and underfitting
+  * Training scores
   * Bias-variance-tradeoff
   * Regularization
   * Model hyperparameters
@@ -19,12 +20,12 @@ The cross-validation example with Ridge Regularization is taken from teaching ma
 <!-- !split -->
 ## Over- and underfitting
 
-Overfitting and underfitting are common problems in data analysis and machine learning. Both extremes are illustrated in {numref}`fig-over_under_fitting` from the demonstration notebook.
+Overfitting and underfitting are common problems in data analysis and machine learning. Both extremes are illustrated in {numref}`fig-over-under-fitting` from the demonstration notebook.
 
 <!-- ![<p><em>The first-order polynomial model is clearly underfitting the data, while the very high degree model is overfitting it trying to reproduce variations that are clearly noise. <div id="fig-over_under_fitting"></div></em></p>](./figs/over_under_fitting.png) -->
 
 ```{figure} ./figs/over_under_fitting.png
-:name: fig-over_under_fitting
+:name: fig-over-under-fitting
 
 The first-order polynomial model is clearly underfitting the data, while the very high degree model is overfitting it trying to reproduce variations that are clearly noise.
 ```
@@ -43,7 +44,126 @@ An underfit model has a *high bias*, which means that it gives a rather poor fit
 
 An overfit model typically has a very *large variance*, i.e. the model predictions reveal larger variance than the data itself. We will discuss this in more detail further down. High variance models typically perform much better on the training set than on the validation set. 
 
-Alternatively, a telltale sign for overfitting is the appearance of very large fit parameters that are needed for the fine tunings of cancellations of different terms in the model. The fits from our example has the following root-mean-square parameters
+## Training scores
+
+We can easily test our fit by computing various **training scores**. Several such measures are used in machine learning applications. First we have the **Mean-Squared Error** (MSE)
+
+\begin{equation}
+\mathrm{MSE}(\boldsymbol{\theta}) = \frac{1}{n} \sum_{i=1}^n \left( y_i - M(\pars;x_i) \right)^2,
+\end{equation}
+
+where we have $n$ training data and our model is a function of the parameter vector $\pars$. Note that this is the metric that we are minimizing when solving the normal equation Eq. {eq}`eq:NormalEquation`.
+
+Furthermore, we have the **mean absolute error** (MAE) defined as.
+
+\begin{equation}
+\mathrm{MAE}(\boldsymbol{\theta}) = \frac{1}{n} \sum_{i=1}^n \left| y_i - M(\pars;x_i) \right|,
+\end{equation}
+
+And the $R2$ score, also known as *coefficient of determination* is
+
+\begin{equation}
+\mathrm{R2}(\boldsymbol{\theta}) = 1 - \frac{\sum_{i=1}^n \left( y_i - M(\pars;x_i) \right)^2}{\sum_{i=1}^n \left( y_i - \bar{y} \right)^2},
+\end{equation}
+
+where $\bar{y} = \frac{1}{n} \sum_{i=1}^n y_i$ is the mean of the data. This metric therefore represents the proportion of variance (of $\data$) that has been explained by the independent variables in the model.
+
+
+### The $\chi^2$ function
+
+Normally, the response (dependent or outcome) variable $y_i$ is the
+outcome of a numerical experiment or another type of experiment and is
+thus only an approximation to the true value. It is then always
+accompanied by an error estimate, often limited to a statistical error
+estimate given by a **standard deviation**. 
+
+Introducing the standard deviation $\sigma_i$ for each measurement
+$y_i$ (assuming uncorrelated errors), we define the so called $\chi^2$ function as
+
+\begin{equation}
+\chi^2(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=0}^{n-1}\frac{\left(y_i-\tilde{y}_i\right)^2}{\sigma_i^2}=\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)^T \boldsymbol{\Sigma}^{-1}\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)\right\},
+\end{equation}
+
+where the matrix $\boldsymbol{\Sigma}$ is a diagonal $n \times n$ matrix with $\sigma_i^2$ as matrix elements.
+
+
+
+<!-- !split -->
+
+In order to find the parameters $\theta_i$ we will then minimize the $\chi^2(\boldsymbol{\theta})$ function by requiring
+
+\begin{equation}
+\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = \frac{\partial }{\partial \theta_j}\left[ \frac{1}{n}\sum_{i=0}^{n-1}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}}{\sigma_i}\right)^2\right]=0, 
+\end{equation}
+
+which results in
+
+\begin{equation}
+\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = -\frac{2}{n}\left[ \sum_{i=0}^{n-1}\frac{x_{ij}}{\sigma_i}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}}{\sigma_i}\right)\right]=0, 
+\end{equation}
+
+or in a matrix-vector form as
+
+\begin{equation}
+\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} = 0 = \boldsymbol{A}^T\left( \boldsymbol{b}-\boldsymbol{A}\boldsymbol{\theta}\right).  
+\end{equation}
+
+where we have defined the matrix $\boldsymbol{A} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{X}$ with matrix elements $a_{ij} = x_{ij}/\sigma_i$ and the vector $\boldsymbol{b} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{y}$ with elements $\boldsymbol{b}$ with elements $b_i = y_i/\sigma_i$.
+
+
+
+<!-- !split -->
+
+We can rewrite
+
+\begin{equation}
+\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} = 0 = \boldsymbol{A}^T\left( \boldsymbol{b}-\boldsymbol{A}\boldsymbol{\theta}\right),  
+\end{equation}
+
+as
+
+\begin{equation}
+\boldsymbol{A}^T\boldsymbol{b} = \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{\theta},  
+\end{equation}
+
+and if the matrix $\boldsymbol{A}^T\boldsymbol{A}$ is invertible we have the solution
+
+\begin{equation}
+\boldsymbol{\theta} =\left(\boldsymbol{A}^T\boldsymbol{A}\right)^{-1}\boldsymbol{A}^T\boldsymbol{b}.
+\end{equation}
+
+
+
+<!-- !split -->
+
+If we then introduce the matrix
+
+\begin{equation}
+\boldsymbol{H} =  \left(\boldsymbol{A}^T\boldsymbol{A}\right)^{-1},
+\end{equation}
+
+we have then the following expression for the parameters $\theta_j$ (the matrix elements of $\boldsymbol{H}$ are $h_{ij}$)
+
+\begin{equation}
+\theta_j = \sum_{k=0}^{p-1}h_{jk}\sum_{i=0}^{n-1}\frac{y_i}{\sigma_i}\frac{x_{ik}}{\sigma_i} = \sum_{k=0}^{p-1}h_{jk}\sum_{i=0}^{n-1}b_ia_{ik}
+\end{equation}
+
+We state without proof the expression for the uncertainty  in the parameters $\theta_j$ as (we leave this as an exercise)
+
+\begin{equation}
+\sigma^2(\theta_j) = \sum_{i=0}^{n-1}\sigma_i^2\left( \frac{\partial \theta_j}{\partial y_i}\right)^2, 
+\end{equation}
+
+resulting in 
+
+\begin{equation}
+\sigma^2(\theta_j) = \left(\sum_{k=0}^{p-1}h_{jk}\sum_{i=0}^{n-1}a_{ik}\right)\left(\sum_{l=0}^{p-1}h_{jl}\sum_{m=0}^{n-1}a_{ml}\right) = h_{jj}!
+\end{equation}
+
+
+## Regularization: Ridge and Lasso
+
+A telltale sign for overfitting is the appearance of very large fit parameters that are needed for the fine tunings of cancellations of different terms in the model. The fits from {numref}`fig-over-under-fitting` has the following root-mean-square parameters
 
 \begin{equation}
 \theta_\mathrm{rms} \equiv \frac{1}{p} \sqrt{ \sum_{i=0}^p \theta_i^2 } \equiv \| \theta \|_2^2 / p.
@@ -56,10 +176,6 @@ Alternatively, a telltale sign for overfitting is the appearance of very large f
 |    3   |             1.2e+00    |
 |  	 100  |             6.3e+12    |
 
-
-
-<!-- !split -->
-## Regularization: Ridge and Lasso
 
 Assuming that overfitting is characterized by large fit parameters, we can attempt to avoid this scenario by *regularizing* the model parameters. We will introduce two kinds of regularization: Ridge and Lasso. In addition, so called elastic net regularization is also in use and basically corresponds to a linear combination of the Ridge and Lasso penalty functions.
 
