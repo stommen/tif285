@@ -1,4 +1,4 @@
-# Introduction
+# Preface
 
 ```{epigraph}
 > "We demand rigidly defined areas of doubt and uncertainty!"
@@ -30,10 +30,11 @@ These lecture notes have been authored by [Christian Forssén](https://www.chalm
 
 * A clickable high-level table of contents (TOC) is available in the panel at the left of each page. (You can close this panel with the left arrow at the top-left-middle of the page or open it with the contents icon at the upper left.) 
 
-    ```{admonition} Icons and menus
-* For each section that has subsections, a clickable table of contents appears in the rightmost panel.
-* The icons at the top-right can be used to take you to the source repository for the book; download the source code for the page (in different formats); view the page in full-screen mode; switch between light and dark mode; or search the book.
-    ```
+```{admonition} Icons and menus
+  The Jupyter book has several useful features:
+- For each section that has subsections, a clickable table of contents appears in the rightmost panel.
+- The icons at the top-right can be used to take you to the source repository for the book; download the source code for the page (in different formats); view the page in full-screen mode; switch between light and dark mode; or search the book.
+```
 
 # Acknowledgements
 
