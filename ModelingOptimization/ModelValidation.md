@@ -81,7 +81,7 @@ Making the bold assumption that discrepancies between model and data can be attr
 with known standard deviations for the (independent) errors. This allows to define the so called $\chi^2$ function as
 
 \begin{equation}
-\chi^2(\pars)=\frac{1}{n}\sum_{i=0}^{n-1}\frac{\left(y_i-M(\pars;x_i)\right)^2}{\sigma_i^2}=\frac{1}{n}\left(\outputs-\dmat\pars\right)^T \boldsymbol{\Sigma}^{-1}\left(\outputs-\\dmat\pars\right),
+\chi^2(\pars)=\frac{1}{n}\sum_{i=0}^{n-1}\frac{\left(y_i-M(\pars;x_i)\right)^2}{\sigma_i^2}=\frac{1}{n}\left(\outputs-\dmat\pars\right)^T \boldsymbol{\Sigma}^{-1}\left(\outputs-\dmat\pars\right),
 \end{equation}
 
 where the matrix $\boldsymbol{\Sigma}$ is a diagonal $n \times n$ matrix with $\sigma_i^2$ as matrix elements and we restrict ourselves to a linear model $\dmat\pars$ in the second step.
