@@ -110,6 +110,13 @@ This simple procedure allows to propagate the uncertainty in $\phi$ to the proba
 
 {prf:ref}`example:BayesianAdvantage:inferring-galactic-distances` provides an illustration of this scenario.
 
+```{admonition} Marginalization using samples
+:class: tip
+Assume that we have $N$ samples from the joint pdf \pdf{\theta, \phi}{\data, I}. This might a sample chain from an MCMC sampler: $\left\{ (\theta, \phi)_i \right\}_{i=0}^{N-1}$. Then the marginal distribution of $\theta$ will be given by the same chain by simply ignoring the $\phi$ column, i.e., $\left\{ \theta_{i} \right\}_{i=0}^{N-1}$. 
+
+See the interactive demos created by Chi Feng for an illustration of this: [The Markov-chain Monte Carlo Interactive Gallery](https://chi-feng.github.io/mcmc-demo/).
+```
+
 A slightly more general scenario for which the marginalization procedure is useful is the following: Assume that we have measured or inferred the parameters $X$ and $Y$; what can we say about the difference $X-Y$ or the raio $X/Y$, or the sum of their squares $X^2+Y^2$, etc? 
 
 Such questions can be rephrased as: Given the joint PDF $\pdf{x,y}{I}$, what is $\pdf{z}{I}$, where $z=f(x,y)$? Here, and in the following, we use shorthands $\pdf{z}{I}$, $\pdf{x,y}{I}$ instead of the more correct $p_Z(z|I)$, $p_{X,Y}(x,y|I)$. The context should make it clear which random variable(s) that are referred to.
