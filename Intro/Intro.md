@@ -12,6 +12,8 @@ The general problem that will be adressed in this series of lectures is illustra
 
 ```{figure} ./figs/inference.png
 :name: fig-inference
+:width: 600px
+:align: center
 
 Learning from data is an inference process.
 ```
@@ -41,6 +43,8 @@ In the natural sciences, the premise is often a finite set of measurements while
 
 ```{figure} ./figs/scientific_wheel_data.png
 :name: fig-scientific-wheel
+:width: 600px
+:align: center
 
 This process of learning from data is fundamental to the scientific wheel of progress.
 ```
@@ -63,6 +67,8 @@ The basic process illustrated in {numref}`fig-inference` is employed also in the
 
 ```{figure} ./figs/MLinference.png
 :name: fig-ML-inference
+:width: 600px
+:align: center
 
 Machine learning can also be seen as an inference process.
 ```
