@@ -272,3 +272,111 @@ can be proved by making an orthogonal transformation into the basis $u$ in which
 \end{equation}
 
 The product of the eigenvalues $\lambda_i$ is the determinant of $\Sigma^{-1}$.
+
+
+
+
+
+
+### Correlations
+In the "fitting a straight-line" example you should find that the joint pdf for the slope and the intercept $[m, b]$ corresponds to a slanted ellipse. That result implies that the model parameters are (anti) **correlated**.
+
+* Try to understand the correlation that you find in this example.
+
+Let us explore correlations by studying the behavior of a bivariate pdf near the maximum where we employ the Laplace approximation (neglecting terms beyond the quadratic one in a Taylor expansion). We start by considering two independent parameters $x$ and $y$, before studying the dependent case.
+
+#### Two independent parameters
+
+Independence implies that $p(x,y) = p_x(x) p_y(y)$. We will again consider the log-pdf $L(x,y) = \log\left( p(x,y) \right)$ which will then be
+
+\begin{equation}
+L(x,y) = L_x(x) + L_y(y).
+\end{equation}
+
+At the mode we will have $\partial p / \partial x = \partial p_x / \partial x = \partial L_x / \partial x = 0$, and similarly $\partial L_y / \partial y = 0$.
+
+The second derivatives will be
+
+\begin{equation}
+A \equiv \left. \frac{\partial^2 L_x}{\partial x^2} \right|_{x=x_0} < 0, \quad
+B \equiv \left. \frac{\partial^2 L_y}{\partial y^2} \right|_{y=y_0} < 0, \quad
+C \equiv \left. \frac{\partial L(x,y)}{\partial x \partial y} \right|_{x=x_0,y=y_0} = 0.
+\end{equation}
+
+such that our approximated (log) pdf near the mode will be
+
+\begin{equation}
+L(x,y) = L(x_0, y_0) - \frac{1}{2} |A| (x-x_0)^2 - \frac{1}{2} |B| (y-y_0)^2.
+\end{equation}
+
+We could visualize this bivariate pdf by plotting iso-probability contours. Or, equivalently, iso-log-probability contours which correspond to
+
+\begin{equation}
+|A| (x-x_0)^2 + |B| (y-y_0)^2 = \mathrm{constant}.
+\end{equation}
+
+This you should recognize as the equation for an ellipse with its center in $(x_0, y_0)$, the principal axes corresponding to the $x$ and $y$ directions, and with the width and height parameters $\sigma_x = 1/\sqrt{|A|}$ and $\sigma_y = 1/\sqrt{|B|}$, respectively.
+
+#### Two dependent parameters
+
+For two dependent parameters we cannot separate $p(x,y)$ into a product of one-dimensional pdf:s. Instead, the Taylor expansion for the bivariate log-pdf $L(x,y)$ around the mode $(x_0,y_0)$ gives
+
+\begin{equation}
+L(x,y) \approx L(x_0,y_0) + \frac{1}{2} \begin{pmatrix} x-x_0 & y-y_0 \end{pmatrix}
+H
+\begin{pmatrix} x-x_0 \\ y-y_0 \end{pmatrix},
+\end{equation}
+
+where $H$ is the symmetric Hessian matrix
+
+\begin{equation}
+\begin{pmatrix}
+A & C \\ C & B
+\end{pmatrix}, 
+\end{equation}
+
+with elements
+
+\begin{equation}
+A = \left. \frac{\partial^2 L}{\partial x^2} \right|_{x_0,y_0} < 0, \quad
+B = \left. \frac{\partial^2 L}{\partial y^2} \right|_{x_0,y_0} < 0, \quad
+C = \left. \frac{\partial^2 L}{\partial x \partial y} \right|_{x_0,y_0} \neq 0.
+\end{equation}
+
+<!-- !split -->
+* So in this quadratic approximation the contour is an ellipse centered at $(x_0,y_0)$ with orientation and eccentricity determined by $A,B,C$.
+* The principal axes are found from the eigenvectors of $H$.
+* Depending on the skewness of the ellipse, the parameters are either (i) not correlated ($C=0$), (ii) correlated, or (iii) anti-correlated.
+* Take a minute to consider what that implies.
+
+Let us be explicit. The Hessian can be diagonalized (we will also change sign)
+
+\begin{equation}
+-H = U \begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix} U^{-1},
+\end{equation}
+
+where $a$, $b$ are the (positive) eigenvalues of $-H$, and $U = \begin{pmatrix} a_x & b_x \\ a_y & b_y \end{pmatrix}$ is constructed from the eigenvectors. Defining a new set of translated and linearly combined parameters
+
+\begin{equation}
+x' = a_x (x - x_0) + a_y (y - y_0) \\
+y' = b_x (x - x_0) + b_y (y - y_0) 
+\end{equation}
+
+we find that the log-pdf in the new coordinates becomes
+
+\begin{equation}
+\begin{gathered}
+L(x',y') &= L(0,0) - \frac{1}{2} \begin{pmatrix} x' & y' \end{pmatrix}
+\begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix}
+\begin{pmatrix} x' \\ y' \end{pmatrix} \\
+&= L(0, 0) - \frac{1}{2} a (x')^2 - \frac{1}{2} b (y')^2.
+\end{gathered}
+\end{equation}
+
+```{admonition} Discuss
+What has been achieved by this change of variables?
+```
+
+```{toggle}
+The joint pdf now factorizes which implies that the transformed variables are independent.
+```
