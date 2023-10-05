@@ -11,13 +11,12 @@ In this lecture we will continue to explore linear regression and we will encoun
   * Gradient descent optimization
   * Learning curves
 
-This lecture is accompanied by a demonstration Jupyter notebook. Furthermore, you will get your own experience with these concepts when working on the linear regression exercise and the problem set.
+This lecture is accompanied by a demonstration Jupyter notebook. 
 
 The lecture is based and inspired by material in several good textbooks: in particular chapter 4 in [Hands‑On Machine Learning with Scikit‑Learn and TensorFlow](http://shop.oreilly.com/product/0636920052289.do) {cite}`Geron2017` by Aurelien Geron and chapter 5 in the 
 [Python Data Science Handbook](http://shop.oreilly.com/product/0636920034919.do) {cite}`Vanderplas2016` by Jake VanderPlas.
-The cross-validation example with Ridge Regularization is taken from teaching material developed by Morten Hjorth-Jensen at the Department of Physics, University of Oslo & Department of Physics and Astronomy and National Superconducting Cyclotron Laboratory, Michigan State University. 
+The cross-validation example with Ridge Regularization is taken from teaching material developed by Morten Hjorth-Jensen at the Department of Physics, University of Oslo. 
 
-<!-- !split -->
 ## Over- and underfitting
 
 Overfitting and underfitting are common problems in data analysis and machine learning. Both extremes are illustrated in {numref}`fig-over-under-fitting` from the demonstration notebook.
@@ -71,93 +70,32 @@ where $\bar{y} = \frac{1}{n} \sum_{i=1}^n y_i$ is the mean of the data. This met
 
 ### The $\chi^2$ function
 
-Normally, the response (dependent or outcome) variable $y_i$ is the
-outcome of a numerical experiment or another type of experiment and is
-thus only an approximation to the true value. It is then always
-accompanied by an error estimate, often limited to a statistical error
-estimate given by a **standard deviation**. 
+The training scores introduced above focus on the magnitude of the residuals $\residual_i = y_i - M_i$. However, assuming that experimental observations are associated with uncertainties provides relevant information that should be taken into account when assessing the model fit. 
 
-Introducing the standard deviation $\sigma_i$ for each measurement
-$y_i$ (assuming uncorrelated errors), we define the so called $\chi^2$ function as
+Making the bold assumption that discrepancies between model and data can be attributed entirely to experimental errors we assign
 
 \begin{equation}
-\chi^2(\boldsymbol{\theta})=\frac{1}{n}\sum_{i=0}^{n-1}\frac{\left(y_i-\tilde{y}_i\right)^2}{\sigma_i^2}=\frac{1}{n}\left\{\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)^T \boldsymbol{\Sigma}^{-1}\left(\boldsymbol{y}-\boldsymbol{\tilde{y}}\right)\right\},
+\sigma_i = \std{\residual_i},
+\end{equation}
+ 
+with known standard deviations for the (independent) errors. This allows to define the so called $\chi^2$ function as
+
+\begin{equation}
+\chi^2(\pars)=\frac{1}{n}\sum_{i=0}^{n-1}\frac{\left(y_i-M(\pars;x_i)\right)^2}{\sigma_i^2}=\frac{1}{n}\left(\outputs-\dmat\pars\right)^T \boldsymbol{\Sigma}^{-1}\left(\outputs-\\dmat\pars\right),
 \end{equation}
 
-where the matrix $\boldsymbol{\Sigma}$ is a diagonal $n \times n$ matrix with $\sigma_i^2$ as matrix elements.
+where the matrix $\boldsymbol{\Sigma}$ is a diagonal $n \times n$ matrix with $\sigma_i^2$ as matrix elements and we restrict ourselves to a linear model $\dmat\pars$ in the second step.
 
-
-
-<!-- !split -->
-
-In order to find the parameters $\theta_i$ we will then minimize the $\chi^2(\boldsymbol{\theta})$ function by requiring
+In order to find the optimal parameters $\pars^*$ we will minimize the $\chi^2(\pars)$ function. For a linear model this is a straight-forward extension of the derivation of the normal equation {eq}`eq:NormalEquation` and leads to
 
 \begin{equation}
-\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = \frac{\partial }{\partial \theta_j}\left[ \frac{1}{n}\sum_{i=0}^{n-1}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}}{\sigma_i}\right)^2\right]=0, 
+\boldsymbol{A}^T\boldsymbol{b} = \boldsymbol{A}^T\boldsymbol{A}\pars^*,  
 \end{equation}
 
-which results in
+where we have defined the matrix $\boldsymbol{A} = \boldsymbol{\Sigma}^{-1/2}\dmat$ with matrix elements $A_{ij} = X_{ij}/\sigma_i$ and the vector $\boldsymbol{b} = \boldsymbol{\Sigma}^{-1/2}\outputs$ with elements $b_i = \output_i/\sigma_i$. Given that the matrix $\boldsymbol{A}^T\boldsymbol{A}$ is invertible we have the solution
 
 \begin{equation}
-\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \theta_j} = -\frac{2}{n}\left[ \sum_{i=0}^{n-1}\frac{x_{ij}}{\sigma_i}\left(\frac{y_i-\theta_0x_{i,0}-\theta_1x_{i,1}-\theta_2x_{i,2}-\dots-\theta_{p-1}x_{i,p-1}}{\sigma_i}\right)\right]=0, 
-\end{equation}
-
-or in a matrix-vector form as
-
-\begin{equation}
-\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} = 0 = \boldsymbol{A}^T\left( \boldsymbol{b}-\boldsymbol{A}\boldsymbol{\theta}\right).  
-\end{equation}
-
-where we have defined the matrix $\boldsymbol{A} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{X}$ with matrix elements $a_{ij} = x_{ij}/\sigma_i$ and the vector $\boldsymbol{b} = \boldsymbol{\Sigma}^{-1/2}\boldsymbol{y}$ with elements $\boldsymbol{b}$ with elements $b_i = y_i/\sigma_i$.
-
-
-
-<!-- !split -->
-
-We can rewrite
-
-\begin{equation}
-\frac{\partial \chi^2(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} = 0 = \boldsymbol{A}^T\left( \boldsymbol{b}-\boldsymbol{A}\boldsymbol{\theta}\right),  
-\end{equation}
-
-as
-
-\begin{equation}
-\boldsymbol{A}^T\boldsymbol{b} = \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{\theta},  
-\end{equation}
-
-and if the matrix $\boldsymbol{A}^T\boldsymbol{A}$ is invertible we have the solution
-
-\begin{equation}
-\boldsymbol{\theta} =\left(\boldsymbol{A}^T\boldsymbol{A}\right)^{-1}\boldsymbol{A}^T\boldsymbol{b}.
-\end{equation}
-
-
-
-<!-- !split -->
-
-If we then introduce the matrix
-
-\begin{equation}
-\boldsymbol{H} =  \left(\boldsymbol{A}^T\boldsymbol{A}\right)^{-1},
-\end{equation}
-
-we have then the following expression for the parameters $\theta_j$ (the matrix elements of $\boldsymbol{H}$ are $h_{ij}$)
-
-\begin{equation}
-\theta_j = \sum_{k=0}^{p-1}h_{jk}\sum_{i=0}^{n-1}\frac{y_i}{\sigma_i}\frac{x_{ik}}{\sigma_i} = \sum_{k=0}^{p-1}h_{jk}\sum_{i=0}^{n-1}b_ia_{ik}
-\end{equation}
-
-We state without proof the expression for the uncertainty  in the parameters $\theta_j$ as (we leave this as an exercise)
-
-\begin{equation}
-\sigma^2(\theta_j) = \sum_{i=0}^{n-1}\sigma_i^2\left( \frac{\partial \theta_j}{\partial y_i}\right)^2, 
-\end{equation}
-
-resulting in 
-
-\begin{equation}
-\sigma^2(\theta_j) = \left(\sum_{k=0}^{p-1}h_{jk}\sum_{i=0}^{n-1}a_{ik}\right)\left(\sum_{l=0}^{p-1}h_{jl}\sum_{m=0}^{n-1}a_{ml}\right) = h_{jj}!
+\pars^* =\left(\boldsymbol{A}^T\boldsymbol{A}\right)^{-1}\boldsymbol{A}^T\boldsymbol{b}.
 \end{equation}
 
 
