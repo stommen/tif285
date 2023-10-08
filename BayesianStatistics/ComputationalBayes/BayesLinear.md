@@ -151,7 +151,7 @@ The following is a (possible incomplete) list of possible uses of a history-matc
 1. The non-implausible samples summarise the parameter region of interest, and can directly aid insight regarding interdependencies between parameters induced by the match to observed data. This region is also where we would expect the bulk of the posterior distribution to reside. 
 1. Consequently, the non-implausible samples offer good starting points for a subsequent Bayesian analysis (assuming that we dare to make fully probabilistic statements concerning unknown quantities). The convergence of MCMC sampling will be much faster if it is initialized in the region of highest probability mass.
 1. Furthermore, the efficient search of large, high-dimensional volumes can aid in identifying multiple regions of interest. The non-implausible samples do not necessarily reside in a single, connected domain but might represent multiple modes of a probability distribution.
-1. Implausible regions will correspond to small likelihood densities. The history-matching procedure is therefore well suited to be combined with [sampling/importance resampling](sec:AdvancedMCMC:SIR), see also Ref. {cite}`Jiang:2022off`.
+1. Implausible regions will correspond to small likelihood densities. The history-matching procedure is therefore well suited to be combined with [Sampling/Importance Resampling](sec:AdvancedMCMC:SIR), see also Ref. {cite}`Jiang:2022off`.
 
 
 
