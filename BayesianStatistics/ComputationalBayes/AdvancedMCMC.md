@@ -21,12 +21,14 @@ kernelspec:
 
 In this chapter we will consider two very useful sampling methods. Hamiltonian Monte Carlo is used in [Stan](https://mc-stan.org/), which is a state-of-the-art platform for statistical modeling and high-performance statistical computation. Sampling / Importance resampling is mot a Markov chain method, but can be very useful for posterior updates and when working with a finite set of samples.
 
+(sec:AdvancedMCMC:HMC)=
 ## Hamiltonian Monte Carlo
 
 ```{note}
 Material under development.
 ```
 
+(sec:AdvancedMCMC:SIR)=
 ## Sampling / Importance resampling
 
 ```{note}
