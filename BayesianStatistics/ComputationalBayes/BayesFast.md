@@ -78,7 +78,7 @@ $$ (eq:BayesFast:X)
 such that the snapshot-projected trial wave functions become
 
 $$
-| \tilde\psi \rangle \sum_{i=1}^n \beta_i | \psi_i \rangle = X \beta.
+| \tilde\psi \rangle = \sum_{i=1}^n \beta_i | \psi_i \rangle = X \beta.
 $$ (eq:BayesFast:snapshot-projected-eigenvector)
 
 The snapshot-projected $n \times n$ matrices in Eq. {eq}`eq:BayesFast:generalized-eigenvalue-problem` become
@@ -93,7 +93,7 @@ $$ (eq:BayesFast:snapshot-projected-matrices)
 It is usually enough with $n \ll N$ to have $\tilde{E}_\odot \approx E_\odot$ with a very high precision. Obviously it is significantly faster to solve an eigenvalue
 problem for $n = 10−100$ than $N \sim 10^9$.
 
-The solution of Eq. {eq}`eq:BayesFast:generalized-eigenvalue-problem` also gives a low-fidelity eigenvector $| \tilde\psi(\pars_\odot) \rangle = X \beta^*$. From a variational viewpoint, the vector $\beta^*$ renders the functional $S[X\beta]$ stationary under variations $| \delta \tilde\psi \rangle = X | \delta \tilde\beta \rangle$ and $E_\odot \lesssim \tilde E_\odot$.
+The solution of Eq. {eq}`eq:BayesFast:generalized-eigenvalue-problem` also gives a low-fidelity eigenvector $| \tilde\psi(\pars_\odot) \rangle = X \beta^*$, where $\beta^*$ is the eigenvector in the snapshot basis. From a variational viewpoint, the vector $\beta^*$ renders the functional $S[X\beta]$ stationary under variations $| \delta \tilde\psi \rangle = X | \delta \tilde\beta \rangle$ and $E_\odot \lesssim \tilde E_\odot$.
 
 ```{prf:example} Eigenvector continuation in ab initio nuclear theory
 In ab initio nuclear theory, based on $\chi$EFT interactions, we (often) have a Hamiltonian that can be written in terms of the low energy constants (LECs) $\pars$ as
