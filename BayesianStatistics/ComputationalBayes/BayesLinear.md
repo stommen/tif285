@@ -56,7 +56,13 @@ Consider a random varable $X$ with mean value $\mu = \expect{X}$ and variance $\
 
 This is a rough bound. For example, we find that the probability of finding $X$ outside of $r = 3\sigma$ is smaller than or equal to $1/9 \approx 11\%$.
 
-It is possible to find a tighter constraint with an additional assumption. For a unimodal distribution, the probability density is non-decreasing up to the mode, and non-increasing after. For this class, the bound becomes more than halved $\prob(|X-\mu| \geq r) \leq (4/9)(\sigma^2 / r^2)$ for $r > \sqrt{8/3} \sigma \approx 1.63 \sigma$. In particular, for $r = 3\sigma$ we get the celebrated Pukelsheim's three-sigma rule.
+It is possible to find a tighter constraint with an additional assumption. For a unimodal distribution, the probability density is non-decreasing up to the mode, and non-increasing after. For this class, the bound becomes more than halved 
+
+$$
+\prob(|X-\mu| \geq r) \leq \frac{4}{9} \frac{\sigma^2}{r^2} \quad \text{for } r > \sqrt{\frac{8}{3}} \sigma \approx 1.63 \sigma.
+$$ (eq:BayesLinear:unimodal-bound)
+
+In particular, for $r = 3\sigma$ we get the celebrated Pukelsheim's three-sigma rule.
 
 ```{Admonition} Pukelsheim's three-sigma rule
 :class: tip
