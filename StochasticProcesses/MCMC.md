@@ -203,7 +203,7 @@ We will now show that it is possible to construct a Markov chain that has $p(\pa
 As we have learned, the evolution of positions is described by the transition density $T$. The generalization to continuous variables of the stationary-chain equilibrium described in Eq. {eq}`eq:MarkovChains:discrete-equlibrium` is
 
 \begin{equation}
-p(\pars) = p(\pars')T(\pars,\pars').
+p(\pars) = \int_{\Omega'} p(\pars')T(\pars,\pars') d\pars'.
 \end{equation}
 
 This equilibrium condition can be replaced with the more stringent **detailed-balance** condition
