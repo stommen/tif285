@@ -14,9 +14,9 @@ kernelspec:
 # Bayes goes linear: History matching
 
 ```{epigraph}
-> "History is a vast early warning system."
+> "Those who cannot remember the past are condemned to repeat it."
 
--- Norman Cousins
+-- George Santayana
 ```
 
 In this chapter we will introduce Bayes linear methods and history matching in particular.
