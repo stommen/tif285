@@ -346,6 +346,12 @@ For practical purposes there are two issues to deal with:
 
 The latter problem is actually an example of an **inverse problem**. These are in general very difficult to solve. However, in this case there is a very clever, general class of solutions that we will look at in the next chapter.
 
+```{exercise} Stationary distribution
+:label: exercise:MarkovChains:stationary-distribution
+
+Show that {prf:ref}`definition:stationary-distribution` implies that there is a stationary distribution $\pi$ such that $\prob \left( X_{n}=i \right) = \prob \left( X_{n-1}=i \right) = \pi_i$
+```
+
 ## Reversibility
 
 Another important property that some Markov chains can have is reversability. This property can also be seen as an invariance under reversal of time. Let us consider $X$, an irreducible, positive recurrent Markov chain of length $N$, $\{ X_N \, : \, 0 \leq n \leq N \}$, with transition matrix $T_X$ and stationary distribution $\boldsymbol{\pi}$. Suppose further that $X_0$ has the distribution $\boldsymbol{\pi}$ such that all $X_n$ also have the same distribution.
@@ -628,6 +634,21 @@ np.sum(P, axis=1) = 1
 - This plot only shows the update rule and does not depend on how we chose an initial value for the Markov chain.
 
 ````
+
+```{solution} exercise:MarkovChains:stationary-distribution
+:label: solution:MarkovChains:stationary-distribution
+:class: dropdown
+
+Assume that $\prob \left( X_{n-1}=i \right) = \pi_i$. Then 
+
+$$
+\begin{aligned}
+\prob \left( X_{n}=i \right) &= \sum_j \prob \left( X_{n}=i, X_{n-1}=j  \right) \\
+&= \sum_j \cprob{X_{n}=i}{X_{n-1}=j} \prob \left( X_{n-1}=j \right) \\
+&= \sum_j \pi_j T(i,j) = \pi_i.
+\end{aligned}
+$$
+```
 
 ```{solution} exercise:MarkovChains:reversibility
 :label: solution:MarkovChains:reversibility
