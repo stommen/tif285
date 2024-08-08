@@ -1,7 +1,7 @@
 <!-- !split -->
 # Neural networks
 
-{{ sub_extra_admonition }}
+{{ sub_duplicate_admonition }}
 
 Artificial neural networks are computational systems that can learn to
 perform tasks by considering examples, generally without being

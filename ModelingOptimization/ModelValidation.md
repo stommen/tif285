@@ -1,7 +1,7 @@
 <!-- !split -->
 # Model validation
 
-{{ sub_extra_admonition }}
+{{ sub_duplicate_admonition }}
 
 In this lecture we will continue to explore linear regression and we will encounter several concepts that are common for machine learning methods. These concepts are:
   * Model validation
