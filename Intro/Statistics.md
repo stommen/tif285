@@ -18,28 +18,10 @@ kernelspec:
 -- Ernest Rutherford
 ```
 
+(sec:Statistics:notation)=
 ## Notation
 
-| English | General notation |
-| :------ | :------: |
-| Conditional probability | $\cprob{A}{B}$ |
-| Covariance | $\mathrm{Cov}(X,Y)$ |
-| Distribution function | $P(x)$ |
-| Empty set | $\emptyset$ |
-| Event | $A$ |
-| Expectation value | $\expect{X}$ |
-| Likelihood function | $\mathcal{L}(\theta)$
-| Model parameters | $\par$
-| Outcome | 
-| Posterior distribution | 
-| Prior distribution |  
-| Probability density function | $p(x)$ |
-| Probability mass function | $p(x)$ |
-| Probability measure | $\prob $ |
-| Random variable | $X$ |
-| Sample space | $S$ |
-| Standard deviation | $\mathrm{Std}(X)$ |
-| Variance | $\mathrm{Var}(X)$ |
+{{ sub_Statistics_notation }}
 
 ## Important definitions
 

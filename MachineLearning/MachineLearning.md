@@ -9,39 +9,15 @@ kernelspec:
   language: python
   name: python3
 ---
+(sec:MachineLearning)=
 # Machine learning: Overview and notation
 
-## English--Swedish dictionary
+(sec:MachineLearning:notation)=
+## Notation
 
-| English | Swedish | General notation |
-| :------ | :------ | :------: |
-| Activation | Aktivering | $z$ |
-| Activation function | Aktiveringsfunktion | $f(z)$ |
-| Bias (term) | Bias (konstant term i modell) | ${b}$ eller $\weight_0$ |
-| Bias (error) | Metodiskt (systematiskt) fel |  |
-| Bias-variance-tradeoff  | Systematiska-fel-eller-prediktionsvarians |  |
-| Confusion matrix  | Sanningsmatris |  |
-| Cost function | Kostnadsfunktion |  $C(\MLoutputs, \outputs)$ or alternatively $C(\pars)$ |
-| Cross validation |Korsvalidering | CV |
-| Data bias | Snedvriden data |  |
-| Error function | Felmåttsfunktion |  $E(\MLoutputs, \outputs)$ |
-| False negative | Falskt negativ | FN |
-| False positive | Falskt positiv | FP |
-| Features | Särdrag | $\inputs$ |
-| $k$ fold cross validation | $k$-faldig korsvalidering |  |
-| Learning algorithm | Inlärningsalgoritm |  |
-| Machine learning model | Maskininlärningsmodell | $\MLmodel{\inputs}$ |
-| Regularization| Regularisering |  |
-| Targets | Måldata | $\targets$ or $\outputs$|
-| Test input | Test indata | $\testinputs$|
-| Test output | Test utdata | $\testoutputs$|
-| Training data | Träningsdata | $\trainingdata = \left\{ (\inputs_i, \outputs_i) \right\}_{i=1}^{N_\mathrm{train}}$ or $\data_\mathrm{train}$ |
-| True negative | Sant negativ | TN |
-| True positive | Sant positiv | TP |
-| Validation data | Valideringsdata | $\data_\mathrm{val}$ |
-| Weights | Vikter | $\weights$ |
+{{ sub_MachineLearning_notation }}
 
-See also the dictionary in [](sec:OverviewModeling).
+See also the notation table in [](sec:OverviewModeling).
 
 ## Machine learning in science and society
 

@@ -13,18 +13,10 @@ kernelspec:
 (sec:OverviewModeling)=
 # Overview of modeling
 
-## English--Swedish dictionary
+(sec:OverviewModeling:notation)=
+## Notation
 
-| English | Swedish | General notation |
-| :------ | :------ | :------: |
-| Dataset | Datamängd | $\data$ |
-| Dependent or response variables (output) | Beroende eller responsvariabler (utdata) | $\outputs{}$ |
-| Gradient descent | Gradientstegsoptimering |  |
-| Independent or predictor variables (input) | Oberoende eller prediktorvariabler (indata) | $\inputs{}$ |
-| Model | Modell | $\model{\pars}{\inputs}$ |
-| Model parameters | Modellparametrar | $\pars$ |
-| Parameter optimum | Parameteroptimum | $\pars^*$ |
-| Regression analysis | Regressionsanalys |  |
+{{ sub_OverviewModeling_notation }}
 
 ## Models in science
 
