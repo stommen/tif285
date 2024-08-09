@@ -36,7 +36,7 @@ Optimization problems can be divided into two categories, depending on whether t
 * An optimization problem is known as discrete if it involves finding an object from a countable set such as an integer, permutation or graph.
 * A problem is known as a continuous optimization if arguments from a continuous set must be found.
 
-We will mainly be concerned with continuous optimization problems in scientific modeling for which the input variables $\pars$ are known as model parameters and the allowed set $A$ is some subset of an Euclidean space $\mathbb{R}^{n}$.
+We will mainly be concerned with continuous optimization problems in scientific modeling for which the input variables $\pars$ are known as model parameters and the allowed set $V$ is some subset of an Euclidean space $\mathbb{R}^{n}$.
 ```
 
 Mathematically, we want to consider the following *minimization* problem
@@ -44,40 +44,40 @@ Mathematically, we want to consider the following *minimization* problem
 ```{prf:definition} Global minimization
 :label: definition:MathematicalOptimization:global-minimization
 
-Given a function $L : A \to \mathbb{R}$, where $A$ is some set that possibly involves various constraints, we seek the element $\optpars \in A$ such that $L(\optpars) \leq L(\pars), \; \forall \pars \in A$.
+Given a function $C : V \to \mathbb{R}$, where $V$ is a search space that possibly involves various constraints, we seek the element $\optpars \in V$ such that $C(\optpars) \leq C(\pars), \; \forall \pars \in V$.
 ```
 
 We will often use the shorthand notation
 
 \begin{equation}
-\optpars = \underset{\pars \in A}{\operatorname{argmin}} L(\pars)
+\optpars = \underset{\pars \in V}{\operatorname{argmin}} C(\pars)
 \end{equation}
 
 to indicate the solution of a minimization problem.
 
-The identification of $\optpars \in A$ such that $L(\optpars) \geq L(\pars), \; \forall \pars \in A$, is known as *maximization*. However, since the following is valid,
+The identification of $\optpars \in V$ such that $C(\optpars) \geq C(\pars), \; \forall \pars \in V$, is known as *maximization*. However, since the following is valid,
 
 $$
-L(\optpars) \leq L(\pars) \Leftrightarrow -L(\optpars) \geq -L(\pars),
+C(\optpars) \leq C(\pars) \Leftrightarrow -C(\optpars) \geq -C(\pars),
 $$ (eq:MathematicalOptimization:max-min)
 
 a maximization problem can be recast as a minimization one and we will restrict ourselves to consider only minimization problems. 
 
-The function $L$ has various names in different applications. It can be called a loss function, objective function or cost function (minimization), a utility function or fitness function (maximization), or, in certain fields, an energy function or energy functional. A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is in general called an optimal solution.
+The function $LC has various names in different applications. It can be called a cost function, objective function or loss function (minimization), a utility function or fitness function (maximization), or, in certain fields, an energy function or energy functional. A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is in general called an optimal solution.
 
 ```{prf:definition} Local minimization
 :label: definition:MathematicalOptimization:local-minimization
 
-A solution $\optpars \in A$ that fulfills 
+A solution $\optpars \in V$ that fulfills 
 
 $$
-L(\optpars) \leq L(\pars), \; \forall \pars \in A, \; \text{where} \, \lVert \pars - \optpars \rVert \leq \delta,  
+C(\optpars) \leq C(\pars), \; \forall \pars \in V, \; \text{where} \, \lVert \pars - \optpars \rVert \leq \delta,  
 $$
 
 for some $\delta > 0$ is known as a *local minimum*.
 ```
 
-Generally, unless the objective function is convex in a minimization problem, there may be several local minima within $A$. In a convex problem, if there is a local minimum that is interior (not on the edge of the set of feasible elements), it is also the global minimum, but a nonconvex problem may have more than one local minimum not all of which need be global minima.
+Generally, unless the cost function is convex in a minimization problem, there may be several local minima within $V$. In a convex problem, if there is a local minimum that is interior (not on the edge of the set of feasible elements), it is also the global minimum, but a nonconvex problem may have more than one local minimum not all of which need be global minima.
 
 With the linear regression model we could find the best fit parameters by solving the normal equation. Although we could encounter problems associated with inverting a matrix, we do in principle have a closed-form expression for the model parameters. In general, however, the problem of optimizing the model parameters is a very difficult one. 
 
@@ -88,28 +88,28 @@ It is important to understand that the majority of available optimizers are not 
 
 *Gradient descent* is probably the most popular class of algorithms to perform optimization. It is certainly the most common way to optimize neural networks. Although there are different flavours of gradient descent, as will be discussed, the general feature is an iterative search for a (locally) optimal solution using the gradient of the loss function. Basically, the parameters are tuned in the opposite direction of the gradient of the objective function, thus aiming to follow the direction of the slope downhill until we reach a valley. The evaluation of this gradient at every iteration is often the major computational bottleneck. 
 
-```{prf:algorithm} The gradient descent algorithm
+```{prf:algorithm} Gradient descent optimization
 :label: algorithm:MathematicalOptimization:gradient-descent
-
-Considering a loss function $L(\pars)$ the basic gradient-descent algorithm is as follows:
-
-1. Make a *random initialization* of the parameter vector $\pars_0$.
-2. Compute the gradient of the cost function with respect to the parameters, $\boldsymbol{\nabla}_{\pars} L$.
-3. Update the parameters $\pars_0 \mapsto \pars_0 - \eta \boldsymbol{\nabla}_{\pars} L$. The scale parameter, $\eta$, for the step length is known as the learning rate. It is a hyperparameter of the algorithm that needs to be tuned.
-4. Continue this process iteratively for a fixed number of iterations, or until the gradient vector $\boldsymbol{\nabla}_{\pars} L$ is smaller than some threshold.
+1. Start from a *random initialization* of the parameter vector $\pars_0$.
+2. At iteration $n$:
+   1. Evaluate the gradient of the cost function with respect to the parameters at $\pars_n$: $\boldsymbol{\nabla} C_n \equiv \left. \boldsymbol{\nabla}_{\pars} C(\pars) \right|_{\pars=\pars_n}$.
+   2. Choose a *learning rate* $\eta_n$. This could be the same at all iterations ($\eta_n = \eta$), or it could be described by some decreasing function to take smaller and smaller steps.
+   3. Move in the direction of the negative gradient:
+      $\pars_{n+1} = \pars_n - \eta_n \boldsymbol{\nabla} C_n$.
+3. Continue for a fixed number of iterations, or until the gradient vector $\boldsymbol{\nabla} C_n$ is smaller than some chosen precision $\epsilon$.
 ```
 
 Gradient descent is a general optimization algorithm. However, there are several important issues that should be considered before using it.
 
 ```{admonition} Challenges for gradient descent
 :class: tip
-1. It requires the computation of partial derivatives of the less function. This might be straight-forward for the linear regression method, see Eq. {eq}`eq:LinearRegression:gradient`, but can be very difficult for other models. Numerical differentiation can be computationally costly. Instead, *automatic differentiation* has become an important tool and there are software libraries for different programming languages. See, e.g., [JAX](https://jax.readthedocs.io/en/latest/) for Python, which is well worth exploring. 
-2. Most loss functions&mdash;in particular in many dimensions&mdash;correspond to very *complicated surfaces with several local minima*. In those cases, gradient descent will not likely not find the global minimum.
+1. It requires the computation of partial derivatives of the cost function. This might be straight-forward for the linear regression method, see Eq. {eq}`eq:LinearRegression:gradient`, but can be very difficult for other models. Numerical differentiation can be computationally costly. Instead, *automatic differentiation* has become an important tool and there are software libraries for different programming languages. See, e.g., [JAX](https://jax.readthedocs.io/en/latest/) for Python, which is well worth exploring. 
+2. Most cost functions&mdash;in particular in many dimensions&mdash;correspond to very *complicated surfaces with several local minima*. In those cases, gradient descent will not likely not find the global minimum.
 3. Choosing a proper learning rate can be difficult. A learning rate that is too small leads to painfully slow convergence, while a learning rate that is too large can hinder convergence and cause the parameter updates to fluctuate around the minimum.
 4. Standard gradient-descent has particular difficulties to navigate ravines and saddle points for which the gradient is large in some directions and small in others.
 ```
 
-For the remainder of this chapter we will consider gradient descent methods for the minimization of data-dependent loss functions, for example representing a sum of squared residuals between model predictions and observed data such as Eq. {eq}`eq:LinearRegression:loss-function`. Note that we are interested in general models, not just restricted to linear ones, for which the computational cost for evaluating the loss function and its gradient could be significant (and scale with the number of data that enter the loss function). For situations where data is abundant there are variations of gradient descent that uses only fractions of the data set for computation of the gradient. 
+For the remainder of this chapter we will consider gradient descent methods for the minimization of data-dependent cost functions, for example representing a sum of squared residuals between model predictions and observed data such as Eq. {eq}`eq:LinearRegression:cost-function`. Note that we are interested in general models, not just restricted to linear ones, for which the computational cost for evaluating the loss function and its gradient could be significant (and scale with the number of data that enter the loss function). For situations where data is abundant there are variations of gradient descent that uses only fractions of the data set for computation of the gradient. 
 
 ## Batch, stochastic and mini-batch gradient descent
 
@@ -117,39 +117,3 @@ The use of the full data set in the loss function for every parameter update wou
 
 ## Momentum-based gradient descent
 
-<!-- !split -->
-## Learning curves
-
-The performance of your model will depend on the amount of data that is used for training. When using iterative optimization approaches, such as gradient descent, it will also depend on the number of training iterations. In order to monitor this dependence one usually plots *learning curves*.
-
-Learning curves are plots of the model's performance on both the training and the validation sets, measured by some performance metric such as the mean squared error. This measure is plotted as a function of the size of the training set, or alternatively as a function of the training iterations.
-
-<!-- ![<p><em>Learning curves for different polynomial models of our noisy data set as a function of the size of the training data set. <div id="fig-learning_curve"></div></em></p>](./figs/learning_curve.png) -->
-
-```{figure} ./figs/learning_curve.png
-:name: fig-learning_curve
-
-Learning curves for different polynomial models of our noisy data set as a function of the size of the training data set.
-```
-
-
-Several features in the left-hand panel deserves to be mentioned:
-
-1. The performance on the training set starts at zero when only 1-2 data are in the training set.
-2. The error on the training set then increases steadily as more data is added. 
-3. It finally reaches a plateau.
-4. The validation error is initially very high, but reaches a plateau that is very close to the training error.
-
-The learning curves in the right hand panel are similar to the underfitting model; but there are some important differences:
-
-1. The training error is much smaller than with the linear model.
-2. There is no clear plateau.
-3. There is a gap between the curves, which implies that the model performs significantly better on the training data than on the validation set.
-
-Both these examples that we have just studied demonstrate again the so called *bias-variance tradeoff*.
-
- * A high bias model has a relatively large error, most probably due to wrong assumptions about the data features.
- * A high variance model is excessively sensitive to small variations in the training data.
- * The irreducible error is due to the noisiness of the data itself. It can only be reduced by obtaining better data.
-
-We seek a more systematic way of distinguishing between under- and overfitting models, and for quantification of the different kinds of errors. We will find that **Bayesian statistics** has the promise to deliver on that ultimate goal.
