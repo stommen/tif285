@@ -97,8 +97,7 @@ This course has been designed specifically for Physics students. It is different
 * Experience with the use of (physics) models to describe reality and an understanding for  various uncertainties associated with experimental observations.
 * Considerable training in general problem solving skills.
 
-### What is special about machine learning in physics?
-
+```{admonition} What is special about machine learning in physics?
 Physics research takes place within a special context:
   * Physics data and models are often fundamentally different from those encountered in typical computer science contexts. 
   * Physicists ask different types of questions about our data, sometimes requiring new methods.
@@ -120,3 +119,4 @@ Providing slightly more detail:
     * There might exist prior knowledge about underlying physics that should be taken into account.
     * Parameter values are often intrinsically interesting.
     * The error estimate of a prediction is just as important as its value:
+  ```
