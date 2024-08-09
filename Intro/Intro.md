@@ -18,7 +18,7 @@ The general problem that will be adressed in this series of lectures is illustra
 Learning from data is an inference process.
 ```
 
-
+(intro:inference)=
 ## Inference
 
 ```{admonition} Inference
