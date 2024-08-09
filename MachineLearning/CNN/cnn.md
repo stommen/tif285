@@ -1,5 +1,7 @@
-<!-- !split -->
+(sec:CNN)=
 # Convolutional Neural Networks
+
+{{ sub_extra_admonition }}
 
 Convolutional Neural Networks (CNNs) are very similar to ordinary Neural Networks, but are particularly adopted for image recognition.
 
