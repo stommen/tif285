@@ -99,15 +99,15 @@ The solution of Eq. {eq}`eq:BayesFast:generalized-eigenvalue-problem` also gives
 In ab initio nuclear theory, based on $\chi$EFT interactions, we (often) have a Hamiltonian that can be written in terms of the low energy constants (LECs) $\pars$ as
 
 $$
-H(\pars) = T + V_0 + \sum_{i=1}^{N_\mathrm{LECs}} \par_i V_i,
+H(\pars) = T + V_0 + \sum_{i=1}^{N_\mathrm{LECs}} \para_i V_i,
 $$
 
-where $T$ is the kinetic energy, $V_0$ is the part of the interaction potential that has no dependence on the LECs, and the other terms can be written as a linear product of $\par_i$ and the parameter-independent $V_i$.
+where $T$ is the kinetic energy, $V_0$ is the part of the interaction potential that has no dependence on the LECs, and the other terms can be written as a linear product of $\para_i$ and the parameter-independent $V_i$.
 
 This enables us to construct the elements of the subspace Hamiltonian matrix as
 
 $$
-\langle \psi_i \vert H(\pars_\odot) \vert \psi_j \rangle = \langle \psi_i \vert T + V_0 \vert \psi_j \rangle + \sum_{i=1}^{N_\mathrm{LECs}} \par_i \langle \psi_i \vert V_i \vert \psi_j \rangle,
+\langle \psi_i \vert H(\pars_\odot) \vert \psi_j \rangle = \langle \psi_i \vert T + V_0 \vert \psi_j \rangle + \sum_{i=1}^{N_\mathrm{LECs}} \para_i \langle \psi_i \vert V_i \vert \psi_j \rangle,
 $$
 
 where $\langle \psi_i \vert T + V_0 \vert \psi_j \rangle$ and $\langle \psi_i \vert V_i \vert \psi_j \rangle$ are independent of $\pars$. As such they can be pre-computed and stored in the beginning (offline phase) making the subsequent computations for different $\pars_\odot$ very fast.

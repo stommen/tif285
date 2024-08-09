@@ -134,9 +134,9 @@ Next we assign a prior probability $\pdf{\pars}{I}$ for the model parameters. In
 The uniform prior for the $N_p$ parameters is then
 
 $$
-\pdf{\pars}{I} = \frac{1}{(\Delta\par)^{N_p}} \left\{ 
+\pdf{\pars}{I} = \frac{1}{(\Delta\para)^{N_p}} \left\{ 
 \begin{array}{ll}
-1 & \text{if all } \par_i \in [-\Delta\par/2, +\Delta\par/2] \\
+1 & \text{if all } \para_i \in [-\Delta\par/2, +\Delta\par/2] \\
 0 & \text{else},
 \end{array}
 \right.
@@ -190,7 +190,7 @@ $$
 \pdf{\pars}{\data,\sigmares^2,I} \propto \exp\left[ -\frac{1}{2} (\pars-\pars^*)^T \covpars^{-1} (\pars-\pars^*) \right],
 $$ (eq:BayesianLinearRegression:posterior_with_iid_uniform_prior)
 
-if all $\par_i \in [-\Delta\par/2, +\Delta\par/2]$ while it is zero elsewhere. The mode of this distribution is obviously the mean vector $\pars^*$. We can therefore say that we have recovered the ordinary least-squares result with the interpretation that this solution is the maximum of the posterior PDF (sometimes known as the maximum a posteriori, or MAP).
+if all $\para_i \in [-\Delta\par/2, +\Delta\par/2]$ while it is zero elsewhere. The mode of this distribution is obviously the mean vector $\pars^*$. We can therefore say that we have recovered the ordinary least-squares result with the interpretation that this solution is the maximum of the posterior PDF (sometimes known as the maximum a posteriori, or MAP).
 
 ```{admonition} Discuss
 In light of this result, what assumption(s) are implicit in linear regression while they are made explicit in Bayesian linear regression?
@@ -283,7 +283,7 @@ To warm up, we consider the same situation as in [](sec:ols_warmup).
 
 For the time being we assume to know enough about the data to consider a normal likelihood with i.i.d. errors. Let us first set the known residual variance to $\sigmares^2 = 0.5^2$. 
 
-This time we also have prior knowledge that we would like to build into the inference. Here we use a normal prior for the parameters with $\sigma_\par = 5.0$, which is to say that before looking at the data we believe $\pars$ to be centered on zero with a variance of $5^2$.
+This time we also have prior knowledge that we would like to build into the inference. Here we use a normal prior for the parameters with $\sigma_\para = 5.0$, which is to say that before looking at the data we believe $\pars$ to be centered on zero with a variance of $5^2$.
 
 Let us plot this prior. The prior is the same for $\theta_0$ and $\theta_1$, so it is enough to plot one of them. 
 
@@ -395,7 +395,7 @@ In all cases you should compare the Bayesian inference with the results from Ord
 Hints:
 
 1. Identify the solution $\pars^*$ as the maximum of the likelihood by introducing $L(\pars)$ as the negative log-likelihood.
-2. Taylor expand $L(\pars)$ around $\pars^*$. For this you need the Hessian $\boldsymbol{H}$ with elements $H_{ij} = \left. \frac{\partial^2 L}{\partial\par_i\partial\par_j} \right|_{\pars = \pars^*}$.
+2. Taylor expand $L(\pars)$ around $\pars^*$. For this you need the Hessian $\boldsymbol{H}$ with elements $H_{ij} = \left. \frac{\partial^2 L}{\partial\para_i\partial\para_j} \right|_{\pars = \pars^*}$.
 3. Compare with the Taylor expansion of a normal distribution $\mathcal{N}\left( \pars^*, \covpars \right)$.
 ```
 

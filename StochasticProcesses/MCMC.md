@@ -44,13 +44,13 @@ We might be interested in:
 
 The first set of tasks can be addressed with a method to collect a set of samples $\{ \pars_i\}_{i=1}^N$, where the samples are distributed according to $p(\pars)$. The process of generating a random sample according to a probability distribution is commonly called a "draw"". Such samples can then be histogramed and plotted to provide an approximate representation of $p(\pars)$.
 
-In particular, it should be noted that marginal distributions can easily be obtained from these samples by ignoring the values of parameters that we are integrating over. For example, the marginal distribution $p(\par_1,\par_2)$ of $p(\pars)$ with $\pars$ a $D$-dimensional vector is represented by the samples 
+In particular, it should be noted that marginal distributions can easily be obtained from these samples by ignoring the values of parameters that we are integrating over. For example, the marginal distribution $p(\para_1,\para_2)$ of $p(\pars)$ with $\pars$ a $D$-dimensional vector is represented by the samples 
 
 $$
-\{ (\par_1,\par_2)_i \}_{i=1}^N,
+\{ (\para_1,\para_2)_i \}_{i=1}^N,
 $$
 
-where $(\par_1,\par_2)_i$ are the first two elements of the $\pars_i$ sample. This procedure of ignoring the other parameter values can be understood since the process of marginalization is basically a projection of the multi-dimensional PDF onto the chosen axes. 
+where $(\para_1,\para_2)_i$ are the first two elements of the $\pars_i$ sample. This procedure of ignoring the other parameter values can be understood since the process of marginalization is basically a projection of the multi-dimensional PDF onto the chosen axes. 
 
 The computation of high-dimensional integrals such as in Eq. {eq}`eq:MCMC:expectation-integral` is very challenging in high dimensions. In fact, high-dimensional integrals appear frequently in science and applied mathematics. It is only anaytically solvable in some special cases and is therefore an important and general problem. It turns out that the ability to draw samples from $p(\pars)$ will make it possible to compute very efficient, numerical approximations of this integral also in very high dimensions.
 
@@ -63,13 +63,13 @@ There are several methods to perform numerical integration. Quadrature is the me
 For small dimensions, classical numerical integration using quadrature is often the method of choice. For example, the one-dimensional integral
 
 \begin{equation}
-I = \int d\par f(\par),
+I = \int d\para f(\para),
 \end{equation}
 
-is approximated by a weighted average of the function $f$ evaluated at a number of quadrature points $\{ \par_i \}_{i=1}^N$
+is approximated by a weighted average of the function $f$ evaluated at a number of quadrature points $\{ \para_i \}_{i=1}^N$
 
 \begin{equation}
-I \approx \sum_{i=1}^N w_i f(\par_i),
+I \approx \sum_{i=1}^N w_i f(\para_i),
 \end{equation}
 
 where the different quadrature schemes are distinguished by using different sets of design points and weights. We note, however, that the number of design points that is required for a fixed precision grows exponentially with dimension. Assuming an integration scheme with $N$ design points in one dimension, the same coverage in $D$ dimensions requires $N^D$ design points, which will be impractically large unless $D$ is sufficiently small. This exponential increase in the number of required function evaluations with the dimensionality of the problem is often called the curse of dimensionality and is the main motivation for Monte Carlo integration.
@@ -184,13 +184,13 @@ where you should note that the volume factor has disappeared and that you only e
 ## Sampling from a PDF
 
 We have seen that the ability to draw samples from a probability distribution is very useful. If $p(\pars)$ is of a standard form then it is straightforward to sample from it using available algorithms, most of which are based on nonlinear transformations of uniformly distributed random numbers. For example, a set of samples $\{ u_i\}_{i=1}^N$ from the one-dimensional standard uniform distribution $\mathcal{U}([0,1])$ 
-can be tuned to a a set of samples $\{ \par_i \}_{i=1}^N$ from the standard Gaussian distribution $\mathcal{N}(0,1)$ via the transformation
+can be tuned to a a set of samples $\{ \para_i \}_{i=1}^N$ from the standard Gaussian distribution $\mathcal{N}(0,1)$ via the transformation
 
 \begin{equation}
-\par_i = F^{-1}_\mathcal{N}(u_i),
+\para_i = F^{-1}_\mathcal{N}(u_i),
 \end{equation}
 
-where $F^{-1}_\mathcal{N}$ is the *inverse* distribution function of the standard normal distribution. That is, we interpret $u_i$ as a probability sample and use the above transformation to find the solution to $u_i = F(\par_i)$.
+where $F^{-1}_\mathcal{N}$ is the *inverse* distribution function of the standard normal distribution. That is, we interpret $u_i$ as a probability sample and use the above transformation to find the solution to $u_i = F(\para_i)$.
 
 This works well for many standard distributions. However, for the generation of random samples from nonstandard, arbitrary distributions (such as the ones that we might encounter in a realistic Bayesian analysis), no algorithms are available. This is where custom-built Markov chains enter.
 

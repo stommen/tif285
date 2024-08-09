@@ -48,10 +48,10 @@ The diagnostics that will be discussed below are all univariate. They work perfe
 Consider the sampling variance of a parameter mean value
 
 $$
-\var{\bar\par} = \frac{\var{\par}}{N},
+\var{\bar\para} = \frac{\var{\para}}{N},
 $$ (eq:AdvancedMCMC:sampling-variance)
 
-where $N$ is the length of the chain. This quantity is capturing the simulation error of the mean rather than the underlying uncertainty of the parameter $\par$. We can visualize this by examining the moving average of our parameter trace. The trace is the sequence as a function of iteration number. 
+where $N$ is the length of the chain. This quantity is capturing the simulation error of the mean rather than the underlying uncertainty of the parameter $\para$. We can visualize this by examining the moving average of our parameter trace. The trace is the sequence as a function of iteration number. 
 
 ### Autocorrelation
 A challenge when doing MCMC sampling is that the collected samples can be *correlated*. This can be tested by computing the *autocorrelation function* and extracting the correlation time for a chain of samples.
@@ -82,7 +82,7 @@ $$
 With autocorrelated samples, the sampling variance {eq}`eq:AdvancedMCMC:sampling-variance` becomes
 
 $$
-\var{\bar\par} = \tau \frac{\var{\par}}{N},
+\var{\bar\para} = \tau \frac{\var{\para}}{N},
 $$ (eq:AdvancedMCMC:sampling-variance-autocorrelated)
 
 with $\tau \gg 1$ for highly correlated samples. This motivates us to define the effective sample size (ESS) as
@@ -112,20 +112,20 @@ The Gelman-Rubin diagnostic was constructed to test for stationarity and mixing 
    - Between chain variance:
    
      $$
-     B = \frac{N}{M-1} \sum_{j=1}^M (\bar{\par} - \bar{\bar{\par}})^2
+     B = \frac{N}{M-1} \sum_{j=1}^M (\bar{\para} - \bar{\bar{\para}})^2
      $$
     
-    where $\bar{\bar{\par}}$ is the mean of each of the M means.
+    where $\bar{\bar{\para}}$ is the mean of each of the M means.
 4. Calculate the estimated variance of $\theta$ as the weighted sum of between and within chain variance.
 
 $$
-\widehat{\var{\par}} = \left ( 1 - \frac{1}{N}\right ) W + \frac{1}{N}B
+\widehat{\var{\para}} = \left ( 1 - \frac{1}{N}\right ) W + \frac{1}{N}B
 $$
 
 5. Calculate the potential scale reduction factor.
 
 $$
-\hat{R} = \sqrt{\frac{\widehat{\var{\par}}}{W}}
+\hat{R} = \sqrt{\frac{\widehat{\var{\para}}}{W}}
 $$
 
 ```
@@ -240,56 +240,56 @@ Assuming we are interested in the target density $h(\pars)=f(\pars)\,/\int\! f(\
 
 1. Generate the set $\{ \pars_i\}_{i=1}^n$ of samples from a sampling density $g(\pars)$.
 1. Calculate $\omega_i=f(\pars_i)\,/\,g(\pars_i)$ for the $n$ samples and define importance weights as: $q_i=\omega_i~/\sum_{j=1}^n \omega_j$.
-1. Draw $N$ new samples $\{ \pars_i^*\}_{i=1}^N$ from the discrete distribution $\{ \pars_i \}_{i=1}^n$ with probability mass $q_i$ on $\pars_i$.
-1. The set of samples $\{ \pars_i^* \}_{i=1}^N $ will then be approximately distributed according to the target density $h(\pars)$.
+1. Draw $N$ new samples $\{ \optpars_i\}_{i=1}^N$ from the discrete distribution $\{ \pars_i \}_{i=1}^n$ with probability mass $q_i$ on $\pars_i$.
+1. The set of samples $\{ \optpars_i \}_{i=1}^N $ will then be approximately distributed according to the target density $h(\pars)$.
 ```
 
-Intuitively, the distribution of $\pars^*$ should be good approximation of $h(\pars)$ when $n$ is large enough. Here we justify this claim via the cumulative distribution function of $\par^*$ (for the one-dimensional case)
+Intuitively, the distribution of $\optpars$ should be good approximation of $h(\pars)$ when $n$ is large enough. Here we justify this claim via the cumulative distribution function of $\optpara$ (for the one-dimensional case)
 
 $$
 \begin{aligned}
-\rm{pr}(\par^*\leq a) &= \sum\limits_{i=1}^n q_i \cdot H(a-\par_i) 
-= \frac{ \frac{1}{n}\sum\limits_{i=1}^n \omega_i \cdot H(a-\par_i)}{ \frac{1}{n}\sum\limits_{i=1}^n \omega_i} \\
-& \xrightarrow[n \rightarrow \infty]{} \frac{\mathbb{E}_g\left[ \frac{f(\par)}{g(\par)} \cdot H(a-\par) \right]}{\mathbb{E}_g\left[\frac{f(\par)}{g(\par)}\right]}
-= \frac{\int^{a}_{-\infty}f(\par)\,d\par}{\int^{\infty}_{-\infty}f(\par)\,d\par}= \int^{a}_{-\infty}h(\par)\,d\par ,
+\rm{pr}(\optpara\leq a) &= \sum\limits_{i=1}^n q_i \cdot H(a-\para_i) 
+= \frac{ \frac{1}{n}\sum\limits_{i=1}^n \omega_i \cdot H(a-\para_i)}{ \frac{1}{n}\sum\limits_{i=1}^n \omega_i} \\
+& \xrightarrow[n \rightarrow \infty]{} \frac{\mathbb{E}_g\left[ \frac{f(\para)}{g(\para)} \cdot H(a-\para) \right]}{\mathbb{E}_g\left[\frac{f(\para)}{g(\para)}\right]}
+= \frac{\int^{a}_{-\infty}f(\para)\,d\para}{\int^{\infty}_{-\infty}f(\para)\,d\para}= \int^{a}_{-\infty}h(\para)\,d\para ,
 \end{aligned} 
 $$ (eq:AdvancedMCMC:cdf)
 
-with $\mathbb{E}_g[X(\par)]=\int^{\infty}_{-\infty} X(\par) g(\par)\,d\par$ the expectation value of $X(\par)$ with respect to $g(\par)$, and $H$ Heaviside step function such that
+with $\mathbb{E}_g[X(\para)]=\int^{\infty}_{-\infty} X(\para) g(\para)\,d\para$ the expectation value of $X(\para)$ with respect to $g(\para)$, and $H$ Heaviside step function such that
 
 $$
-   H(a-\par) = \begin{cases}
-      1 & \text{if}\ \par \leq a, \\
-      0 & \text{if}\ \par > a .
+   H(a-\para) = \begin{cases}
+      1 & \text{if}\ \para \leq a, \\
+      0 & \text{if}\ \para > a .
 \end{cases}
 $$ (eq:AdvancedMCMC:Heaviside)
 
 The above resampling method can be applied to generate samples from the posterior PDF $h(\pars)=\rm{pr}(\pars|\mathcal{D})$ in a Bayesian analysis. It remains to choose a sampling distribution, $g(\pars)$, which in principle could be any continuous density distribution. However, recall that $h(\pars)$ can be expressed in terms of an unnormalized distribution $f(\pars)$, and using Bayes' theorem we can set $f(\pars)=\mathcal{L}(\pars)\pdf{\pars}{I}$. Thus, choosing the prior $\pdf{\pars}{I}$ as the sampling distribution $g(\pars)$ we find that the importance weights are expressed in terms of the likelihood, $q_i = \mathcal{L}(\pars_i)/ \sum_{j=1}^n \mathcal{L}(\pars_j)$. Assuming that it is simple to collect samples from the prior, the costly operation will be the evaluation of $\mathcal{L}(\pars_i)$. Here we make the side remark that an effective and computationally cost-saving approximation can be made if we manage to perform a pre-screening to identify (and ignore) samples that will give a very small importance weight. We also note that the above choice of $g(\pars)=\rm{pr}(\pars)$ is purely for simplicity and one can perform importance resampling with any $g(\pars)$.
 
 ````{prf:example} Illustration of S/IR
-Let us follow the above procedure in a simple example of S/IR to illustrate how to get samples from a posterior distribution. We consider a two-dimensional parametric model with $\pars = (\par_1$, $\par_2)$. Given data $\mathcal{D}$ obtained under the model we have:
+Let us follow the above procedure in a simple example of S/IR to illustrate how to get samples from a posterior distribution. We consider a two-dimensional parametric model with $\pars = (\para_1$, $\para_2)$. Given data $\mathcal{D}$ obtained under the model we have:
 
 $$
-  \pdf{\par_1,\par_2}{\data} = \frac{ \mathcal{L}(\par_1,\par_2)\pdf{\par_1,\par_2}{I}}{\iint \mathcal{L}(\par_1,\par_2) \pdf{\par_1,\par_2}{I} \, d\par_1 d\par_2}.
+  \pdf{\para_1,\para_2}{\data} = \frac{ \mathcal{L}(\para_1,\para_2)\pdf{\para_1,\para_2}{I}}{\iint \mathcal{L}(\para_1,\para_2) \pdf{\para_1,\para_2}{I} \, d\para_1 d\para_2}.
 $$ (eq:AdvancedMCMC:example_1)
 
-For simplicity and illustration, the joint prior distribution for $\par_1$, $\par_2$ is set to be uniform over the unit square as shown in {numref}`fig:AdvancedMCMC:SIR`a. In this example we also assume that the data $\data$ likelihood is described by a multivariate Student-t distribution 
+For simplicity and illustration, the joint prior distribution for $\para_1$, $\para_2$ is set to be uniform over the unit square as shown in {numref}`fig:AdvancedMCMC:SIR`a. In this example we also assume that the data $\data$ likelihood is described by a multivariate Student-t distribution 
 
 $$
-  \mathcal{L}(\par_1,\par_2) = 
+  \mathcal{L}(\para_1,\para_2) = 
 \frac{\Gamma[(\nu+p)/2]}{\Gamma(\nu/2)\nu^{p/2}\pi^{p/2}|\boldsymbol{\Sigma}|^{1/2}}\left[ {1+\frac{1}{\nu}(\pars-\boldsymbol{\mu})^{T}\boldsymbol{\Sigma}^{-1}(\pars-\boldsymbol{\mu})} \right]^{-(\mu+p)/2},
 $$ (eq:AdvancedMCMC:student-t)
 
 where the dimension $p=2$, the degrees of freedom $\nu=2$, the mean vector $\boldsymbol{\mu} = (0.2, 0.5)$ and the scale matrix $\boldsymbol\Sigma=[[0.02, 0.005], [0.005, 0.02]]$.
 
-The importance weights $q_i$ are then computed for $n=2000$ samples drawn from the prior (these prior samples are shown in {numref}`fig:AdvancedMCMC:SIR`a). The resulting histogram of importance weights is shown in {numref}`fig:AdvancedMCMC:SIR`b. Here the weights have been rescaled as $\tilde{q}_i=q_i/\max(\{ q \})$ such that the sample with the largest probability mass corresponds to 1 in the histogram. We also define the effective number of samples, $n_\mathrm{eff}$, as the sum of rescaled importance weights, $n_\mathrm{eff} = \sum_{i=1}^n \tilde{q}_i$. Finally, in {numref}`fig:AdvancedMCMC:SIR`c we show $N=20,000$ new samples $\{ \pars_i^* \}_{i=1}^N$ that are drawn from the prior samples $\{ \pars_i\}_{i=1}^n$ according to the probability mass $q_i$ for each $\pars_i$. The blue and green contour lines represent (68\% and 90\%) credible regions for the resampled distribution and for the Student-t distribution, respectively. This result demonstrates that the samples generated by the S/IR method give a very good approximation of the target posterior distribution. 
+The importance weights $q_i$ are then computed for $n=2000$ samples drawn from the prior (these prior samples are shown in {numref}`fig:AdvancedMCMC:SIR`a). The resulting histogram of importance weights is shown in {numref}`fig:AdvancedMCMC:SIR`b. Here the weights have been rescaled as $\tilde{q}_i=q_i/\max(\{ q \})$ such that the sample with the largest probability mass corresponds to 1 in the histogram. We also define the effective number of samples, $n_\mathrm{eff}$, as the sum of rescaled importance weights, $n_\mathrm{eff} = \sum_{i=1}^n \tilde{q}_i$. Finally, in {numref}`fig:AdvancedMCMC:SIR`c we show $N=20,000$ new samples $\{ \optpars_i \}_{i=1}^N$ that are drawn from the prior samples $\{ \pars_i\}_{i=1}^n$ according to the probability mass $q_i$ for each $\pars_i$. The blue and green contour lines represent (68\% and 90\%) credible regions for the resampled distribution and for the Student-t distribution, respectively. This result demonstrates that the samples generated by the S/IR method give a very good approximation of the target posterior distribution. 
 
 ```{figure} ./figs/SIR_corner_plot.png
 ---
 width: 800px
 name: fig:AdvancedMCMC:SIR
 ---
-Illustration of S/IR procedures. **a**. Samples $\{ \pars\}_{i=1}^n$ from a uniform prior in a unit square ($n=2000$ samples are shown). **b**. Histogram of rescaled importance weights $\tilde{q}_i=q_i/\max(\{q\})$ where $q_i= \mathcal{L}(\pars_i)/ \sum_{j=1}^n \mathcal{L}(\pars_j)$ with $\mathcal{L}(\pars)$ as in Eq. {eq}`eq:AdvancedMCMC:student-t`. The number of effective samples is $n_\mathrm{eff}=214.6$. Note that the samples are drawn from a unit square and that the tail of the target distribution is not covered. **c**. Samples $\{ \pars^*\}_{i=1}^N$ of the posterior (blue dots with 10\% opacity) resampled from the prior samples with probability mass $q_i$. The contour lines for the $68\%$ and $90\%$ credible regions of the posterior samples (blue dashed) are shown and compared with those of the exact bivariate target distribution (green solid). Summary histograms of the marginal distributions for $\par_1$ and $\par_2$ are shown in the top and right subplots.
+Illustration of S/IR procedures. **a**. Samples $\{ \pars\}_{i=1}^n$ from a uniform prior in a unit square ($n=2000$ samples are shown). **b**. Histogram of rescaled importance weights $\tilde{q}_i=q_i/\max(\{q\})$ where $q_i= \mathcal{L}(\pars_i)/ \sum_{j=1}^n \mathcal{L}(\pars_j)$ with $\mathcal{L}(\pars)$ as in Eq. {eq}`eq:AdvancedMCMC:student-t`. The number of effective samples is $n_\mathrm{eff}=214.6$. Note that the samples are drawn from a unit square and that the tail of the target distribution is not covered. **c**. Samples $\{ \optpars\}_{i=1}^N$ of the posterior (blue dots with 10\% opacity) resampled from the prior samples with probability mass $q_i$. The contour lines for the $68\%$ and $90\%$ credible regions of the posterior samples (blue dashed) are shown and compared with those of the exact bivariate target distribution (green solid). Summary histograms of the marginal distributions for $\para_1$ and $\para_2$ are shown in the top and right subplots.
 ```
 
 ````
