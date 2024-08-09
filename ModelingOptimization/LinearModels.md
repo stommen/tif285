@@ -20,21 +20,19 @@ kernelspec:
 -- Susan Greenfield
 ```
 
-In this chapter we will discuss models $M$ that are linear in their parameters $\pars$. Although linear models are simple, they are sometimes useful for analyzing real-world data. A fraction of the text in this chapter was written by Andreas Ekström.
+In this chapter we will discuss models $M$ that are linear in their parameters $\pars$. Although linear models are simple, they are sometimes useful for analyzing real-world data. 
 
 ## Definition of linear models
 
-In general, modeling deals with the description of a **dependent** variable(s) $\boldsymbol{y}$, for which we have collected data, as a function of some **independent** variable(s) $\boldsymbol{x}$. The first variable is also often called the **response**, or the **outcome** variable while the second one can be called the **predictor** variable, or the **explanatory** variable. Note also that each of these might be a vector of variables, meaning that there could be more than one dependent variable and more than one independent variable. We therefore denoted these variables as vectors using a bold font. However, in this chapter we will only be concerned with models relating one (continuous) input $(x)$ with one output $(y)$. Naturally, they can attain different values $(x_0,x_1,x_2,\ldots,x_i,\ldots)$ and $(y_0,y_1,y_2,\ldots,y_i,\ldots)$
-
-In **linear modeling** the dependence on the model parameters $\pars$ is **linear**, and this fact will make it possible to express that regression analysis as a linear algebra problem, and as we will show it will be possible to find an analytical expression for the optimal set of model parameters. Note that we will mostly operate with models depending on more than one parameter. Hence, we denote the parameters using a bold symbol.
+In **linear modeling** the dependence on the model parameters $\pars$ is **linear**, and this fact will make it possible to express that regression analysis as a linear algebra problem, and as we will show it will be possible to find an analytical expression for the optimal set of model parameters. Note that we will mostly operate with models depending on more than one parameter. Hence, we denote the parameters ($\pars$) using a bold symbol. In this chapter we will, however, consider models ($\modeloutput$) that relate a single dependent variable ($\output$) with a single independent one ($\inputt$).
 
 The linear parameter dependence implies that our model separates into a sum of parameters times basis functions. Assuming $N_p$ different basis functions we have
 
 $$
-M(\pars;x) = \sum_{j=0}^{N_p-1} \par_j f_j(x),
+\model{\pars}{\inputt} = \sum_{j=0}^{N_p-1} \para_j f_j(x).
 $$ (eq_linear_model)
 
-where we introduced the notation $M(\pars;x)$ to indicate a model that depends on parameters $\pars$ and dependent variable(s) $x$. Note that there is no $\pars$-dependence in the basis functions.
+Note that there is no $\pars$-dependence in the basis functions $f_j(\inputt)$.
 
 From a machine-learning perspective the different basis functions are known as **features**.
 
@@ -44,10 +42,10 @@ From a machine-learning perspective the different basis functions are known as *
 A common linear model corresponds to the use of polynomial basis functions $f_j(x) = x^j$. A polynomial model of degree $N_p-1$ would then be written
 
 $$
-M(\pars;x) = \sum_{j=0}^{N_p-1} \par_j x^j.
+M(\pars;x) = \sum_{j=0}^{N_p-1} \para_j x^j.
 $$ (eq_polynomial_basis)
 
-Note that the $j=0$ basis function is $f_0(x) = x^0 = 1$ such that the $\par_0$ parameter becomes the intercept.
+Note that the $j=0$ basis function is $f_0(x) = x^0 = 1$ such that the $\para_0$ parameter becomes the intercept.
 ```
 
 ```{prf:example} Liquid-drop model for nuclear binding energies
@@ -64,18 +62,6 @@ We have five features: the intercept (constant term, bias), the $A$ dependent vo
 
 ## Regression analysis with linear models
 
-```{admonition} Why linear regression?
-:class: tip
-Linear regression corresponds to fitting data to a linear model.
-* It is often used for fitting a continuous function.
-* The optimization of the fitting parameters $\boldsymbol{\theta}$ can be expressed analytically.
-* It is easy to implement, and allows for benchmarking and hands-on understanding of **gradient descent** methods.
-* Direct relations with probabilistic interpretations, such as Bayesian linear regression.
-* Analytical expressions for statistical properties like mean values, variances, confidence intervals and more.
-* Allows to introduce basic machine-learning concepts such as **bias-variance tradeoff, cross-validation, resampling and regularization** techniques.
-*  Links well with **logistic regression** and classification problems and with **neural networks**, , **support vector machines**, etc.
-```
-
 When performing a regression analysis with a linear model, i.e., doing linear regression, we have access to a set of data $\mathcal{D}$ for the dependent variable, i.e., 
 
 \begin{equation}
@@ -85,7 +71,7 @@ When performing a regression analysis with a linear model, i.e., doing linear re
 For each datum there is an independent variable $x_i$, and our model for each datum $y_i$ is
 
 \begin{equation}
-M_i \equiv M(\pars;x_i) = \sum_{j=0}^{N_p-1} \par_j f_j(x_i).
+M_i \equiv M(\pars;x_i) = \sum_{j=0}^{N_p-1} \para_j f_j(x_i).
 \end{equation}
 
 We can collect the basis function evaluated at each independent variable $x_i$ in a matrix $\mathbf{X}$ of dimension $N_d \times N_p$
@@ -124,7 +110,7 @@ where we are considering a polynomial of degree $p-1$ which implies a model with
 Next, we introduce a column vector for the parameters 
 
 \begin{equation}
-\pars = [\par_0,\par_1, \par_2,\dots, \par_{N_p-1}]^T,
+\pars = [\para_0,\para_1, \para_2,\dots, \para_{N_p-1}]^T,
 \end{equation}
 
 and we arrive at the matrix equation
@@ -143,62 +129,79 @@ It is important to realize that our model $M$ provides an approximate descriptio
 
 ### The normal equation
 
-A regression analysis often aims at finding the model parameters $\pars$ of a model $M$ such that the vector of errors $\boldsymbol{\epsilon}$ is minimized in the sense of its norm (or 2-norm to be specific). You might ask the very relevant question why this particular goal is desirable. We will return to this consideration in [](sec:BayesianLinearRegression). Nevertheless, we seek to minimize
+A regression analysis often aims at finding the model parameters $\pars$ of a model $M$ such that the vector of errors $\boldsymbol{\epsilon}$ is minimized in the sense of its Euclidean norm (or 2-norm). You might ask the very relevant question why this particular goal is desirable. We will return to this consideration in [](sec:BayesianLinearRegression). Nevertheless, in order to find the "optimal" set of parameters $\pars^*$ we seek to minimize
 
-\begin{equation}
-C(\pars)\equiv \sum_{i=0}^{N_d-1} \epsilon_i^2 = \sum_{i=0}^{N_d-1}\left(y_i-M_i\right)^2 = \left\{\left(\data-\dmat \pars\right)^T\left(\data-\dmat \pars\right)\right\},
-\end{equation}
+$$
+C(\pars)\equiv \sum_{i=0}^{N_d-1} \epsilon_i^2 = \sum_{i=0}^{N_d-1}\left(y_i-M_i\right)^2 = \left\{\left(\data-\dmat \pars\right)^T\left(\data-\dmat \pars\right)\right\}.
+$$ (eq:LinearRegression:cost-function)
 
-In order to find the "optimal" set of parameters $\pars^*$ we will then minimize $C(\pars)$. Due to its quadratic form, this function is bounded from below and we just need to find the single extremum. That is we need to solve the problem
+The solution to this optimization problem turns out to be a solution of the normal equation and is known as ordinary least-squares or ordinary linear regression.
+
+````{prf:theorem} Ordinary least squares (the normal equation)
+:label: theorem:LinearModels:normal-equation
+
+The ordinary least-squares method corresponds to finding the optimal parameter vector $\pars^*$ that minimizes the Euclidean norm of the residual vector $\boldsymbol{\epsilon} = \data - \dmat \pars$, where $\data$ is a column vector of observations and $\dmat$ is the design matrix {eq}`eq:LinearModels:design-matrix`. 
+
+Finding this optimum turns out to correspond to solving the **normal equation** 
+
+$$
+\dmat^T\data = \dmat^T\dmat\pars^*.  
+$$ (eq:NormalEquation)
+
+Given that the **normal matrix** $\dmat^T\dmat$ is invertible, the solution to the normal equation is given by 
+
+$$
+\pars^* =\left(\dmat^T\dmat\right)^{-1}\dmat^T\data.
+$$ (eq:LinearModels:OLS_optimum)
+````
+
+````{prf:proof}
+Due to its quadratic form, the Euclidean norm $\left| \boldsymbol{\epsilon} \right|_2^2 = \left(\data-\dmat\pars\right)^T\left(\data-\dmat\pars\right) \equiv C(\pars)$ is bounded from below and we just need to find the single extremum. That is we need to solve the problem
 
 \begin{equation}
 \pars^* =
 {\displaystyle \mathop{\mathrm{arg} \min}_{\pars\in
-{\mathbb{R}}^{p}}} \left(\data-\dmat\pars\right)^T\left(\data-\dmat\pars\right).
+{\mathbb{R}}^{N_p}}} \left(\data-\dmat\pars\right)^T\left(\data-\dmat\pars\right).
 \end{equation}
 
 In practical terms it means we will require
 
 \begin{align}
-\frac{\partial C(\pars)}{\partial \par_j} = \frac{\partial }{\partial \par_j} \Bigg[  \sum_{i=0}^{N_d-1}\Big(y_i &-\par_0 f_0(x_i)-\par_1f_1(x_i)-\par_2f_2(x_i)-\dots \\
-&-  \par_{N_p-1}f_{N_p-1}(x_i)\Big)^2\Bigg] = 0, 
+\frac{\partial C(\pars)}{\partial \para_j} = \frac{\partial }{\partial \para_j} \Bigg[  \sum_{i=0}^{N_d-1}\Big(y_i &-\para_0 f_0(x_i)-\para_1f_1(x_i)-\para_2f_2(x_i)-\dots \\
+&-  \para_{N_p-1}f_{N_p-1}(x_i)\Big)^2\Bigg] = 0, 
 \end{align}
 
-which results in
-
-\begin{align}
-\frac{\partial C(\pars)}{\partial \par_j} = -2\Bigg[ \sum_{i=0}^{N_d-1}f_j(x_i)\Big(y_i &-\par_0 f_0(x_i)-\par_1f_1(x_i)-\par_2f_2(x_i)-\dots \\
-&-\par_{N_p-1}f_{N_p-1}(x_i)\Big)\Bigg]=0. 
-\end{align}
-
-The gradient of the cost function can be succinctly expressed in matrix-vector form as
+where $y_i$ and $f_j(x_i)$ are the elements of $\data$ and $\dmat$, respectively. Performing the derivative results in
 
 $$
-\frac{\partial C(\pars)}{\partial \pars} = -2 \dmat^T\left( \data-\dmat\pars\right).  
+\frac{\partial C(\pars)}{\partial \para_j} = -2\Bigg[ \sum_{i=0}^{N_d-1}f_j(x_i)\Big(y_i &-\para_0 f_0(x_i)-\para_1f_1(x_i)-\para_2f_2(x_i)-\dots \\
+&-\para_{N_p-1}f_{N_p-1}(x_i)\Big)\Bigg]=0,
+$$ (eq:LinearModels:gradient-elements)
+
+which is one element of the full gradient vecor. This gradient vector can be succinctly expressed in matrix-vector form as
+
+$$
+\boldsymbol{\nabla}_{\pars} C(\pars) = -2 \dmat^T\left( \data-\dmat\pars\right).  
 $$ (eq:LinearRegression:gradient)
 
-The minimum of $C$, where ${\partial C(\pars)} / {\partial \pars} = 0$, then corresponds to
+The minimum of $C$, where $\boldsymbol{\nabla}_{\pars} C(\pars) = 0$, then corresponds to 
 
 $$
 \dmat^T\data = \dmat^T\dmat\pars^*,  
-$$ (eq:NormalEquation)
+$$
 
-which is known as the **normal equation**.
-Now, if the matrix $\dmat^T\dmat$ is invertible then we have the solution
+which is the normal equation. Finally, if the matrix $\dmat^T\dmat$ is invertible then we have the solution
 
 $$
 \pars^* =\left(\dmat^T\dmat\right)^{-1}\dmat^T\data.
-$$ (eq:LinearModels:OLS_optimum)
+$$
+````
 
 We note also that since our design matrix is defined as $\dmat\in
 {\mathbb{R}}^{N_d\times N_p}$, the product $\dmat^T\dmat \in
 {\mathbb{R}}^{N_p\times N_p}$. The product $\left(\dmat^T\dmat\right)^{-1}\dmat^T$ is called the pseudo-inverse of the design matrix $\dmat$. The pseudo-inverse is a generalization of the usual matrix inverse. The former can be defined for also for non-square matrices that are not necessarily full rank. In the case of full-rank and square matrices the pseudo-inverse is equal to the usual inverse.
 
-```{warning} 
-What problems can we encounter when inverting the matrix $\boldsymbol{X}^T\boldsymbol{X}$?
-```
-
-We can use the regression residuals $\boldsymbol{\epsilon}^{*} =  \data - \dmat \pars^{*}$, to obtain an estimator $s^2$ of the variance in our sample
+The regression residuals $\boldsymbol{\epsilon}^{*} =  \data - \dmat \pars^{*}$ can be used to obtain an estimator $s^2$ of the variance in our sample
 
 $$
 s^2 = \frac{(\boldsymbol{\epsilon}^*)^T\boldsymbol{\epsilon}^*}{N_d-N_p},
@@ -216,12 +219,12 @@ This data could have come from any process, even a non-linear one. But this is a
 We will now assume a linear model with polynomial basis up to order one to model the data, i.e.,
 
 $$
-M(\pars;x) = \theta_0 + \theta_1 x,
+M(\pars;x) = \para_0 + \para_1 x,
 $$
 
 which we can express in terms of a design matrix $\dmat$ and (unknown) parameter vector $\pars$ as $M = \dmat \pars$.
 
-In the present case the two unknowns $\pars = [\theta_0,\theta_1]^T$ can be fit to the two datapoints $\data = [-3,3]^T$ using pen a paper. 
+In the present case the two unknowns $\pars = [\para_0,\para_1]^T$ can be fit to the two datapoints $\data = [-3,3]^T$ using pen a paper. 
 
 ```{exercise}
 :label: exercise:ols_example_1
