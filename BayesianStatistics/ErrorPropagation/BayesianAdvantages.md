@@ -105,7 +105,7 @@ Further discussion on parameter estimation and scientific model predictions will
 
 ```{figure} ./figs/m1m2.png
 :name: fig-m1m2
-:width: 600px
+:width: 400px
 :align: center
 
 Joint pdf for the masses of two black holes merging obtained from the data analysis of a gravitational wave signal. This representation of a joint pdf is known as a corner plot. 
@@ -135,7 +135,7 @@ This simple procedure allows to propagate the uncertainty in $\phi$ to the proba
 
 ```{admonition} Marginalization using samples
 :class: tip
-Assume that we have $N$ samples from the joint pdf \pdf{\theta, \phi}{\data, I}. This might a sample chain from an MCMC sampler: $\left\{ (\theta, \phi)_i \right\}_{i=0}^{N-1}$. Then the marginal distribution of $\theta$ will be given by the same chain by simply ignoring the $\phi$ column, i.e., $\left\{ \theta_{i} \right\}_{i=0}^{N-1}$. 
+Assume that we have $N$ samples from the joint pdf $\pdf{\theta, \phi}{\data, I}$. This might a sample chain from an MCMC sampler: $\left\{ (\theta, \phi)_i \right\}_{i=0}^{N-1}$. Then the marginal distribution of $\theta$ will be given by the same chain by simply ignoring the $\phi$ column, i.e., $\left\{ \theta_{i} \right\}_{i=0}^{N-1}$. 
 
 See the interactive demos created by Chi Feng for an illustration of this: [The Markov-chain Monte Carlo Interactive Gallery](https://chi-feng.github.io/mcmc-demo/).
 ```
@@ -152,8 +152,22 @@ In this situation we can use marginalization and the product rule.
 
 We realize that $\pdf{z}{x,y,I} = \delta(z-f(x,y))$ due to the functional relationship between the parameters.
 
-```{admonition} Delta functions
-We note that integrals over a delta function are given by $\int_{-\infty}^{+\infty} f(x) \delta(x-x_0) dx = f(x_0)$.
+```{admonition} Dirac delta functions
+A delta function $\delta(x-x_0)$ can be constructed as the limiting case of a distribution
+
+$$
+\delta(x-x_0) = \lim_{\varepsilon \to 0^+} h_{\varepsilon}(x-x_0).
+$$
+
+For example, it can be constructed as an infinitely narrow (and tall) normal distribution
+
+$$
+\delta(x-x_0) = \lim_{\varepsilon \to 0^+} \frac{1}{\sqrt{2\pi}\varepsilon} \exp\left( -\frac{(x-x_0)^2}{2\varepsilon^2}\right).
+$$
+
+This function will be zero for $x \neq x_0$, and goes to infinity at $x_0$ in a way such that the integral $\int_{-\infty}^{+\infty} \delta(x-x_0) dx = 1$, which is a defining property.
+
+More general, for well-behaved functions $f(x)$, we have $\int_{-\infty}^{+\infty} f(x) \delta(x-x_0) dx = f(x_0)$.
 ```
 
 The joint PDF for $X$ and $Y$ becomes a product if the errors are independent $\pdf{x,y}{I} = \pdf{x}{I} \pdf{y}{I}$ . The delta function can be used to evaluate one of the integrals, giving some inverse transformation $y=g(x,z)$, and the PDF for $Z$ becomes a convolution
@@ -293,7 +307,7 @@ $$
 \pdf{\data}{d,H,I} = \frac{1}{\sqrt{2\pi}\sigma_v} \exp\left( - \frac{(v_0 - Hd)^2}{2\sigma_v^2} \right).
 $$
 
-The results for the different analysis strategies (1-3 in the list above) should be obtained in {numref}`exercise:BayesianAdvantages:inferring-galactic-distances-ex`. A comparison figure that also includes the approximative error propagation (4) is shown below (to be added).
+The results for the different analysis strategies (1-3 in the list above) should be obtained in {numref}`exercise:BayesianAdvantages:inferring-galactic-distances-ex`. A comparison figure that also includes the approximative error propagation (4) is shown in the solution to this exercise.
 ````
 
 ```{exercise} Inferring galactic distances
@@ -558,7 +572,7 @@ for iA, (A0,sigA) in enumerate([(9,1),(1,9),(-20,9)]):
     ax[0].set(xlabel='A',ylabel=r'$p(A | \mathcal{D},I)$')
     plt.text(0.53,0.8,f'$A={A0}$, $\sigma_A={sigA}$', \
     	transform=ax[0].transAxes,fontsize=12)
-    ax[1].set(xlabel='f',ylabel=r'$p(f|\mathcal{D},I}$')
+    ax[1].set(xlabel='f',ylabel=r'$p(f | \mathcal{D},I)$')
     ax[1].legend(loc='best')
     glue(f"Af_fig_{iA}", fig_Af, display=False)
 ```
