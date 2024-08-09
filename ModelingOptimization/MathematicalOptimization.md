@@ -102,7 +102,6 @@ It is important to understand that the majority of available optimizers are not 
 Gradient descent is a general optimization algorithm. However, there are several important issues that should be considered before using it.
 
 ```{admonition} Challenges for gradient descent
-:class: tip
 1. It requires the computation of partial derivatives of the cost function. This might be straight-forward for the linear regression method, see Eq. {eq}`eq:LinearRegression:gradient`, but can be very difficult for other models. Numerical differentiation can be computationally costly. Instead, *automatic differentiation* has become an important tool and there are software libraries for different programming languages. See, e.g., [JAX](https://jax.readthedocs.io/en/latest/) for Python, which is well worth exploring. 
 2. Most cost functions&mdash;in particular in many dimensions&mdash;correspond to very *complicated surfaces with several local minima*. In those cases, gradient descent will not likely not find the global minimum.
 3. Choosing a proper learning rate can be difficult. A learning rate that is too small leads to painfully slow convergence, while a learning rate that is too large can hinder convergence and cause the parameter updates to fluctuate around the minimum.
@@ -113,7 +112,65 @@ For the remainder of this chapter we will consider gradient descent methods for 
 
 ## Batch, stochastic and mini-batch gradient descent
 
-The use of the full data set in the loss function for every parameter update would correspond to *batch gradient descent*. A typical Python implementation would look something like the following.
+The use of the full data set in the loss function for every parameter update would correspond to *batch gradient descent* (BGD). A typical Python implementation would look something like the following:
+
+```python
+# Pseudo-code for batch gradient descent
+for i in range(N_epochs):
+  params_gradient = evaluate_gradient(cost_function, data, params)
+  params = params - learning_rate * params_gradient
+```
+
+for a fixed numer of epochs `N_epochs` and a function `evaluate_gradient` that returns the gradient vector of the cost function (that depends on the data `data` and the model parameters `params`) with respect to the parameters. The update step depends on the `learning_rate` hyperparameter.
+
+Depending on the size of the data set, batch gradient descent can be rather inefficient since the evaluation of the gradient depends on all data. Instead, one often employs *stochastic gradient descent* (SGD) for which parameter updates are performed for one data instance $\data_i = (\inputt_i, \output_i)$ at a time.
+
+\begin{equation}
+\pars \mapsto \pars - \eta \boldsymbol{\nabla} C_i(\pars)$,
+\end{equation}
+
+where $C_i(\pars)$ is the cost function for a single data instance, i.e., $C(\pars; \inputt_i, \output_i)$. 
+
+SGD performs frequent updates that can be performed fast. The updates are often characterized by a high variance that can cause the cost function to fluctuate heavily during the iterations. This ultimately complicates convergence to the exact minimum, as SGD will keep overshooting. However, employing a learning rate that slowly decreases with iterations, SGD can be much more efficient than BGD. A typical Python implementation would look something like the following:
+
+```python
+# Pseudo-code for stochastic gradient descent
+for i in range(N_epochs):
+  np.random.shuffle(data)
+  for data_instance in data:
+    params_gradient = evaluate_gradient(cost_function, data_instance, params)
+    params = params - learning_rate * params_gradient
+```
+
+where you should note the loop over all data instances for each epoch. Note that we shuffle the training data at every epoch.
+
+Finally, *mini-batch gradient descent* (MGD) combines the best of the previous algorithms and performs an update for every mini-batch of data
+
+\begin{equation}
+\pars \mapsto \pars - \eta \boldsymbol{\nabla} C_{i*n:(i+1)*n}(\pars)$,
+\end{equation}
+
+where $n$ is the mini-batch size. This way one can make use of highly optimized matrix optimizations for the reasonably sized mini-batch evaluations, and one usually finds much
+reduced variance of the parameter updates which can lead to more stable convergence. Mini-batch gradient descent is typically the algorithm of choice when training a neural network. 
+
+```python
+# Pseudo-code for mini-batch gradient descent
+for i in range(N_epochs):
+  np.random.shuffle(data)
+  for data_batch in get_batches(data, batch_size=50):
+    params_gradient = evaluate_gradient(cost_function, data_batch, params)
+    params = params - learning_rate * params_gradient
+```
+
+Be aware that the terms SGD or BGD can both be used to denote mini-batch gradient descent. 
 
 ## Momentum-based gradient descent
 
+As outlined above, there are several convergence challenges for the standard gradient-descent methods. These are in general connected with the difficulty of navigating complicated cost function surfaces using only gradient information. The use of the history of past updates, in the form of a velocity (or momentum) variable, has been shown to significantly increase the efficiency of gradient descent. Somewhat simplified, momentum-based versions improves the parameter update by adding a fraction $\gamma$ of the past update vector to the current one
+
+\begin{equation}
+\pars_{n+1} = \pars_{n} - \boldsymbol{v}_n, \quad \text{where }
+v_n = \gamma v_{n-1} + \eta \boldsymbol{\nabla} C_n(\pars).
+\end{equation}
+
+Some examples of commonly employed, momentum-based, methods are Adagrad {cite}`Duchi:2011`, Adadelta {cite}`Zeiler:2012`, RMSprop, and Adam {cite}`Kingma:2014`. In particular, Adam is (apparently) short for Adaptive Moment Estimation and computes adaptive learning rates for each parameter. It has become the method of choice in most machine-learning implementations. An explanation and comparison of these different algorithms is presented in a [blog post](https://www.ruder.io/optimizing-gradient-descent) by Sebastian Ruder.
