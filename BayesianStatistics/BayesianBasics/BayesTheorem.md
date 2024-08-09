@@ -7,7 +7,7 @@
 -- Niels Bohr
 ```
 
-Here we will introduce Bayes' theorem, which you will see is the starting point for all Bayesian methods. We will explain how it encapsulates the process of learning from data, and show how it results from foundational axioms of probability theory. Therefore, our presentation also merits some philosophical remarks on the interpretation of probabilities. Finally, we will show a first application of Bayes' theorem with the classical example of a coin tossing experiment. A large fraction of the text in this chapter was written by Andreas Ekström.
+Here we will introduce Bayes' theorem, which you will see is the starting point for all Bayesian methods. We will explain how it encapsulates the process of learning from data, and show how it results from foundational axioms of probability theory. Therefore, our presentation also merits some philosophical remarks on the interpretation of probabilities. Finally, we will show a first application of Bayes' theorem with the classical example of a coin tossing experiment. 
 
 
 (sec:BayesTheorem:axioms)=
