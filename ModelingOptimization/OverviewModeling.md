@@ -100,7 +100,7 @@ $$
 \pars^* = \mathop{\mathrm{arg} \min}_{\pars\in \mathbb{R}^p} \, C(\pars).
 $$ (eq:OverviewModeling:Optimization)
 
-We note that this task is an optimization problem that can become challenging when the model is non-linear and the parameter dimension $p$ is large. We will discuss gradient-descent-based optimization methods in {numref}`sec:Optimization`: {ref}`sec:Optimization`.
+We note that this task is an optimization problem that can become challenging when the model is non-linear and the parameter dimension $p$ is large. We will discuss gradient-descent-based optimization methods in {numref}`sec:MathematicalOptimization`: {ref}`sec:MathematicalOptimization`.
 
 The optimization approach to regression will provide limited information on the model precision. It is also prone to overfitting and other issues of high-dimensional parameter volumes. In the **Bayesian inference** part we will therefore formulate regression as an inductive inference problem, with rigorous handling of uncertainties. See in particular {numref}`sec:BayesianLinearRegression`: {ref}`sec:BayesianLinearRegression`.
 

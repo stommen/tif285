@@ -137,7 +137,7 @@ heads=flips<pH              # boolean array, heads[i]=True if flip i is heads
 
 In the light of this data, our inference about the fairness of this coin is summarized by the conditional pdf: $p(p_H|D,I)$. This is, of course, shorthand for the limiting case of a continuum of propositions for the value of $p_H$; that is to say, the probability that $p_H$ lies in an infinitesimally narrow range is given by $p(p_H|D,I) dp_H$. 
 
-To estimate this posterior pdf, we need to use Bayes’ theorem Eq. {eq}`eq:bayes`. We will ignore the denominator $p(D|I)$ as it does not involve bias-weighting explicitly, and it will therefore not affect the shape of the desired pdf. At the end we can evaluate the missing constant subsequently from the normalization condition 
+To estimate this posterior pdf, we need to use Bayes’ theorem Eq. {eq}`eq:BayesTheorem:bayes-theorem-for-data`. We will ignore the denominator $\p{\data}{I}$ as it does not involve bias-weighting explicitly, and it will therefore not affect the shape of the desired pdf. At the end we can evaluate the missing constant subsequently from the normalization condition 
 
 $$
 \int_0^1 p(p_H|D,I) dp_H = 1.
