@@ -12,7 +12,6 @@ The lecture is based and inspired by material in several good textbooks: in part
 [Python Data Science Handbook](http://shop.oreilly.com/product/0636920034919.do) {cite}`Vanderplas2016` by Jake VanderPlas and chapters 2-4 in [The Elements of
 Statistical Learning](https://link.springer.com/book/10.1007/978-0-387-84858-7) {cite}`Hastie2009`} by Trevor Hastie et al.
 
-<!-- !split -->
 ## Over- and underfitting
 
 Overfitting and underfitting are common problems in data analysis and machine learning. Both extremes are illustrated in {numref}`fig-over_under_fitting`.
@@ -47,6 +46,30 @@ E_\mathrm{train} &= \frac{1}{N} \sum_{i=1}^N E(\MLoutput(\inputs_i), \output_i),
 E_\mathrm{val} &= \frac{1}{N_\mathrm{val}} \sum_{i=1}^{N_\mathrm{val}} E(\MLoutput(\inputs_i), \output_i), \quad\text{for } (\inputs_i, \output_i) \in \data_\mathrm{val}. 
 $$ (eq:ModelValidation:Etrain-Eval)
 
+```{admonition} Training and validation scores
+Several training and validation scores are commonly used in machine learning applications.  First we have the **Mean-Squared Error** (MSE)
+
+$$
+\mathrm{MSE} = \frac{1}{N} \sum_{i=1}^N \left( \MLoutput(\inputs_i) - \output_i) \right)^2,
+$$ (eq:ModelValidation:MSE)
+
+where we have $N$ training data and our model is a function of the parameter vector $\pars$. Note that this is the metric that we are minimizing when solving the normal equation Eq. {eq}`eq:NormalEquation`.
+
+Furthermore, we have the **mean absolute error** (MAE) defined as.
+
+$$
+\mathrm{MAE} = \frac{1}{N} \sum_{i=1}^N \left| \MLoutput(\inputs_i) - \output_i) \right|,
+$$ (eq:ModelValidation:MAE)
+
+And the $R2$ score, also known as *coefficient of determination* is
+
+$$
+\mathrm{R2} = 1 - \frac{\sum_{i=1}^N \left( \MLoutput(\inputs_i) - \output_i) \right)^2}{\sum_{i=1}^N \left( \output_i - \bar{\output} \right)^2},
+$$ (eq:ModelValidation:R2)
+
+where $\bar{\output} = \frac{1}{N} \sum_{i=1}^N \output_i$ is the mean of the data. This metric therefore represents the proportion of variance (of $\data$) that has been explained by the independent variables in the model.
+  ```
+
 An underfit model has a *high bias*, which means that it gives a rather poor fit and the error function will be rather large in average. This will be true for both the training and the validation sets.
 
 An overfit model will depend sensitively on the choice of training data. A different split into training and validation sets will give very different predictions. We therefore say that the model displays a *high variance*. While the overfit model usually reproduces training data very well (low bias), it does not generalize well and gives a poor reproduction of validation data. The average values for the error function are therefore very different for the training and validation sets. 
@@ -66,7 +89,6 @@ Another sign of overfitting is the appearance of very large fit parameters that 
 
 
 
-<!-- !split -->
 ## Regularization: Ridge and Lasso
 
 Assuming that overfitting is characterized by large fit parameters, we can attempt to avoid this scenario by *regularizing* the model parameters. We will introduce two kinds of regularization: Ridge and Lasso. In addition, so called elastic net regularization is also in use and basically corresponds to a linear combination of the Ridge and Lasso penalty functions.
@@ -135,7 +157,6 @@ Ridge regularization with different penalty parameters $\lambda$ for different p
 ```
 
 
-<!-- !split -->
 ### More on Ridge Regression
 
 Using the matrix-vector expression for Ridge regression,
@@ -165,6 +186,7 @@ are rather interesting. Ridge regression imposes a constraint on the model param
 
 with $t$ a finite positive number. 
 
+For more discussions of Ridge and Lasso regression, see: [Wessel van Wieringen's](https://arxiv.org/abs/1509.09169) {cite}`Vanwieringen2015` article or [Mehta et al's](https://arxiv.org/abs/1803.08823) {cite}`Mehta2019` article.
 
 ## The bias-variance tradeoff
 
