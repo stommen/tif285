@@ -63,7 +63,7 @@ $$ (eq:MathematicalOptimization:max-min)
 
 a maximization problem can be recast as a minimization one and we will restrict ourselves to consider only minimization problems. 
 
-The function $LC has various names in different applications. It can be called a cost function, objective function or loss function (minimization), a utility function or fitness function (maximization), or, in certain fields, an energy function or energy functional. A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is in general called an optimal solution.
+The function $C$ has various names in different applications. It can be called a cost function, objective function or loss function (minimization), a utility function or fitness function (maximization), or, in certain fields, an energy function or energy functional. A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is in general called an optimal solution.
 
 ```{prf:definition} Local minimization
 :label: definition:MathematicalOptimization:local-minimization
@@ -86,14 +86,14 @@ It is important to understand that the majority of available optimizers are not 
 
 ## Gradient-descent optimization
 
-*Gradient descent* is probably the most popular class of algorithms to perform optimization. It is certainly the most common way to optimize neural networks. Although there are different flavours of gradient descent, as will be discussed, the general feature is an iterative search for a (locally) optimal solution using the gradient of the loss function. Basically, the parameters are tuned in the opposite direction of the gradient of the objective function, thus aiming to follow the direction of the slope downhill until we reach a valley. The evaluation of this gradient at every iteration is often the major computational bottleneck. 
+*Gradient descent* is probably the most popular class of algorithms to perform optimization. It is certainly the most common way to optimize neural networks. Although there are different flavours of gradient descent, as will be discussed, the general feature is an iterative search for a (locally) optimal solution using the gradient of the cost function. Basically, the parameters are tuned in the opposite direction of the gradient of the objective function, thus aiming to follow the direction of the slope downhill until we reach a valley. The evaluation of this gradient at every iteration is often the major computational bottleneck. 
 
 ```{prf:algorithm} Gradient descent optimization
 :label: algorithm:MathematicalOptimization:gradient-descent
 1. Start from a *random initialization* of the parameter vector $\pars_0$.
 2. At iteration $n$:
-   1. Evaluate the gradient of the cost function with respect to the parameters at $\pars_n$: $\boldsymbol{\nabla} C_n \equiv \left. \boldsymbol{\nabla}_{\pars} C(\pars) \right|_{\pars=\pars_n}$.
-   2. Choose a *learning rate* $\eta_n$. This could be the same at all iterations ($\eta_n = \eta$), or it could be described by some decreasing function to take smaller and smaller steps.
+   1. Evaluate the gradient of the cost function at the corrent position $\pars_n$: $\boldsymbol{\nabla} C_n \equiv \left. \boldsymbol{\nabla}_{\pars} C(\pars) \right|_{\pars=\pars_n}$.
+   2. Choose a *learning rate* $\eta_n$. This could be the same at all iterations ($\eta_n = \eta$), or it could be given by a learning schedule that typically describes some decreasing function that leads to smaller and smaller steps.
    3. Move in the direction of the negative gradient:
       $\pars_{n+1} = \pars_n - \eta_n \boldsymbol{\nabla} C_n$.
 3. Continue for a fixed number of iterations, or until the gradient vector $\boldsymbol{\nabla} C_n$ is smaller than some chosen precision $\epsilon$.
@@ -108,11 +108,20 @@ Gradient descent is a general optimization algorithm. However, there are several
 4. Standard gradient-descent has particular difficulties to navigate ravines and saddle points for which the gradient is large in some directions and small in others.
 ```
 
-For the remainder of this chapter we will consider gradient descent methods for the minimization of data-dependent cost functions, for example representing a sum of squared residuals between model predictions and observed data such as Eq. {eq}`eq:LinearRegression:cost-function`. Note that we are interested in general models, not just restricted to linear ones, for which the computational cost for evaluating the loss function and its gradient could be significant (and scale with the number of data that enter the loss function). For situations where data is abundant there are variations of gradient descent that uses only fractions of the data set for computation of the gradient. 
+For the remainder of this chapter we will consider gradient descent methods for the minimization of data-dependent cost functions, for example representing a sum of squared residuals between model predictions and observed data such as Eq. {eq}`eq:LinearRegression:cost-function`. Note that we are interested in general models, not just restricted to linear ones, for which the computational cost for evaluating the cost function and its gradient could be significant (and scale with the number of data that enter the cost function). For situations where data is abundant there are variations of gradient descent that uses only fractions of the data set for computation of the gradient. 
 
 ## Batch, stochastic and mini-batch gradient descent
 
-The use of the full data set in the loss function for every parameter update would correspond to *batch gradient descent* (BGD). A typical Python implementation would look something like the following:
+The use of the full data set in the cost function for every parameter update would correspond to *batch gradient descent* (BGD). The gradient of the cost function then has the following generic form
+
+\begin{equation}
+\boldsymbol{\nabla} C_n \equiv \left. \boldsymbol{\nabla}_{\pars} C(\pars) \right|_{\pars=\pars_n}
+= \sum_{i=1}^{N_d} \left. \boldsymbol{\nabla}_{\pars} C^{(i)}(\pars) \right|_{\pars=\pars_n},
+\end{equation}
+
+where the sum runs over the data set (of length $N_d$) and $C^{(i)}(\pars)$ is the cost function evaluated for a single data instance $\data_i = (\inputs_i, \outputs_i)$.
+
+A typical Python implementation of batch gradient descent would look something like the following:
 
 ```python
 # Pseudo-code for batch gradient descent
@@ -120,16 +129,9 @@ for i in range(N_epochs):
   params_gradient = evaluate_gradient(cost_function, data, params)
   params = params - learning_rate * params_gradient
 ```
-
 for a fixed numer of epochs `N_epochs` and a function `evaluate_gradient` that returns the gradient vector of the cost function (that depends on the data `data` and the model parameters `params`) with respect to the parameters. The update step depends on the `learning_rate` hyperparameter.
 
-Depending on the size of the data set, batch gradient descent can be rather inefficient since the evaluation of the gradient depends on all data. Instead, one often employs *stochastic gradient descent* (SGD) for which parameter updates are performed for one data instance $\data_i = (\inputt_i, \output_i)$ at a time.
-
-\begin{equation}
-\pars \mapsto \pars - \eta \boldsymbol{\nabla} C_i(\pars)$,
-\end{equation}
-
-where $C_i(\pars)$ is the cost function for a single data instance, i.e., $C(\pars; \inputt_i, \output_i)$. 
+Depending on the size of the data set, batch gradient descent can be rather inefficient since the evaluation of the gradient depends on all data. Instead, one often employs *stochastic gradient descent* (SGD) for which parameter updates are performed for every data instance $\data_i = (\inputs_i, \outputs_i)$ at a time. Note that the total number of iterations for SGD is $N_\mathrm{epochs} \times N_d$.
 
 SGD performs frequent updates that can be performed fast. The updates are often characterized by a high variance that can cause the cost function to fluctuate heavily during the iterations. This ultimately complicates convergence to the exact minimum, as SGD will keep overshooting. However, employing a learning rate that slowly decreases with iterations, SGD can be much more efficient than BGD. A typical Python implementation would look something like the following:
 
@@ -144,14 +146,13 @@ for i in range(N_epochs):
 
 where you should note the loop over all data instances for each epoch. Note that we shuffle the training data at every epoch.
 
-Finally, *mini-batch gradient descent* (MGD) combines the best of the previous algorithms and performs an update for every mini-batch of data
+Finally, *mini-batch gradient descent* (MBGD) combines the best of the previous algorithms and performs an update for every mini-batch of data
 
 \begin{equation}
-\pars \mapsto \pars - \eta \boldsymbol{\nabla} C_{i*n:(i+1)*n}(\pars)$,
+\pars \mapsto \pars - \eta \boldsymbol{\nabla} C_{i*N_{mb}:(i+1)*N_{mb}}(\pars),
 \end{equation}
 
-where $n$ is the mini-batch size. This way one can make use of highly optimized matrix optimizations for the reasonably sized mini-batch evaluations, and one usually finds much
-reduced variance of the parameter updates which can lead to more stable convergence. Mini-batch gradient descent is typically the algorithm of choice when training a neural network. 
+where $N_{mb}$ is the mini-batch size. This way one can make use of highly optimized matrix optimizations for the reasonably sized mini-batch evaluations, and one usually finds much reduced variance of the parameter updates which can lead to more stable convergence. Mini-batch gradient descent is typically the algorithm of choice when training a neural network. The total number of iterations for MBGD is $N_\mathrm{epochs} \times N_d / N_{mb}$.
 
 ```python
 # Pseudo-code for mini-batch gradient descent
@@ -173,4 +174,43 @@ As outlined above, there are several convergence challenges for the standard gra
 v_n = \gamma v_{n-1} + \eta \boldsymbol{\nabla} C_n(\pars).
 \end{equation}
 
-Some examples of commonly employed, momentum-based, methods are Adagrad {cite}`Duchi:2011`, Adadelta {cite}`Zeiler:2012`, RMSprop, and Adam {cite}`Kingma:2014`. In particular, Adam is (apparently) short for Adaptive Moment Estimation and computes adaptive learning rates for each parameter. It has become the method of choice in most machine-learning implementations. An explanation and comparison of these different algorithms is presented in a [blog post](https://www.ruder.io/optimizing-gradient-descent) by Sebastian Ruder.
+Some examples of commonly employed, momentum-based, methods are Adagrad {cite}`Duchi:2011`, Adadelta {cite}`Zeiler:2012`, RMSprop, and Adam {cite}`Kingma:2014`. 
+In particular, Adam is (apparently) short for Adaptive Moment Estimation and computes adaptive learning rates for each parameter. It has become the method of choice in most machine-learning implementations. An explanation and comparison of different gradient-descent algorithms is presented in a [blog post](https://www.ruder.io/optimizing-gradient-descent) by Sebastian Ruder.
+
+### Adagrad
+
+Adagrad {cite}`Duchi:2011` is a simple algorithm that uses the history of past updates to adapt the learning rate to the different parameters. Let us introduce a shorthand notation $j_{n,i}$ for the partial derivative of the cost function with respect to parameter $\para_i$ at the position $\pars_n$ for iteration $n$
+
+\begin{equation}
+j_{n,i} \equiv \left. \frac{\partial C}{\partial \para_i} \right|_{\pars = \pars_n}.
+\end{equation}
+
+We also introduce a diagonal matrix $J_n \in \mathbb{R}^{N_p \times N_p}$ where the $i$th diagonal element 
+
+\begin{equation}
+J_{n,ii} \equiv \sum_{k=1}^{n} j_{k,i}^2
+\end{equation}
+
+is the sum of the squares of the gradients with respect to $\para_i$ up to iteration $n$. In its update rule, at iteration $n$, Adagrad modifies the general learning rate $\eta_n$ for every parameter $\para_i$ based on the past gradients that have been computed as described by $J_{n,ii}$. The parameter $\para_i$ at the next iteration $n+1$ is then given by
+
+\begin{equation}
+\para_{n+1,i} = \pars_{n,i} - \frac{\eta}{\sqrt{J_{n,ii} + \varepsilon}} \boldsymbol{\nabla} C_n,
+\end{equation}
+
+with $\varepsilon$ a small number to avoid division by zero.
+
+The learning schedule does not have to be tuned by the user as it is dictated by the history of past gradients. This is an advantage of this algorithm. At the same time, its main weakness is the accumulation of the squared gradients in the denominator which implies that the learning rate eventually becomes infinitesimally small, at which point the convergence halts.
+
+### RMSprop
+
+RMSprop is an extension of Adagrad that seeks to reduce its aggressive, monotonically decreasing learning rate. Instead of inefficiently storing all the previous squared gradients, the denominator is recursively defined as a decaying average of all past squared gradients. Labeling the decaying average at iteration $n$ by $\bar{J}_{n,ii}$, we introduce a decay variable $\gamma$ and define
+
+\begin{equation}
+\bar{J}_{n,ii} = \gamma \bar{J}_{n-1,ii} + (1-\gamma) j_{n,i}^2.
+\end{equation}
+
+The inventor of RMSprop, Geoff Hinton, suggests setting the decay variable $\gamma=0.9$ , while a good default value for the learning rate $\eta$ is 0.001. The update rule in RMSprop is then
+
+\begin{equation}
+\para_{n+1,i} = \pars_{n,i} - \frac{\eta}{\sqrt{\bar{J}_{n,ii} + \varepsilon}} \boldsymbol{\nabla} C_n.
+\end{equation}
