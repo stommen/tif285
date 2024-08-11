@@ -13,6 +13,12 @@ kernelspec:
 (sec:OverviewModeling)=
 # Overview of modeling
 
+```{epigraph}
+> "All models are wrong, but some are useful."
+
+-- George Box, in *Robustness in Statistics* (1979)
+```
+
 (sec:OverviewModeling:notation)=
 ## Notation
 

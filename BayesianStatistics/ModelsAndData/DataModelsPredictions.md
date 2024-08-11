@@ -2,9 +2,9 @@
 # Data, models, and predictions
 
 ```{epigraph}
-> "All models are wrong but some are useful."
+> "All models are wrong, but models that know when and how they are wrong, are useful.."
 
--- George Box, in *Robustness in Statistics* (1979)
+-- revised version of George Box's quote (see {ref}`sec:OverviewModeling`)
 ```
 
 The use of probability theory to quantify uncertainty plays a central role in science and the scientific method for inferring new knowledge about the universe. Before we can elaborate on this topic of inductive inference we must briefly discuss the nature of science in terms of data, theories, and models. In the next chapter we will exemplify this using a linear model and some test data. But for now we will remain general and slightly more abstract.
