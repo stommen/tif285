@@ -1,4 +1,15 @@
-<!-- !split -->
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+(sec:MaxEnt)=
 # Assigning probabilities (II): The principle of maximum entropy
 
 Having dealt with ignorance, let us move on to more enlightened situations.
