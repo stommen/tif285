@@ -9,12 +9,12 @@ A typical Bayesian workflow consists of three main steps (see {numref}`fig-Bayes
 :height: 600px
 :name: fig-BayesianWorkflow-research-cycle
 
-The Bayesian research cycle. The steps needed for a research cycle using Bayesian statistics include formalizing prior distributions based on background knowledge and prior elicitation; determining the likelihood function by specifying a data-generating model and including observed data; and obtaining the posterior distribution as a function of both the specified prior and the likelihood function. After obtaining the posterior results, inferences can be made that can then be used to start a new research cycle. Attribution: Stat math, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons. {cite}`Vandeschoot:2021`.
+The Bayesian research cycle. The steps needed for a research cycle using Bayesian statistics include formalizing prior distributions based on background knowledge and prior elicitation; determining the likelihood function by specifying a data-generating model and including observed data; and obtaining the posterior distribution as a function of both the specified prior and the likelihood function. After obtaining the posterior results, inferences can be made that can then be used to start a new research cycle. Attribution: Stat math, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons. See also {cite}`Vandeschoot:2021`.
 ```
 
 ## Experimentation (of the statistical model)
 
-The first two steps in the Bayesian workflow described in {numref}`fig-BayesianWorkflow-research-cycle`) are key to a rigorous inference process and are sometimes known as the (statistical) experimentation phase. Prior distributions, shortened to priors, are first determined. The selection of priors is often viewed as one of the more important choices that a researcher makes when implementing a Bayesian model as it can have a substantial impact on the final results. The appropriateness of the priors being implemented is ascertained using a prior predictive checking process (see box below). The likelihood function, shortened to likelihood, is then determined. Given the important roles that the prior and the likelihood have in determining the posterior, it is imperative that these steps are conducted with care. 
+The first two steps in the Bayesian workflow described in {numref}`fig-BayesianWorkflow-research-cycle`) are key to a rigorous inference process and are sometimes known as the (statistical) experimentation phase. Prior distributions, shortened to priors, are first determined. The selection of priors is often viewed as one of the more important choices that a researcher makes when implementing a Bayesian model as it can have a substantial impact on the final results. The appropriateness of the priors being implemented is ascertained using a prior predictive checking process (see {prf:ref}`remark:BayesianWorkflow:predictive-checking`). The likelihood function, shortened to likelihood, is then determined. Given the important roles that the prior and the likelihood have in determining the posterior, it is imperative that these steps are conducted with care. 
 
 ### Formalizing prior distributions
 
@@ -53,13 +53,13 @@ Once the statistical model has been defined and the associated likelihood functi
 
 The frequentist framework for model fitting focuses on the expected long-term outcomes of an experiment with the intent of producing a single point estimate for model parameters such as the maximum likelihood estimate and associated confidence interval. Within the Bayesian framework for model fitting, probabilities are assigned to the model parameters, describing the associated uncertainties. In Bayesian statistics, the focus is on estimating the entire posterior distribution of the model parameters. This posterior distribution is often summarized with associated point estimates, such as the posterior mean or median, and a credible interval.
 
-Markov chain Monte Carlo methods is able to indirectly obtain inference on the posterior distribution using computer simulations80. MCMC permits a set of sampled parameter values of arbitrary size to be obtained from the posterior distribution, despite the posterior distri- bution being high-dimensional and only known up to a constant of proportionality. These sampled parame- ter values are used to obtain empirical estimates of the posterior distribution of interest. It is often more difficult to obtain converged estimates of multivariate distributions, or the form of low-probability tails. It is therefore often useful to focus on the marginal posterior distribution of each parameter, or pairs of parameters, defined by integrating out over the other parameters. 
+Markov chain Monte Carlo methods is able to indirectly obtain inference on the posterior distribution using computer simulations. MCMC permits a set of sampled parameter values of arbitrary size to be obtained from the posterior distribution, despite the posterior distri- bution being high-dimensional and only known up to a constant of proportionality. These sampled parameter values are used to obtain empirical estimates of the posterior distribution of interest. It is often more difficult to obtain converged estimates of multivariate distributions, or the form of low-probability tails. It is therefore often useful to focus on the marginal posterior distribution of each parameter, or pairs of parameters, defined by integrating out over the other parameters. 
 
 In these lecture notes, we focus on MCMC for posterior inference. MCMC combines two concepts: obtaining a set of parameter values from the posterior distribution using the Markov chain; and obtaining a distributional estimate of the posterior and associated statistics with sampled parameters using Monte Carlo integration. 
 
 
-```{admonition} Prior and posterior predictive checking
-:class: tip
+```{prf:remark} Prior and posterior predictive checking
+:label: remark:BayesianWorkflow:predictive-checking
 Prior and posterior predictive checks are two cases of the general concept of predictive checks, just conditioning on different things (no data and the observed data, respectively). 
 
 Posterior predictive checking works by simulating new replicated data sets based on the fitted model parameters and then comparing statistics applied to the replicated data set with the same statistic applied to the original data set. The prior predictive distribution is just like the posterior predictive distribution with no observed data, so that a prior predictive check is nothing more than the limiting case of a posterior predictive check with no data. 
@@ -77,8 +77,50 @@ Proper reporting on statistics, including sharing of data and scripts, is a cruc
 
 Not reporting any information on the priors is problematic for any Bayesian paper. There are many dangers in naively using priors and one might want to pre-register the specification of the priors and the likelihood when possible. 
 
-To enable reproducibility and allow others to run Bayesian statistics on the same data with different parameters, priors, models or likelihood functions for sensitivity analyses, it is important that the underly- ing data and code used are properly documented and shared following the FAIR principles: findability, accessibility, interoperability and reusability. Preferably, data and code should be shared in a trusted repository (Registry of Research Data Repositories) with their own persistent identifier (such as a DOI), and tagged with metadata describing the data set or codebase.
+To enable reproducibility and allow others to run Bayesian statistics on the same data with different parameters, priors, models or likelihood functions for sensitivity analyses, it is important that the underlying data and code used are properly documented and shared following the FAIR principles: findability, accessibility, interoperability and reusability. Preferably, data and code should be shared in a trusted repository (Registry of Research Data Repositories) with their own persistent identifier (such as a DOI), and tagged with metadata describing the data set or codebase.
 
 This also allows the data set and the code to be recognized as separate research outputs and allows others to cite them accordingly. Repositories can be general, such as Zenodo or github; language-specific, such as PyPI for Python code; or domain-specific. Many scientific journals adhere to transparency and openness promotion guidelines, which specify requirements for code and data sharing.
 
 Open-source software should be used as much as possible, as open sources reduce the monetary and accessibility threshold to rep- licating scientific results. Moreover, it can be argued that closed-source software keeps part of the academic process hidden, including from the researchers who use the software themselves. However, open-source soft- ware is only truly accessible with proper documentation, which includes listing dependencies and configuration instructions in Readme files, commenting on code to explain functionality and including a comprehensive reference manual when releasing packages.
+
+## Checklists
+
+We end this chapter with two different recommended checklists for statistically sound Bayesian inference that incorporate many of the points made in this chapter. The first one (see {prf:ref}`remark:BayesianWorkflow:buqeye-checklist`) has mainly natural science applications in mind. 
+
+```{prf:remark} Checklist for statistically sound Bayesian inference
+:label: remark:BayesianWorkflow:buqeye-checklist
+
+1. Interact with the experts (i.e., statisticians, applied mathematicians).
+2. Incorporate all sources of experimental and theoretical errors.
+3. Formulate statistical models for uncertainties.
+4. Use as informative priors as is reasonable; test sensitivity to priors.
+5. Account for correlations in inputs (type x) and observables (type y).
+6. Propagate uncertainties through the calculation.
+7. Use model checking to validate our models.
+```
+
+The second one, labeled WAMBS (when to Worry and how to Avoid the Misuse of Bayesian Statistics), originates in work by statistics experts from a wide range of application areas {cite}`Vandeschoot:2021`. This checklist also includes a number of recommendations for monitoring the MCMC convergence.
+
+```{prf:remark} The WAMBS checklist
+:label: remark:BayesianWorkflow:wambs-checklist
+
+WAMBS-v2, an updated version of the WAMBS (when to Worry and how to Avoid the
+Misuse of Bayesian Statistics) checklist. Reproduced from {cite}`Vandeschoot:2021`.
+
+1. Ensure the prior distributions and the model or likelihood are well understood and described in detail in the text. Prior-predictive checking can help identify any prior–data conflict.
+2. Assess each parameter for convergence, using multiple convergence diagnostics
+if possible. This may involve examining trace plots or ensuring diagnostics ($\hat{R}$ statistic or effective sample size) are being met for each parameter.
+3. Sometimes convergence diagnostics such as the $\hat{R}$ statistic can fail at detecting non-stationarity within a chain. Use a subsequent measure, such as the split-$\hat{R}$, to detect trends that are missed if parts of a chain are non-stationary but, on average, appear to have reached diagnostic thresholds.
+4. Ensure that there were sufficient chain iterations to construct a meaningful posterior distribution. The posterior distribution should consist of enough samples to visually examine the shape, scale and central tendency of the distribution.
+5. Examine the effective sample size for all parameters, checking for strong degrees of autocorrelation, which may be a sign of model or prior mis-specification.
+6. Visually examine the marginal posterior distribution for each model parameter to ensure that they do not have irregularities that could have resulted from misfit or non-convergence. Posterior predictive distributions can be used to aid in examining the posteriors.
+7. Fully examine multivariate priors through a sensitivity analysis. These priors can be particularly influential on the posterior, even with slight modifications to the hyperparameters.
+8. To fully understand the impact of subjective priors, compare the posterior results with an analysis using diffuse priors. This comparison can facilitate a deeper understanding of the impact the subjective priors have on findings. Next, conduct a full sensitivity analysis of all priors to gain a clearer understanding of the robustness of the results
+to different prior settings.
+9. Given the subjectivity of the model, it is also important to conduct a sensitivity analysis of the model (or likelihood) to help uncover how robust results are to deviations in the model.
+10. Report findings, including Bayesian interpretations. Take advantage of explaining and capturing the entire posterior rather than simply a point estimate. It may be helpful to examine the density at different quantiles to fully capture and understand the posterior distribution.
+
+```
+
+Ticking all the boxes of checklists such as these can be considered an aspirational goal for performing a truly rigorous statistical inference in science.
+
