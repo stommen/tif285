@@ -13,9 +13,9 @@ These are the lecture notes for an advanced-level course "Learning from data" (T
   
   Note that the repository contains git submodules. It is recommended to use the following git command to clone the repository and automatically initialize and update each submodule (including nested submodules).
   
-  `git clone --recurse-submodules URL/to/repo`
+  `git clone --recurse-submodules https://gitlab.com/cforssen/tif285-book.git`
   
-  The `URL/to/repo` can be found via the Source repository by clicking the "Code" button in the top menu.
+  Here we have used the HTTPS address of the gitlab repository (this URL is found via the Source repository by clicking the "Code" button in the top menu).
   ```
 
 ## Course aim
