@@ -8,16 +8,6 @@
 
 These are the lecture notes for an advanced-level course "Learning from data" (TIF285) that is taught at Chalmers University of Technology. 
 
-```{admonition} Accompanying git repository
-  All source files, including the jupyter notebooks used for exercises and demonstrations, can be found in the accompanying git repository (see the gitlab icon ![gitlab download icon](./figs/gitlab-1-32.png) at the top-middle-right and click on Source repository). 
-  
-  Note that the repository contains git submodules. It is recommended to use the following git command to clone the repository and automatically initialize and update each submodule (including nested submodules).
-  
-  `git clone --recurse-submodules https://gitlab.com/cforssen/tif285-book.git`
-  
-  Here we have used the HTTPS address of the gitlab repository (this URL is found via the Source repository by clicking the "Code" button in the top menu).
-  ```
-
 ## Course aim
 
 The course TIF285 aims to give a deeper theoretical understanding, and in practice experience, of workflows and methods that are essential for performing scientific modeling, statistical inference, and machine learning. Much emphasis is put on probabilistic approaches within science and engineering, such as the ability to quantify the strength of inductive inference from prior knowledge and experimental data to scientific hypotheses and models.
@@ -28,6 +18,16 @@ The course is project-based, and the students will be exposed to fundamental res
 ## About these lecture notes
 
 These lecture notes have been authored by [Christian Forssén](https://www.chalmers.se/en/persons/f2bcf/) with input from several colleagues (see below), and are released under a [Creative Commons BY-NC license](https://creativecommons.org/licenses/by-nc/4.0/). The book format is powered by [Jupyter Book](https://jupyterbook.org/).
+
+```{admonition} Accompanying git repository
+  All source files, including the jupyter notebooks used for exercises and demonstrations, can be found in the accompanying git repository (see the gitlab icon ![gitlab download icon](./figs/gitlab-1-32.png) at the top-middle-right and click on Source repository). 
+  
+  Note that the repository contains git submodules. It is recommended to use the following git command to clone the repository and automatically initialize and update each submodule (including nested submodules).
+  
+  `git clone --recurse-submodules https://gitlab.com/cforssen/tif285-book.git`
+  
+  Here we have used the HTTPS address of the gitlab repository (this URL is found via the Source repository by clicking the "Code" button in the top menu).
+  ```
 
 ```{admonition} Open an issue
   The author appreciates feedback if you find typos, inconsistent notation, or have a suggestion (on physics, statistics, coding, or formatting). From any page, click on the gitlab icon ![gitlab download icon](./figs/gitlab-1-32.png) at the top-right and go to the Source repository. Click on Issues in the left hand margin and select New issue in the top. You might need to create a gitlab account before being allowed to proceed. This will take you to the Issues section of the gitlab repository for the book. Enter a descriptive title and then write your feedback in the text box.
