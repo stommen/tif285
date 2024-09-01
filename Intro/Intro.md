@@ -36,7 +36,7 @@ Learning from data is an inference process.
   ```
   
 <!-- !split -->
-In the natural sciences, the premise is often a finite set of measurements while the process of learning is usually achieved by confronting that data with scientific theories and models. The conclusion might ultimately be falsification of an hypothesis such as an underlying theory or a phenomenological model. However, the end result will not be the ultimate determination of the truth of the hypothesis. More commonly, the conclusion might be an improved model that can be used for predictions of new phenomena. Thus, we are typically dealing with inductive inference.
+In the natural sciences, the premise is often a finite set of measurements while the process of learning is usually achieved by confronting that data with scientific theories and models. The conclusion might ultimately be falsification of a hypothesis such as an underlying theory or a phenomenological model. However, the end result will not be the ultimate determination of the truth of the hypothesis. More commonly, the conclusion might be an improved model that can be used for predictions of new phenomena. Thus, we are typically dealing with inductive inference.
 
 
 <!-- <img src="./figs/scientific_wheel_data.png" width=400><p><em>This process of learning from data is fundamental to the scientific wheel of progress.<div id="fig-scientific-wheel"></div></em></p> -->
@@ -118,5 +118,5 @@ Providing slightly more detail:
     * Models might be constrained by theory and previous observations.
     * There might exist prior knowledge about underlying physics that should be taken into account.
     * Parameter values are often intrinsically interesting.
-    * The error estimate of a prediction is just as important as its value:
+    * The error estimate of a prediction is just as important as its value.
   ```
