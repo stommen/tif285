@@ -188,7 +188,7 @@ J^2_{n,ii} \equiv \sum_{k=1}^{n} j_{k,i}^2
 is the sum of the squares of the gradients with respect to $\para_i$ up to iteration $n$. In its update rule, at iteration $n$, Adagrad modifies the general learning rate $\eta_n$ for every parameter $\para_i$ based on the past gradients that have been computed as described by $J^2_{n,ii}$. The parameter $\para_i$ at the next iteration $n+1$ is then given by
 
 $$
-\para_{n+1,i} = \pars_{n,i} - \frac{\eta}{\sqrt{J^2_{n,ii} + \varepsilon}} \boldsymbol{\nabla} C_n,
+\para_{n+1,i} = \pars_{n,i} - \frac{\eta}{\sqrt{J^2_{n,ii} + \varepsilon}} j_{n,i},
 $$ (eq:MathematicalOptimization:adagrad)
 
 with $\varepsilon$ a small, positive number to avoid division by zero.
@@ -206,7 +206,7 @@ RMSprop is an extension of Adagrad that seeks to reduce its aggressive, monotoni
 The inventor of RMSprop, Geoff Hinton, suggests setting the decay variable $\gamma=0.9$ , while a good default value for the learning rate $\eta$ is 0.001. The update rule in RMSprop is then
 
 \begin{equation}
-\para_{n+1,i} = \pars_{n,i} - \frac{\eta}{\sqrt{\bar{J}^2_{n,ii} + \varepsilon}} \boldsymbol{\nabla} C_n.
+\para_{n+1,i} = \pars_{n,i} - \frac{\eta}{\sqrt{\bar{J}^2_{n,ii} + \varepsilon}} j_{n,i}.
 \end{equation}
 
 ### Adam
