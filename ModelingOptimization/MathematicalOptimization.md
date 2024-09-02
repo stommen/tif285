@@ -221,8 +221,8 @@ Adaptive Moment Estimation (Adam) {cite}`Kingma:2014` also computes adaptive lea
 Both of these quantities are initialized with zero vectors ($\bar{M}_{0,ii}=0$ and $\bar{J}^2_{0,ii}=0$ for all $i$) which tends to introduce a bias for early time steps. This bias can be large if $\gamma_1$ and $\gamma_2$ are close to one. It was therefore proposed to use bias-corrected first and second moment estimates
 
 \begin{align}
-\hat{M}_{n,ii} &= \frac{\bar{M}_{n-1,ii}}{1 - (\gamma_1)^n}, \\
-\hat{J}^2_{n,ii} &= \frac{\bar{J}^2_{n-1,ii}}{1 - (\gamma_2)^n}.
+\hat{M}_{n,ii} &= \frac{\bar{M}_{n,ii}}{1 - (\gamma_1)^n}, \\
+\hat{J}^2_{n,ii} &= \frac{\bar{J}^2_{n,ii}}{1 - (\gamma_2)^n}.
 \end{align}
 
 The update rule then becomes
