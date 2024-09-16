@@ -1,3 +1,6 @@
 [submodule "Utils/prettyplease"]
 	path = Utils/prettyplease
 	url = https://github.com/svisak/prettyplease.git
+[submodule "hand-ins/pub/tif285-projects"]
+	path = hand-ins/pub/tif285-projects
+	url = https://github.com/stommen/tif285-projects
